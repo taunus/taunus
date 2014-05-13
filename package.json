@@ -15,16 +15,17 @@
     "url": "https://github.com/bevacqua/ponymoo/issues"
   },
   "main": "ponymoo.js",
+  "browser": "browser/index.js",
   "scripts": {
     "lint": "jshint . --reporter node_modules/jshint-stylish/stylish.js",
     "test": "npm run lint"
   },
-  "devDependencies": {
-    "jshint": "^2.5.0",
-    "jshint-stylish": "^0.2.0"
-  },
   "dependencies": {
     "routes": "^1.1.0",
     "superagent": "^0.18.0"
+  },
+  "devDependencies": {
+    "jshint": "^2.5.0",
+    "jshint-stylish": "^0.2.0"
   }
 }
