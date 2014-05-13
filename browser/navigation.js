@@ -19,7 +19,7 @@ function popState (e) {
 function navigation (url, model, action) {
   var route = router(url);
   var state = { model: model };
-  history[action || 'pushState'](state, model.title, url);
+  history[action](state, model.title, url);
   route.controller(model);
 }
 

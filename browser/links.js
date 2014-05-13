@@ -1,5 +1,7 @@
 'use strict';
 
+var activator = require('./activator');
+
 function links (element) {
   var a = element.getElementsByTagName('a');
   Array.prototype.slice.call(a).forEach(link);
@@ -8,7 +10,7 @@ function links (element) {
 function link (a) {
   var url = a.href;
   var route = getRoute(url);
-  if (route.key === void 0) {
+  if (route === void 0) {
     return;
   }
 
@@ -16,7 +18,7 @@ function link (a) {
 
   function reroute (e) {
     if (e.which === 1) { // left-click
-      activate(route.key, route.settings);
+      activator(url);
       e.preventDefault();
     }
   }

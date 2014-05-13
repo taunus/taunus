@@ -12,7 +12,7 @@ function activator (url) {
   function activate (model) {
     document.title = model.title;
     partial(state.container, route.template, route.controller, model);
-    navigation(url, model);
+    navigation(url, model, 'pushState');
   }
 }
 
