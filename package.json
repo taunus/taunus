@@ -1,0 +1,26 @@
+{
+  "name": "ponymoo",
+  "description": "Micro MVC engine",
+  "version": "0.1.0",
+  "homepage": "https://github.com/bevacqua/ponymoo",
+  "authors": [
+    "Nicolas Bevacqua <nicolasbevacqua@gmail.com>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bevacqua/ponymoo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bevacqua/ponymoo/issues"
+  },
+  "main": "ponymoo.js",
+  "scripts": {
+    "lint": "jshint . --reporter node_modules/jshint-stylish/stylish.js",
+    "test": "npm run lint"
+  },
+  "devDependencies": {
+    "jshint": "^2.5.0",
+    "jshint-stylish": "^0.2.0"
+  }
+}
