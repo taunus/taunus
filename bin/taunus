@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var argv = require('minimist')(process.argv.slice(2));
+var fs = require('fs');
 var path = require('path');
 var util = require('util');
 var rc = require('../lib/rc');
@@ -11,7 +12,7 @@ var routes = require(routeModule);
 var data = template(routes);
 
 if (argv.o) {
-  fs.writeFileSync(argv.o, data);
+  fs.writeFileSync(rc.client_routes, data);
 } else {
   console.log(data);
 }

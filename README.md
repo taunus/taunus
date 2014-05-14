@@ -38,11 +38,13 @@ These routes can also be used to generate the routes used by the client-side. Th
 
 If you need to use values other than the defaults shown in the table below, then you should create a `.taunusrc` file. Note that the defaults need to be overwritten in a case-by-case basis.
 
-Property    | Description                                                   | Default
-------------|---------------------------------------------------------------|---------------
-`viewModel` | The view model will be extended off of this object            | `{}`
-`views`     | Directory, relative to `process.cwd()`, where your views live | `views`
-`layout`    | The path to your view layout, relative to the views directory | `__layout`
+Property             | Description                                                    | Default
+---------------------|----------------------------------------------------------------|---------------
+`viewModel`          | The view model will be extended off of this object             | `{}`
+`views`              | Directory where your views live                                | `views`
+`layout`             | The path to your view layout, relative to the views directory  | `__layout`
+`client_controllers` | Directory where client-side controllers live                   | `client/js/controllers`
+`client_routes`      | File path where client routes are dumped by the CLI            | `undefined`
 
 Here is where things get [a little conventional][2]. Your views need to be functions, exported in Common.JS format, like the one shown below. Your views are expected to be functions in Common.JS, and placed in `{views}/{controller}/{action}`.
 
@@ -100,11 +102,13 @@ Anchor links are analyzed and matched to a route definition. When a link gets cl
 
 # Taunus CLI
 
-The `taunus` CLI takes the path to your server-side route array, and uses the Taunus configuration to create the client-side routes.
+The `taunus` CLI takes the path to your server-side route array, and uses the Taunus configuration to create the client-side routes. The `-o` flag will output the routes to the file indicated in the RC configuration property `client_routes`.
 
 ```shell
-taunus path/to/server/routes -o path/to/client/routes
+taunus path/to/server/routes -o
 ```
+
+Note that, since this will `require` both view templates and client-side controllers, views and routes don't need to be duplicated in code other than what the CLI generates.
 
 # License
 

@@ -1,5 +1,6 @@
 {
   "viewModel": {},
   "views": "views",
-  "layout": "__layout"
+  "layout": "__layout",
+  "client_controllers": "client/js/controllers"
 }
