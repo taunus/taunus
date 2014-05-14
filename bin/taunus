@@ -25,12 +25,12 @@ function template (routes) {
 
   function partial (route) {
     var open = first ? '{\n' : ', {\n';
-    first = false;
     put(open);
     put('  route: "%s",\n', route.route);
     put('  template: require("%s"),\n', getTemplatePath(route));
     put('  controller: require("%s")\n', getControllerPath(route));
     put('}');
+    first = false;
   }
 
   function put () {
