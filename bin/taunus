@@ -43,7 +43,9 @@ function template (routes) {
 }
 
 function getTemplatePath (route) {
-  var relative = path.resolve(cwd, rc.client_views, route.action);
+  console.log(cwd,rc.views,route.action);
+  console.log(rc.client_routes);
+  var relative = path.resolve(cwd, rc.views, route.action);
   console.log('template', relative);
 }
 
