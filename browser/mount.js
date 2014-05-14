@@ -5,7 +5,7 @@ var router = require('./router');
 var activator = require('./activator');
 
 function mount (container, routes) {
-  var data = container.dataset.ponymoo;
+  var data = container.dataset.taunus;
   var model = JSON.parse(data);
 
   state.container = container;

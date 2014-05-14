@@ -1,7 +1,5 @@
 'use strict';
 
-var ponymoo = {
+module.exports = {
   mount: require('./mount')
 };
-
-module.exports = ponymoo;

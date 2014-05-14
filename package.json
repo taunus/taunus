@@ -1,20 +1,20 @@
 {
-  "name": "ponymoo",
+  "name": "taunus",
   "description": "Micro MVC engine",
-  "version": "0.2.0",
-  "homepage": "https://github.com/bevacqua/ponymoo",
+  "version": "0.1.0",
+  "homepage": "https://github.com/bevacqua/taunus",
   "authors": [
     "Nicolas Bevacqua <nicolasbevacqua@gmail.com>"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/bevacqua/ponymoo.git"
+    "url": "git://github.com/bevacqua/taunus.git"
   },
   "bugs": {
-    "url": "https://github.com/bevacqua/ponymoo/issues"
+    "url": "https://github.com/bevacqua/taunus/issues"
   },
-  "main": "ponymoo.js",
+  "main": "taunus.js",
   "browser": "browser/index.js",
   "scripts": {
     "lint": "jshint . --reporter node_modules/jshint-stylish/stylish.js",

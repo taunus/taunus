@@ -1,21 +1,21 @@
-# ponymoo
+# Taunus
 
 > Micro MVC engine
 
-`ponymoo` aims to simplify the state of MVC and shared rendering. `ponymoo` will handle routing, and allow you to lay out controllers and view templates independently for each view. Each route will query the server, for a model, before rendering its view template.
+Taunus aims to simplify the state of MVC and shared rendering. Taunus will handle routing, and allow you to lay out controllers and view templates independently for each view. Each route will query the server, for a model, before rendering its view template.
 
 # `.mount(elem, routes)`
 
-In `ponymoo`, everything starts at `mount`.
+In Taunus, everything starts at `mount`.
 
 - `root` Element where partials will get rendered. e.g: `document.getElementByID('main')`
 - `routes` An array of route definitions, as explained below
 
 ```js
-ponymoo.mount(root, routes);
+taunus.mount(root, routes);
 ```
 
-The `root` element is expected to have a `data-ponymoo` attribute whose value is the model that was used by the server to render the partial view the first time around. This model will be parsed and passed to the view controller during the mounting process.
+The `root` element is expected to have a `data-taunus` attribute whose value is the model that was used by the server to render the partial view the first time around. This model will be parsed and passed to the view controller during the mounting process.
 
 # Route Definitions
 
@@ -37,7 +37,7 @@ Route definitions have a few properties.
 - `template` is expected to be a function, and it'll be passed a `model` object
 - `controller` is invoked after the template is rendered, allowing you to bind event listeners and the like
 
-When the application mounts for the first time, `ponymoo` will find the route that matches `location.pathname`, and execute its controller. The first time around, the server-side is expected to render the partial view template. From that point on, `ponymoo` will take over rendering templates in the client-side. You should've set the initial model properly as well, as explained in `ponymoo.mount`.
+When the application mounts for the first time, Taunus will find the route that matches `location.pathname`, and execute its controller. The first time around, the server-side is expected to render the partial view template. From that point on, Taunus will take over rendering templates in the client-side. You should've set the initial model properly as well, as explained in `taunus.mount`.
 
 # Anchor Links
 
