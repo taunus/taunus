@@ -14,7 +14,7 @@
   "bugs": {
     "url": "https://github.com/bevacqua/taunus/issues"
   },
-  "main": "taunus.js",
+  "main": "lib/index.js",
   "browser": "browser/index.js",
   "bin": {
     "taunus": "bin/taunus"
@@ -24,6 +24,7 @@
     "test": "npm run lint"
   },
   "dependencies": {
+    "lodash": "^2.4.1",
     "routes": "^1.1.0",
     "superagent": "^0.18.0"
   },
