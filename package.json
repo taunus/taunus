@@ -16,6 +16,9 @@
   },
   "main": "taunus.js",
   "browser": "browser/index.js",
+  "bin": {
+    "taunus": "bin/taunus"
+  },
   "scripts": {
     "lint": "jshint . --reporter node_modules/jshint-stylish/stylish.js",
     "test": "npm run lint"
