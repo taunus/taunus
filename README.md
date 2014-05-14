@@ -83,7 +83,7 @@ The `root` element is expected to have a `data-taunus` attribute whose value is 
 
 Here's an example _client-side_ route definition.
 
-```
+```js
 {
   route: '/author/compose',
   template: function (model) {
