@@ -103,7 +103,7 @@ Anchor links are analyzed and matched to a route definition. When a link gets cl
 The `taunus` CLI takes the path to your server-side route array, and uses the Taunus configuration to create the client-side routes.
 
 ```shell
-taunus routes
+taunus path/to/server/routes -o path/to/client/routes
 ```
 
 # License
