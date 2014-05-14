@@ -2,19 +2,16 @@
 
 var superagent = require('superagent');
 
-module.exports = function (url) {
-  function fetch (done) {
-    superagent
-      .get(url)
-      .set('Accept', 'application/json')
-      .end(handle);
+module.exports = function (url, done) {
+  superagent
+    .get(url)
+    .set('Accept', 'application/json')
+    .end(handle);
 
-    function handle (err, res) {
-      if (err) {
-        return; // TODO handle response errors ???
-      }
-      done(res);
+  function handle (err, res) {
+    if (err) {
+      return; // TODO handle response errors ???
     }
+    done(res);
   }
-  return fetch;
 };

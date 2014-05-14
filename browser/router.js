@@ -1,11 +1,11 @@
 'use strict';
 
-var fetcher = require('./fetcher');
 var Matcher = require('routes');
 var matcher = Matcher();
 
 function router (url) {
-  return matcher.match(url).fn();
+  var match = matcher.match(url);
+  return match ? match.fn() : null;
 }
 
 function setup (definitions) {

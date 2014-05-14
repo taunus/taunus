@@ -1,5 +1,6 @@
 'use strict';
 
+var router = require('./router');
 var activator = require('./activator');
 
 function links (element) {
@@ -9,7 +10,7 @@ function links (element) {
 
 function link (a) {
   var url = a.href;
-  var route = getRoute(url);
+  var route = router(url);
   if (route === void 0) {
     return;
   }
@@ -18,10 +19,10 @@ function link (a) {
 
   function reroute (e) {
     if (e.which === 1) { // left-click
-      activator(url);
+      activator.go(url);
       e.preventDefault();
     }
   }
 }
 
-module.exports = routeLinks;
+module.exports = links;
