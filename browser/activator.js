@@ -9,8 +9,9 @@ var state = require('./state');
 function go (url) {
   fetcher(url, next);
 
-  function next (model) {
+  function next (res) {
     var route = router(url);
+    var model = res.model;
     document.title = model.title;
     navigation(url, model, 'pushState');
     partial(state.container, route.template, route.controller, model);
