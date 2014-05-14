@@ -1,14 +1,38 @@
 #!/usr/bin/env node
 
 var argv = require('minimist')(process.argv.slice(2));
+var path = require('path');
 var fs = require('fs');
+var chalk = require('chalk');
+var cwd = process.cwd();
 var rc = require('../lib/rc');
 var cli = require('../lib/cli');
-var data = cli.render();
 
-if (argv.o) {
-  fs.writeFileSync(rc.client_routes, data);
-} else {
-  console.log(data);
+function output (force) {
+  var data = cli.render(force);
+
+  if (argv.o) {
+    fs.writeFileSync(rc.client_routes, data);
+  } else {
+    console.log(data);
+  }
 }
 
+function watch () {
+  var chokidar = require('chokidar');
+  var location = path.resolve(cwd, rc.server_routes);
+  var watcher = chokidar.watch(rc.server_routes, { persistent: true });
+
+  console.log(chalk.yellow('taunus: watching...'));
+
+  watcher.on('change', function () {
+    console.log(chalk.yellow('taunus: Route change detected. Rendering client-side routes.'));
+    output(true);
+  });
+}
+
+output();
+
+if (argv.w) {
+  watch();
+}

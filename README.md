@@ -104,7 +104,7 @@ Anchor links are analyzed and matched to a route definition. If a route matches 
 
 # Taunus CLI
 
-The `taunus` CLI uses the Taunus configuration to create the client-side routes. The `-o` flag will output the routes to the file indicated in the RC configuration property `client_routes`. When `-o` is omitted, the output is printed to standard out.
+The `taunus` CLI uses the Taunus configuration to create the client-side routes. The `-o` flag will output the routes to the file indicated in the RC configuration property `client_routes`. When `-o` is omitted, the output is printed to standard out. You can also use the `-w` option to watch for changes.
 
 ```shell
 taunus -o
