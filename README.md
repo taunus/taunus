@@ -15,7 +15,7 @@ In `ponymoo`, everything starts at `mount`.
 ponymoo.mount(root, routes);
 ```
 
-The `root` element is expected to have a `data-ponymoo` attribute whose value is the model that was used by the server to render the partial view the first time around. This model will be parsed and passed to the view controller during the mount process.
+The `root` element is expected to have a `data-ponymoo` attribute whose value is the model that was used by the server to render the partial view the first time around. This model will be parsed and passed to the view controller during the mounting process.
 
 # Route Definitions
 
