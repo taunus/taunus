@@ -6,9 +6,7 @@ var path = require('path');
 var util = require('util');
 var rc = require('../lib/rc');
 var cwd = process.cwd();
-var file = argv._[0];
-var routeModule = path.resolve(cwd, file);
-var routes = require(routeModule);
+var routes = require(path.resolve(cwd, rc.server_routes));
 var data = template(routes);
 
 if (argv.o) {
@@ -44,13 +42,9 @@ function template (routes) {
 }
 
 function getTemplatePath (route) {
-  console.log(cwd,rc.views,route.action);
-  console.log(rc.client_routes);
-  var relative = path.resolve(cwd, rc.views, route.action);
-  console.log('template', relative);
+  return path.resolve(rc.views, route.action);
 }
 
 function getControllerPath (route) {
-  var relative = path.resolve(cwd, rc.client_controllers, route.action);
-  console.log('controller', relative);
+  return path.resolve(rc.client_controllers, route.action);
 }

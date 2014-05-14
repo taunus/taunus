@@ -2,5 +2,7 @@
   "viewModel": {},
   "views": "views",
   "layout": "__layout",
-  "client_controllers": "client/js/controllers"
+  "server_controllers": "controllers",
+  "client_controllers": "client/js/controllers",
+  "server_routes": "controllers/routes.js"
 }
