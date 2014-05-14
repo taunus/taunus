@@ -4,7 +4,7 @@
 
 Taunus aims to simplify the state of MVC and shared rendering. Taunus will handle routing, and allow you to lay out controllers and view templates independently for each view. Each route will query the server, for a model, before rendering its view template.
 
-# `.mount(elem, routes)`
+# `.mount(root, routes)`
 
 In Taunus, everything starts at `mount`.
 
