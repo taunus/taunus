@@ -42,9 +42,9 @@ function template (routes) {
 }
 
 function getTemplatePath (route) {
-  return path.resolve(rc.views, route.action);
+  return path.relative(rc.client_routes, path.resolve(rc.views, route.action));
 }
 
 function getControllerPath (route) {
-  return path.resolve(rc.client_controllers, route.action);
+  return path.relative(rc.client_routes, path.resolve(rc.client_controllers, route.action));
 }

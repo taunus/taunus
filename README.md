@@ -110,7 +110,31 @@ The `taunus` CLI uses the Taunus configuration to create the client-side routes.
 taunus -o
 ```
 
-Note that, since this will `require` both view templates and client-side controllers, views and routes don't need to be duplicated in code other than what the CLI generates.
+Note that, since this will `require` both view templates and client-side controllers, views and routes don't need to be duplicated in code other than what the CLI generates. Below is an example of the output `taunus` generates, based on the routes presented earlier. The `require` statements will be relative to the `client_routes` path.
+
+```js
+module.exports = [{
+  route: "/",
+  template: require("../../views/home/index"),
+  controller: require("../../../client/js/controllers/home/index")
+}, {
+  route: "/author/compose",
+  template: require("../../views/author/compose"),
+  controller: require("../../../client/js/controllers/author/compose")
+}];
+```
+
+You should now be able to call `taunus.mount` on the client side, passing the auto-generated routes. Example shown below.
+
+```js
+var taunus = require('taunus');
+var routes = require('./routes'); // point at the client-side routes!
+var root = document.querySelector('.view-container');
+
+taunus.mount(root, routes);
+```
+
+Enjoy!
 
 # License
 
