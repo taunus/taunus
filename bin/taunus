@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-var minimist = require('minimist');
+var argv = require('minimist')(process.argv.slice(2));
 
 console.log('not implemented');

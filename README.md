@@ -34,13 +34,15 @@ app.get('/author/compose', author.only, author.compose, [internal].render);
 
 These routes can also be used to generate the routes used by the client-side. The Taunus CLI makes this easy for you.
 
-### Configuring Taunus with `.taunusrc`
+### Configuring `.taunusrc`
 
-Property   | Description                                                   | Default
------------|---------------------------------------------------------------|---------------
-`defaults` | The view model will be extended off of this object            | `undefined`
-`views`    | Directory, relative to `process.cwd()`, where your views live | `views`
-`layout`   | The path to your view layout, relative to the views directory | `__layout`
+If you need to use values other than the defaults shown in the table below, then you should create a `.taunusrc` file. Note that the defaults need to be overwritten in a case-by-case basis.
+
+Property    | Description                                                   | Default
+------------|---------------------------------------------------------------|---------------
+`viewModel` | The view model will be extended off of this object            | `{}`
+`views`     | Directory, relative to `process.cwd()`, where your views live | `views`
+`layout`    | The path to your view layout, relative to the views directory | `__layout`
 
 Here is where things get [a little conventional][2]. Your views need to be functions, exported in Common.JS format, like the one shown below. Your views are expected to be functions in Common.JS, and placed in `{views}/{controller}/{action}`.
 
@@ -69,7 +71,13 @@ The `root` element is expected to have a `data-taunus` attribute whose value is 
 
 ### Route Definitions
 
-Note that these should typically be generated using the CLI. Route definitions have a few properties.
+**Note that these should typically be generated using the CLI.** Route definitions have a few properties.
+
+- `route` is passed to [`routes`][1] directly, and used to match the URL to a view controller
+- `template` is expected to be a function, and it'll be passed a `model` object
+- `controller` is invoked after the template is rendered, allowing you to bind event listeners and the like
+
+Here's an example _client-side_ route definition.
 
 ```
 {
@@ -83,9 +91,6 @@ Note that these should typically be generated using the CLI. Route definitions h
 }
 ```
 
-- `route` is passed to [`routes`][1] directly, and used to match the URL to a view controller
-- `template` is expected to be a function, and it'll be passed a `model` object
-- `controller` is invoked after the template is rendered, allowing you to bind event listeners and the like
 
 When the application mounts for the first time, Taunus will find the route that matches `location.pathname`, and execute its controller. The first time around, the server-side is expected to render the partial view template. From that point on, Taunus will take over rendering templates in the client-side. You should've set the initial model properly as well, as explained in `taunus.mount`.
 
@@ -93,6 +98,13 @@ When the application mounts for the first time, Taunus will find the route that 
 
 Anchor links are analyzed and matched to a route definition. When a link gets clicked, the link's URL will be queried for `application/json` data. When a response is received, the partial that matches the definition will be rendered, and its controller will be invoked.
 
+# Taunus CLI
+
+The `taunus` CLI takes the path to your server-side route array, and uses the Taunus configuration to create the client-side routes.
+
+```shell
+taunus routes
+```
 
 # License
 
