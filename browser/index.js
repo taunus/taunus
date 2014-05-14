@@ -1,7 +1,7 @@
 'use strict';
 
 var ponymoo = {
-  boot: require('./boot')
+  mount: require('./mount')
 };
 
 module.exports = ponymoo;
