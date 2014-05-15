@@ -1,10 +1,10 @@
 'use strict';
 
-var links = require('./links');
+var state = require('./state');
 
 function partial (container, template, controller, model) {
   container.innerHTML = template(model);
-  links(container);
+  state.emit('render', container, model);
   controller(model);
 }
 

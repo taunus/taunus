@@ -1,7 +1,6 @@
 'use strict';
 
 var fetcher = require('./fetcher');
-var links = require('./links');
 var partial = require('./partial');
 var router = require('./router');
 var state = require('./state');
@@ -22,7 +21,7 @@ function start (model) {
   var url = location.pathname;
   var route = router(url);
   navigation(url, model, 'replaceState');
-  links(document.body);
+  state.emitter.emit('render', document.body, model);
   route.controller(model);
 
   window.onpopstate = back;

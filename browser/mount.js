@@ -3,6 +3,7 @@
 var state = require('./state');
 var router = require('./router');
 var activator = require('./activator');
+var hooks = require('./hooks');
 
 function mount (container, routes) {
   var data = container.dataset.taunus;
@@ -13,6 +14,7 @@ function mount (container, routes) {
 
   state.container = container;
 
+  hooks.attach();
   router.setup(routes);
   activator.start(model);
 }
