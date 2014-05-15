@@ -7,9 +7,8 @@ function attach () {
   state.emitter.on('render', link);
 }
 
-function link (root, model) {
-  console.log(root, model);
-  links(root);
+function link (container, model) {
+  links(container);
 }
 
 module.exports = {

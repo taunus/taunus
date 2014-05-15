@@ -95,12 +95,19 @@ Here's an example _client-side_ route definition.
 }
 ```
 
-
 When the application mounts for the first time, Taunus will find the route that matches `location.pathname`, and execute its controller. The first time around, the server-side is expected to render the partial view template. From that point on, Taunus will take over rendering templates in the client-side. You should've set the initial model properly as well, as explained in `taunus.mount`.
 
 ### Anchor Links
 
 Anchor links are analyzed and matched to a route definition. If a route matches the link, when a link gets clicked, the link's URL will be queried for `application/json` data. When a response is received, the partial that matches the definition will be rendered, and its controller will be invoked.
+
+### Events
+
+Taunus gets exported as a full-featured event emitter. It emits the following events.
+
+Event    | Arguments                   | Description
+---------|-----------------------------|---------------
+'render' | `container, model`          | Emitted on page load (for `document.body`), and also whenever a partial gets rendered
 
 # Taunus CLI
 
