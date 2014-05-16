@@ -8,7 +8,7 @@ function links () {
 }
 
 function reroute (e) {
-  if (e.target.href && e.which === 1) { // left-click on an anchor
+  if (e.target.href && e.which === 1 && !e.metaKey && !e.ctrlKey) { // left-click on an anchor
     link(e.target);
   }
 }
