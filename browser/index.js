@@ -2,9 +2,12 @@
 
 var λ = require('contra');
 var state = require('./state');
+var hooks = require('./hooks');
 var emitter = λ.emitter();
 
 state.emitter = emitter;
+
+hooks.attach();
 
 module.exports = {
   mount: require('./mount'),

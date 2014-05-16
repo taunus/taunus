@@ -3,8 +3,8 @@
 var router = require('./router');
 var activator = require('./activator');
 
-function links (root) {
-  root.addEventListener('click', reroute);
+function links () {
+  document.body.addEventListener('click', reroute);
 }
 
 function reroute (e) {

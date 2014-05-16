@@ -1,6 +1,7 @@
 # v0.1.2 Town Car
 
-- Made into an event emitter
+- Turned into an event emitter
+- Link click route-checking is delegated from `document.body`
 
 # v0.1.1 Saucy Studio
 

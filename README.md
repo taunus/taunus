@@ -107,7 +107,7 @@ Taunus gets exported as a full-featured event emitter. It emits signals during t
 
 Event      | Arguments                   | Description
 -----------|-----------------------------|---------------
-`'start'`  | `container, model`          | Emitted on page load (for `document.body`)
+`'start'`  | `container, model`          | Emitted on page load (for `document.body`). Listen to this event before calling `app.mount`
 `'render'` | `container, model`          | Emitted on page load (for `document.body`), and also whenever a partial gets rendered
 
 # Taunus CLI
