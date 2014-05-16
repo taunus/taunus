@@ -103,11 +103,12 @@ Anchor links are analyzed and matched to a route definition. If a route matches 
 
 ### Events
 
-Taunus gets exported as a full-featured event emitter. It emits the following events.
+Taunus gets exported as a full-featured event emitter. It emits signals during the events listed below.
 
-Event    | Arguments                   | Description
----------|-----------------------------|---------------
-'render' | `container, model`          | Emitted on page load (for `document.body`), and also whenever a partial gets rendered
+Event      | Arguments                   | Description
+-----------|-----------------------------|---------------
+`'start'`  | `container, model`          | Emitted on page load (for `document.body`)
+`'render'` | `container, model`          | Emitted on page load (for `document.body`), and also whenever a partial gets rendered
 
 # Taunus CLI
 

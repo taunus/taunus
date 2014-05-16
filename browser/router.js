@@ -13,7 +13,7 @@ function setup (definitions) {
 }
 
 function define (d) {
-  matcher.addRoute(d.route, function () {
+  matcher.addRoute(d.route, function definition () {
     return d;
   });
 }

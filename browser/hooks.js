@@ -4,11 +4,7 @@ var state = require('./state');
 var links = require('./links');
 
 function attach () {
-  state.emitter.on('render', link);
-}
-
-function link (container, model) {
-  links(container);
+  state.emitter.on('start', links);
 }
 
 module.exports = {

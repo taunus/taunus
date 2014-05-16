@@ -1,3 +1,7 @@
+# v0.1.2 Town Car
+
+- Made into an event emitter
+
 # v0.1.1 Saucy Studio
 
 - Fixed a CLI issue forming paths on Windows
