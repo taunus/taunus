@@ -4,7 +4,16 @@
 
 Taunus aims to simplify the state of MVC and shared rendering. Taunus will handle routing, and allow you to lay out controllers and view templates independently for each view. Each route will query the server, for a model, before rendering its view template.
 
+## Table of Contents
+
+- [Server Side](#server-side)
+- [Client Side](#client-side)
+- [Command-Line Interface](#command-line-interface)
+- [License](#license)
+
 # Server Side
+
+Currently, the server-side aspect of Taunus only exposes a single method, the mount point.
 
 ## `.mount(app, routes)`
 
@@ -60,6 +69,8 @@ Views are used in both the server-side and the client-side. Of course, it is pos
 
 # Client Side
 
+The client side portion of Taunus comes with a mount point as well. It also exposes an API.
+
 ## `.mount(root, routes)`
 
 In Taunus, everything starts at `mount`.
@@ -110,7 +121,21 @@ Event      | Arguments                   | Description
 `'start'`  | `container, model`          | Emitted on page load (for `document.body`). Listen to this event before calling `app.mount`
 `'render'` | `container, model`          | Emitted on page load (for `document.body`), and also whenever a partial gets rendered
 
-# Taunus CLI
+To listen to these events, you can use `.on`, `.once`, and `.off`.
+
+#### `.on(type, cb)`
+
+Attaches an event listener `cb` for all `type` events.
+
+#### `.once(type, cb)`
+
+Attaches an event listener `cb` that will be executed only in the next `type` event.
+
+#### `.off(type, cb)`
+
+Removes the `cb` event listener for `type` events.
+
+# Command-Line Interface
 
 The `taunus` CLI uses the Taunus configuration to create the client-side routes. The `-o` flag will output the routes to the file indicated in the RC configuration property `client_routes`. When `-o` is omitted, the output is printed to standard out. You can also use the `-w` option to watch for changes.
 
