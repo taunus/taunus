@@ -1,4 +1,4 @@
-# Taunus
+[![taunus.png]][3]
 
 > Micro MVC engine
 
@@ -150,3 +150,4 @@ MIT
 
 [1]: https://github.com/aaronblohowiak/routes.js "connect's minimalist routing module"
 [2]: http://en.wikipedia.org/wiki/Convention_over_configuration "Convention over configuration"
+[3]: https://raw.github.com/bevacqua/taunus/master/resources/taunus.png
