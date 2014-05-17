@@ -1,4 +1,4 @@
-[![taunus.png]][3]
+![taunus.png][3]
 
 > Micro MVC engine
 
