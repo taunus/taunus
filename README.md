@@ -15,12 +15,13 @@ Taunus aims to simplify the state of MVC and shared rendering. Taunus will handl
 
 Currently, the server-side aspect of Taunus only exposes a single method, the mount point.
 
-## `.mount(app, routes)`
+## `.mount(app, routes, options?)`
 
 Taunus comes with a mount point for the server-side, as well.
 
 - `app` should be a `connect` or `express` application
 - `routes` is used to configure routing, see below
+- `options` allows you to customize Taunus. This is optional
 
 The mount point will register each route, and configure them to return HTML or JSON according to the `accept` header. If HTML is expected, then the template will be rendered server-side, and surrounded with a layout. If JSON is expected, the view model is passed to the response as-is, and no rendering occurs on the server-side.
 
@@ -43,7 +44,28 @@ app.get('/author/compose', authorOnly, authorCompose, [internal].render);
 
 These routes can also be used to generate the routes used by the client-side. The Taunus CLI makes this easy for you.
 
-### Configuring `.taunusrc`
+### `options`
+
+Options is an optional object. You can provide a `resolvers` property to change the default lookups in Taunus.
+
+```js
+{
+  resolvers: {
+    getControllerActionPath: function (action) {
+      // return path to controller action module
+    }
+  }
+}
+```
+
+There's a few different resolvers in the server-side. The view template resolver is, by default, shared with the CLI [as explained below](#command-line-interface).
+
+Key                       | Arguments | Description
+--------------------------|-----------|--------------------------------------------------------------
+`getControllerActionPath` | `action`  | Return path to server-side controller action handler module
+`getViewTemplatePath`     | `action`  | Return path to view template module
+
+## Configuring `.taunusrc`
 
 If you need to use values other than the defaults shown in the table below, then you should create a `.taunusrc` file. Note that the defaults need to be overwritten in a case-by-case basis.
 
@@ -166,6 +188,19 @@ var root = document.querySelector('.view-container');
 
 taunus.mount(root, routes);
 ```
+
+The `taunus` CLI can take resolver replacements as well, just execute it using the `-r` property.
+
+```shell
+taunus -o -r path/to/module
+```
+
+There's a few different resolvers used by the CLI, as well.
+
+Key                     | Arguments | Description
+------------------------|-----------|--------------------------------------------------------------
+`getViewControllerPath` | `action`  | Return path to client-side controller action handler module
+`getViewTemplatePath`   | `action`  | Return path to view template module
 
 Enjoy!
 
