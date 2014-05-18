@@ -1,7 +1,7 @@
 'use strict';
 
-var Matcher = require('routes');
-var matcher = Matcher();
+var routes = require('routes');
+var matcher = routes();
 
 function router (url) {
   var match = matcher.match(url);
