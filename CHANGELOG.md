@@ -1,3 +1,9 @@
+# v0.1.3 Spare Change
+
+Fixes
+
+- Fixed an issue when clicking on links
+
 # v0.1.2 Town Car
 
 - Turned into an event emitter
