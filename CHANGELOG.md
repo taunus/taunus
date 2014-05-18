@@ -1,11 +1,8 @@
-# v0.1.3 Clown Car
-
-- Implemented replaceable module path resolvers for customization
-
 # v0.1.2 Town Car
 
 - Turned into an event emitter
 - Link click route-checking is delegated from `document.body`
+- Implemented replaceable module path resolvers for customization
 
 # v0.1.1 Saucy Studio
 
