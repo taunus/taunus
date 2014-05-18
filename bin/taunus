@@ -7,9 +7,10 @@ var chalk = require('chalk');
 var cwd = process.cwd();
 var rc = require('../lib/rc');
 var cli = require('../lib/cli');
+var replacements = argv.r ? require(argv.r) : null;
 
 function output (force) {
-  var data = cli.render(force);
+  var data = cli.render(force, replacements);
 
   if (argv.o) {
     fs.writeFileSync(rc.client_routes, data);
