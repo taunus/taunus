@@ -27,7 +27,7 @@ The mount point will register each route, and configure them to return HTML or J
 
 ### `routes`
 
-The `routes` parameter expects an array of objects. These objects should specify a `route` property, exactly like the ones you'd give Connect. That's because [Taunus uses routes][1], Connect's internal route handler. The route should have an `action` property declaring a `{controller}/{action}` pair. This will tell Taunus what action should handle the request, and what view template should be rendered. This pair is also used on the client-side to determine which controller action should be invoked. You can also specify an optional `middleware` property, useful to do request authorization.
+The `routes` parameter expects an array of objects. These objects should specify a `route` property, exactly like the ones you'd give Connect. That's because [Taunus uses routes][1], Connect's internal route handler. The route should have an `action` property declaring a `{controller}/{action}` pair. This will tell Taunus what action should handle the request, and what view template should be rendered. This pair is also used on the client-side to determine which controller action should be invoked. You can also specify an optional `middleware` property, using either a single function or an array of middleware, useful to do request authorization and similar.
 
 ```js
 [
