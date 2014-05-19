@@ -1,27 +1,50 @@
 #!/usr/bin/env node
 
+'use strict';
+
 var argv = require('minimist')(process.argv.slice(2));
 var path = require('path');
 var fs = require('fs');
 var chalk = require('chalk');
-var cwd = process.cwd();
+var browserify = require('browserify');
 var rc = require('../lib/rc');
 var cli = require('../lib/cli');
 var replacements = argv.r ? require(argv.r) : null;
+var standalone = argv.standalone;
 
 function output (force) {
   var data = cli.render(force, replacements);
 
-  if (argv.o) {
+  if (standalone || argv.o) {
     fs.writeFileSync(rc.client_routes, data);
   } else {
     console.log(data);
+  }
+  if (standalone) {
+    browser();
+  }
+}
+
+function browser () {
+  var b = browserify();
+  var lib = path.join(__dirname, '../browser/standalone');
+  var routes = path.resolve(rc.client_routes);
+  b.require(routes, { expose: 'embedded-routes' });
+  b.add(lib);
+  b.bundle({ standalone: 'taunus' }).pipe(out());
+
+  function out () {
+    if (!argv.o) {
+      return process.stdout;
+    } else {
+      return fs.createWriteStream(standalone, { encoding: 'utf8' });
+    }
   }
 }
 
 function watch () {
   var chokidar = require('chokidar');
-  var location = path.resolve(cwd, rc.server_routes);
+  var location = path.resolve(rc.server_routes);
   var watcher = chokidar.watch(rc.server_routes, { persistent: true });
 
   console.log(chalk.yellow('taunus: watching...'));

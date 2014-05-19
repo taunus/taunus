@@ -77,7 +77,7 @@ Property             | Description                                              
 `server_controllers` | Directory where server-side controllers live                   | `controllers`
 `client_controllers` | Directory where client-side controllers live                   | `client/js/controllers`
 `server_routes`      | File path where server routes are located                      | `controllers/routes.js`
-`client_routes`      | File path where client routes are dumped by the CLI            | `undefined`
+`client_routes`      | File path where client routes are dumped by the CLI            | `bin/routes.js`
 
 Here is where things get [a little conventional][2]. Your views need to be functions, exported in Common.JS format, like the one shown below. Your views are expected to be functions in Common.JS, and placed in `{root}/{controller}/{action}`.
 
