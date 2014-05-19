@@ -1,3 +1,7 @@
+# v0.1.4 Emancipation
+
+- `taunus --standalone taunus.js` eliminates dependency on Common.JS and Browserify
+
 # v0.1.3 Spare Change
 
 Fixes

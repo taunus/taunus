@@ -189,6 +189,8 @@ var root = document.querySelector('.view-container');
 taunus.mount(root, routes);
 ```
 
+#### Resolving Module Paths
+
 The `taunus` CLI can take resolver replacements as well, just execute it using the `-r` property.
 
 ```shell
@@ -201,6 +203,14 @@ Key                     | Arguments | Description
 ------------------------|-----------|--------------------------------------------------------------
 `getViewControllerPath` | `action`  | Return path to client-side controller action handler module
 `getViewTemplatePath`   | `action`  | Return path to view template module
+
+#### Taunus Standalone, No Browserify
+
+If you don't like Common.JS in your client-side code, you can use the `--standalone path/to/file` option in the `taunus` CLI. Taunus will be available as a global in `window.taunus`. Note that the routes will be made available in `taunus.routes`.
+
+```shell
+taunus --standalone client/js/vendor/taunus.js -ow
+```
 
 Enjoy!
 
