@@ -1,3 +1,7 @@
+# v0.1.5 Packaging
+
+- `.taunusrc` options can also be configured in `package.json`, as the `taunus` property
+
 # v0.1.4 Emancipation
 
 - `taunus --standalone taunus.js` eliminates dependency on Common.JS and Browserify

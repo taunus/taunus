@@ -67,7 +67,7 @@ Key                       | Arguments | Description
 
 ## Configuring `.taunusrc`
 
-If you need to use values other than the defaults shown in the table below, then you should create a `.taunusrc` file. Note that the defaults need to be overwritten in a case-by-case basis.
+If you need to use values other than the defaults shown in the table below, then you should create a `.taunusrc` file. Note that the defaults need to be overwritten in a case-by-case basis. These options can also be configured in your `package.json`, in the `taunus` property.
 
 Property             | Description                                                    | Default
 ---------------------|----------------------------------------------------------------|---------------
