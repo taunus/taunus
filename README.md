@@ -1,8 +1,10 @@
 ![taunus.png][3]
 
-> Micro MVC engine
+> Micro Isomorphic MVC Engine
 
 Taunus aims to simplify the state of MVC and shared rendering. Taunus will handle routing, and allow you to lay out controllers and view templates independently for each view. Each route will query the server, for a model, before rendering its view template.
+
+[Article on Pony Foo][4]
 
 ## Table of Contents
 
@@ -232,3 +234,4 @@ MIT
 [1]: https://github.com/aaronblohowiak/routes.js "connect's minimalist routing module"
 [2]: http://en.wikipedia.org/wiki/Convention_over_configuration "Convention over configuration"
 [3]: https://raw.github.com/bevacqua/taunus/master/resources/taunus.png
+[4]: http://blog.ponyfoo.com/2014/05/21/taunus-micro-isomorphic-mvc-framework "Taunus: Micro Isomorphic MVC Framework"
