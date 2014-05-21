@@ -5,7 +5,7 @@ var matcher = routes();
 
 function router (url) {
   var match = matcher.match(url);
-  return match ? match.fn() : null;
+  return match ? match.fn(match) : null;
 }
 
 function setup (definitions) {
@@ -13,7 +13,9 @@ function setup (definitions) {
 }
 
 function define (d) {
-  matcher.addRoute(d.route, function definition () {
+  matcher.addRoute(d.route, function definition (match) {
+    d.params = match.params;
+    d.params.args = match.splats;
     return d;
   });
 }

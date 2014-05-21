@@ -1,5 +1,6 @@
 'use strict';
 
+var interceptor = require('./interceptor');
 var emitter = require('./emitter');
 var hooks = require('./hooks');
 
@@ -9,5 +10,6 @@ module.exports = {
   mount: require('./mount'),
   on: emitter.on.bind(emitter),
   once: emitter.once.bind(emitter),
-  off: emitter.off.bind(emitter)
+  off: emitter.off.bind(emitter),
+  cached: interceptor.intercept
 };

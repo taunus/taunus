@@ -1,3 +1,7 @@
+# v0.1.6 XML Vulnerability
+
+- Added ability to intercept model requests and return a cached response before they server is queried
+
 # v0.1.5 Packaging
 
 - `.taunusrc` options can also be configured in `package.json`, as the `taunus` property

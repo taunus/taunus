@@ -142,7 +142,7 @@ Event      | Arguments                   | Description
 -----------|-----------------------------|---------------
 `'start'`  | `container, model`          | Emitted on page load (for `document.body`). Listen to this event before calling `app.mount`
 `'render'` | `container, model`          | Emitted on page load (for `document.body`), and also whenever a partial gets rendered
-`'error'`  | `err`                       | Emitted whenever an error happens
+`'error'`  | `err, context`, `source`    | Emitted whenever an error happens. `source` is the responsible for emitting the error
 
 To listen to these events, you can use `.on`, `.once`, and `.off`.
 
@@ -157,6 +157,16 @@ Attaches an event listener `cb` that will be executed only in the next `type` ev
 #### `.off(type, cb)`
 
 Removes the `cb` event listener for `type` events.
+
+## `.intercept(action, cb)`
+
+Interceptors allow you to prevent queries being made to the server-side when a model is requested. If the interceptor returns `undefined` then the request will still be made. Note that there can only be one interceptor per controller action.
+
+```js
+taunus.intercept('home/index', function (params) {
+  return {};
+});
+```
 
 # Command-Line Interface
 
