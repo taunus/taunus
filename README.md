@@ -142,6 +142,7 @@ Event      | Arguments                   | Description
 -----------|-----------------------------|---------------
 `'start'`  | `container, model`          | Emitted on page load (for `document.body`). Listen to this event before calling `app.mount`
 `'render'` | `container, model`          | Emitted on page load (for `document.body`), and also whenever a partial gets rendered
+`'error'`  | `err`                       | Emitted whenever an error happens
 
 To listen to these events, you can use `.on`, `.once`, and `.off`.
 

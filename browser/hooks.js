@@ -1,10 +1,10 @@
 'use strict';
 
-var state = require('./state');
+var emitter = require('./emitter');
 var links = require('./links');
 
 function attach () {
-  state.emitter.on('start', links);
+  emitter.on('start', links);
 }
 
 module.exports = {

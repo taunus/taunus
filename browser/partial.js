@@ -1,10 +1,10 @@
 'use strict';
 
-var state = require('./state');
+var emitter = require('./emitter');
 
 function partial (container, template, controller, model) {
   container.innerHTML = template(model);
-  state.emit('render', container, model);
+  emitter.emit('render', container, model);
   controller(model);
 }
 

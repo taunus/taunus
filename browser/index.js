@@ -1,11 +1,7 @@
 'use strict';
 
-var contra = require('contra');
-var state = require('./state');
+var emitter = require('./emitter');
 var hooks = require('./hooks');
-var emitter = contra.emitter();
-
-state.emitter = emitter;
 
 hooks.attach();
 
