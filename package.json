@@ -1,6 +1,6 @@
 {
   "name": "taunus",
-  "description": "Micro MVC engine",
+  "description": "Micro Isomorphic MVC Engine",
   "version": "0.1.6",
   "homepage": "https://github.com/bevacqua/taunus",
   "authors": [
