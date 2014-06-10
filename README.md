@@ -76,9 +76,9 @@ Property             | Description                                              
 `viewModel`          | The view model will be extended off of this object             | `{}`
 `views`              | Directory where your view templates live                       | `views`
 `layout`             | The path to the view layout, relative to the views directory   | `__layout`
+`server_routes`      | File path where server routes are located                      | `controllers/routes.js`
 `server_controllers` | Directory where server-side controllers live                   | `controllers`
 `client_controllers` | Directory where client-side controllers live                   | `client/js/controllers`
-`server_routes`      | File path where server routes are located                      | `controllers/routes.js`
 `client_wiring`      | Client routes, templates, and controllers are dumped here by the CLI | `bin/routes.js`
 
 Here is where things get [a little conventional][2]. Your views need to be functions, exported in Common.JS format, like the one shown below. Your views are expected to be functions in Common.JS, and placed in `{root}/{controller}/{action}`.
