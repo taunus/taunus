@@ -10,11 +10,11 @@ function go (url) {
   fetcher(url, next);
 
   function next (res) {
-    var route = router(url);
+    var route = router(url); // TODO comment this and use res.viewModel.action, or something akin, instead
     var model = res.model;
     document.title = model.title;
     navigation(url, model, 'pushState');
-    partial(state.container, route.template, route.controller, model);
+    partial(state.container, route.action, model);
   }
 }
 
@@ -24,8 +24,10 @@ function start (model) {
   navigation(url, model, 'replaceState');
   emitter.emit('start', document.body, model);
   emitter.emit('render', document.body, model);
-  route.controller(model);
 
+  if (route.controller) {
+    route.controller(model, route);
+  }
   window.onpopstate = back;
 }
 
@@ -38,7 +40,7 @@ function back (e) {
   var url = location.pathname;
   var route = router(url);
   navigation(url, model, 'replaceState');
-  partial(state.container, route.template, route.controller, model);
+  partial(state.container, route.action, model);
 }
 
 function navigation (url, model, action) {

@@ -79,7 +79,7 @@ Property             | Description                                              
 `server_controllers` | Directory where server-side controllers live                   | `controllers`
 `client_controllers` | Directory where client-side controllers live                   | `client/js/controllers`
 `server_routes`      | File path where server routes are located                      | `controllers/routes.js`
-`client_routes`      | File path where client routes are dumped by the CLI            | `bin/routes.js`
+`client_wiring`      | Client routes, templates, and controllers are dumped here by the CLI | `bin/routes.js`
 
 Here is where things get [a little conventional][2]. Your views need to be functions, exported in Common.JS format, like the one shown below. Your views are expected to be functions in Common.JS, and placed in `{root}/{controller}/{action}`.
 
@@ -95,40 +95,18 @@ Views are used in both the server-side and the client-side. Of course, it is pos
 
 The client side portion of Taunus comes with a mount point as well. It also exposes an API.
 
-## `.mount(root, routes)`
+## `.mount(root, wiring)`
 
 In Taunus, everything starts at `mount`.
 
 - `root` Element where partials will get rendered. e.g: `document.getElementByID('main')`
-- `routes` An array of route definitions, as explained below
+- `wiring` An object containing routes, templates, and client-side controllers
 
 ```js
-taunus.mount(root, routes);
+taunus.mount(root, wiring);
 ```
 
 The `root` element is expected to have a `data-taunus` attribute whose value is the model that was used by the server to render the partial view the first time around. This model will be parsed and passed to the view controller during the mounting process.
-
-### Route Definitions
-
-**Note that these should typically be generated using the CLI.** Route definitions have a few properties.
-
-- `route` is passed to [`routes`][1] directly, and used to match the URL to a view controller
-- `template` is expected to be a function, and it'll be passed a `model` object
-- `controller` is invoked after the template is rendered, allowing you to bind event listeners and the like
-
-Here's an example _client-side_ route definition.
-
-```js
-{
-  route: '/author/compose',
-  template: function (model) {
-    return '<h1>' + model.title + '</h1>';
-  },
-  controller: function (model) {
-    // controller code
-  }
-}
-```
 
 When the application mounts for the first time, Taunus will find the route that matches `location.pathname`, and execute its controller. The first time around, the server-side is expected to render the partial view template. From that point on, Taunus will take over rendering templates in the client-side. You should've set the initial model properly as well, as explained in `taunus.mount`.
 
@@ -172,34 +150,42 @@ taunus.intercept('home/index', function (params) {
 
 # Command-Line Interface
 
-The `taunus` CLI uses the Taunus configuration to create the client-side routes. The `-o` flag will output the routes to the file indicated in the RC configuration property `client_routes`. When `-o` is omitted, the output is printed to standard out. You can also use the `-w` option to watch for changes.
+The `taunus` CLI uses the Taunus configuration to organize the client-side routes, controllers, and templates into a single file. The `-o` flag will output the routes to the file indicated in the RC configuration property `client_wiring`. When `-o` is omitted, the output is printed to standard out. You can also use the `-w` option to watch for changes.
 
 ```shell
 taunus -o
 ```
 
-Note that, since this will `require` both view templates and client-side controllers, views and routes don't need to be duplicated in code other than what the CLI generates. Below is an example of the output `taunus` generates, based on the routes presented earlier. The `require` statements will be relative to the `client_routes` path.
+Note that, since this will `require` both view templates and client-side controllers, views and routes don't need to be duplicated in code, other than what the CLI generates. Below is an example of the output `taunus` generates, based on the routes presented earlier. The `require` statements will be relative to the `client_wiring` path.
 
 ```js
-module.exports = [{
-  route: "/",
-  template: require("../../views/home/index"),
-  controller: require("../../../client/js/controllers/home/index")
-}, {
-  route: "/author/compose",
-  template: require("../../views/author/compose"),
-  controller: require("../../../client/js/controllers/author/compose")
-}];
+var templates = {
+  'home/index': require("../views/home/index")
+};
+
+var controllers = {
+  'home/index': require("../../client/js/controllers/home/index")
+};
+
+var routes = {
+  '/': 'home/index'
+};
+
+module.exports = {
+  templates: templates,
+  controllers: controllers,
+  routes: routes
+};
 ```
 
-You should now be able to call `taunus.mount` on the client side, passing the auto-generated routes. Example shown below.
+You should now be able to call `taunus.mount` on the client side, passing the auto-generated file. Example shown below.
 
 ```js
 var taunus = require('taunus');
-var routes = require('./routes'); // point at the client-side routes!
+var wiring = require('./wiring'); // point at the client-side auto-generated wiring!
 var root = document.querySelector('.view-container');
 
-taunus.mount(root, routes);
+taunus.mount(root, wiring);
 ```
 
 #### Resolving Module Paths

@@ -9,14 +9,18 @@ function router (url) {
 }
 
 function setup (definitions) {
-  definitions.forEach(define);
+  Object.keys(definitions).forEach(define.bind(null, definitions));
 }
 
-function define (d) {
-  matcher.addRoute(d.route, function definition (match) {
-    d.params = match.params;
-    d.params.args = match.splats;
-    return d;
+function define (definitions, key) {
+  matcher.addRoute(key, function definition (match) {
+    var params = match.params;
+    params.args = match.splats;
+    return {
+      route: key,
+      action: definitions[key],
+      params: params
+    };
   });
 }
 

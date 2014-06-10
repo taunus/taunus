@@ -16,7 +16,7 @@ function output (force) {
   var data = cli.render(force, replacements);
 
   if (standalone || argv.o) {
-    fs.writeFileSync(rc.client_routes, data);
+    fs.writeFileSync(rc.client_wiring, data);
   } else {
     console.log(data);
   }
