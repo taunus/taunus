@@ -31,7 +31,6 @@
     "lodash": "^2.4.1",
     "minimist": "^0.1.0",
     "routes": "^1.1.0",
-    "type-is": "^1.2.1",
     "xhr": "^1.6.1"
   },
   "devDependencies": {
