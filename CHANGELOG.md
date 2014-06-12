@@ -1,3 +1,13 @@
+# v0.1.8 Bug Crusher
+
+Fixes
+
+- Fixed an issue with controllers not running on the client-side
+
+# v0.1.7 Enviroment Activism
+
+- Separated concerns in routing, templating, and controllers in the client-side
+
 # v0.1.6 XML Vulnerability
 
 - Added ability to intercept model requests and return a cached response before they server is queried

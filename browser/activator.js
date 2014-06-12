@@ -25,8 +25,9 @@ function start (model) {
   emitter.emit('start', document.body, model);
   emitter.emit('render', document.body, model);
 
-  if (route.controller) {
-    route.controller(model, route);
+  var controller = state.controllers[route.action];
+  if (controller) {
+    controller(model, route);
   }
   window.onpopstate = back;
 }
