@@ -1,4 +1,4 @@
-# v0.2.0
+# v0.3.0
 
 - Expose partials on the core API in the client-side
 
