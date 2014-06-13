@@ -148,6 +148,14 @@ taunus.intercept('home/index', function (params) {
 });
 ```
 
+## `.partial(container, action, model)`
+
+Allows you to render one of Taunus partials without going through the routing system, on any container that you decide.
+
+```js
+taunus.partial(div, 'partials/footer', { copyright: 2014 });
+```
+
 # Command-Line Interface
 
 The `taunus` CLI uses the Taunus configuration to organize the client-side routes, controllers, and templates into a single file. The `-o` flag will output the routes to the file indicated in the RC configuration property `client_wiring`. When `-o` is omitted, the output is printed to standard out. You can also use the `-w` option to watch for changes.

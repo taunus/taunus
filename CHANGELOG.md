@@ -1,3 +1,7 @@
+# v0.2.0
+
+- Expose partials on the core API in the client-side
+
 # v0.1.10
 
 - Use `'` intead of `"` in auto-generated wiring
