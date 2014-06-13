@@ -29,7 +29,7 @@ function browser () {
   var b = browserify();
   var lib = path.join(__dirname, '../browser/standalone');
   var routes = path.resolve(rc.client_wiring);
-  b.require(routes, { expose: 'embedded-routes' });
+  b.require(routes, { expose: 'embedded-wiring' });
   b.add(lib);
   b.bundle({ standalone: 'taunus' }).pipe(out());
 

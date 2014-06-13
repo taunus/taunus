@@ -1,7 +1,7 @@
 'use strict';
 
-var routes = require('embedded-routes');
+var wiring = require('embedded-wiring');
 var taunus = require('./');
 
-taunus.routes = routes;
+taunus.wiring = wiring;
 module.exports = taunus;

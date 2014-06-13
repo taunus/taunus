@@ -205,7 +205,7 @@ Key                     | Arguments | Description
 
 #### Taunus Standalone, No Browserify
 
-If you don't like Common.JS in your client-side code, you can use the `--standalone path/to/file` option in the `taunus` CLI. Taunus will be available as a global in `window.taunus`. Note that the routes will be made available in `taunus.routes`.
+If you don't like Common.JS in your client-side code, you can use the `--standalone path/to/file` option in the `taunus` CLI. Taunus will be available as a global in `window.taunus`. Note that the wiring will be made available in `taunus.wiring`, and you still have to call `taunus.mount` yourself.
 
 ```shell
 taunus --standalone client/js/vendor/taunus.js -ow
