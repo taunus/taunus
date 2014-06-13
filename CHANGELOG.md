@@ -1,3 +1,7 @@
+# v0.1.10
+
+- Use `'` intead of `"` in auto-generated wiring
+
 # v0.1.9
 
 - Reworded standalone CLI usage

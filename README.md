@@ -160,11 +160,11 @@ Note that, since this will `require` both view templates and client-side control
 
 ```js
 var templates = {
-  'home/index': require("../views/home/index")
+  'home/index': require('../views/home/index')
 };
 
 var controllers = {
-  'home/index': require("../../client/js/controllers/home/index")
+  'home/index': require('../../client/js/controllers/home/index')
 };
 
 var routes = {
