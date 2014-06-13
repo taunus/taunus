@@ -1,3 +1,7 @@
+# v0.1.9
+
+- Reworded standalone CLI usage
+
 # v0.1.8 Bug Crusher
 
 Fixes
