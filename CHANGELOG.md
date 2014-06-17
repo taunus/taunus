@@ -1,3 +1,8 @@
+# v0.3.1
+
+- `res.viewModel.action` allows you to change the view to be rendered
+- If the request has a `.flash` method, then it'll get consumed when generating a response
+
 # v0.3.0
 
 - Expose partials on the core API in the client-side
