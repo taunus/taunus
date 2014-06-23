@@ -1,3 +1,7 @@
+# v0.3.3 Logical Perplexion
+
+- Fixed navigation when clicking links that don't match a route
+
 # v0.3.2 Steady Navigation
 
 - Fixed navigation when clicking links

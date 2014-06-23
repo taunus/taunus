@@ -26,7 +26,7 @@ function reroute (e) {
 function link (e) {
   var url = e.target.pathname;
   var route = router(url);
-  if (route === void 0) {
+  if (!route) {
     return;
   }
   activator.go(url);
