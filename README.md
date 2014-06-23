@@ -138,7 +138,7 @@ Attaches an event listener `cb` that will be executed only in the next `type` ev
 
 Removes the `cb` event listener for `type` events.
 
-## `.intercept(action, cb)`
+## `.intercept(action)`
 
 Interceptors allow you to prevent queries being made to the server-side when a model is requested. If the interceptor returns `undefined` then the request will still be made. Note that there can only be one interceptor per controller action.
 

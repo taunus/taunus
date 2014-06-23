@@ -7,7 +7,7 @@ module.exports = {
   on: function (action, fn) {
     interceptors[action] = fn;
   },
-  intercept: function (url, done) {
+  intercept: function (url) {
     var route = router(url);
     var interceptor = interceptors[route.action];
     if (interceptor) {
