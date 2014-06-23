@@ -1,17 +1,21 @@
-# v0.3.1
+# v0.3.2 Steady Navigation
+
+- Fixed navigation when clicking links
+
+# v0.3.1 Boob Flash
 
 - `res.viewModel.action` allows you to change the view to be rendered
 - If the request has a `.flash` method, then it'll get consumed when generating a response
 
-# v0.3.0
+# v0.3.0 Exposed Parts
 
 - Expose partials on the core API in the client-side
 
-# v0.1.10
+# v0.1.10 Lock Picking
 
 - Use `'` intead of `"` in auto-generated wiring
 
-# v0.1.9
+# v0.1.9 Word Smith
 
 - Reworded standalone CLI usage
 
