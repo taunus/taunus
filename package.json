@@ -1,7 +1,7 @@
 {
   "name": "taunus",
   "description": "Micro Isomorphic MVC Engine",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "homepage": "https://github.com/bevacqua/taunus",
   "authors": [
     "Nicolas Bevacqua <nicolasbevacqua@gmail.com>"
