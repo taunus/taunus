@@ -31,7 +31,7 @@
     "lodash": "^2.4.1",
     "minimist": "^0.1.0",
     "routes": "^1.1.0",
-    "xhr": "^1.6.1"
+    "xhr": "^1.14.1"
   },
   "devDependencies": {
     "jshint": "^2.5.0",
