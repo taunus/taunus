@@ -22,8 +22,8 @@ function start (model) {
   var url = location.pathname;
   var route = router(url);
   navigation(url, model, 'replaceState');
-  emitter.emit('start', document.body, model);
-  emitter.emit('render', document.body, model);
+  emitter.emit('start', state.container, model);
+  emitter.emit('render', state.container, model);
 
   var controller = state.controllers[route.action];
   if (controller) {

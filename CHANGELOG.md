@@ -1,3 +1,7 @@
+# v0.3.5 Contextual Tasting
+
+- Fixed a bug where the initial `start` and `render` events would broadcast the wrong context
+
 # v0.3.3 Logical Perplexion
 
 - Fixed navigation when clicking links that don't match a route
