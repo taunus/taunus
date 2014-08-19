@@ -14,7 +14,7 @@ function go (url) {
     var model = res.model;
     document.title = model.title;
     navigation(url, model, 'pushState');
-    partial(state.container, route.action, model);
+    partial(state.container, route.action, model, route);
   }
 }
 
@@ -41,7 +41,7 @@ function back (e) {
   var url = location.pathname;
   var route = router(url);
   navigation(url, model, 'replaceState');
-  partial(state.container, route.action, model);
+  partial(state.container, route.action, model, route);
 }
 
 function navigation (url, model, action) {

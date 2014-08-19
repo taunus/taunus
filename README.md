@@ -148,13 +148,15 @@ taunus.intercept('home/index', function (params) {
 });
 ```
 
-## `.partial(container, action, model)`
+## `.partial(container, action, model, route?)`
 
 Allows you to render one of Taunus partials without going through the routing system, on any container that you decide.
 
 ```js
 taunus.partial(div, 'partials/footer', { copyright: 2014 });
 ```
+
+The optional `route` parameter will be passed to the controller. This is useful when mocking a request.
 
 # Command-Line Interface
 

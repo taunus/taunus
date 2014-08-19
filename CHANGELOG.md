@@ -1,3 +1,7 @@
+# v0.3.6 Route 66
+
+- Added an optional `route` parameter for internal use
+
 # v0.3.5 Contextual Tasting
 
 - Fixed a bug where the initial `start` and `render` events would broadcast the wrong context
