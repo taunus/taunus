@@ -1,6 +1,7 @@
 'use strict';
 
 var interceptor = require('./interceptor');
+var activator = require('./activator');
 var emitter = require('./emitter');
 var hooks = require('./hooks');
 
@@ -12,5 +13,6 @@ module.exports = {
   on: emitter.on.bind(emitter),
   once: emitter.once.bind(emitter),
   off: emitter.off.bind(emitter),
-  intercept: interceptor.intercept
+  intercept: interceptor.intercept,
+  navigate: activator.go
 };

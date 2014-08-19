@@ -1,6 +1,6 @@
 ![taunus.png][3]
 
-> Micro Isomorphic MVC Engine
+> Micro Isomorphic MVC Engine for Node.js
 
 Taunus aims to simplify the state of MVC and shared rendering. Taunus will handle routing, and allow you to lay out controllers and view templates independently for each view. Each route will query the server, for a model, before rendering its view template.
 
@@ -157,6 +157,12 @@ taunus.partial(div, 'partials/footer', { copyright: 2014 });
 ```
 
 The optional `route` parameter will be passed to the controller. This is useful when mocking a request.
+
+## `.navigate(url)`
+
+You don't always want to navigate to places using anchor links. In order to keep navigation working properly under Taunus, using the history API, and fetching just the model from the server-side, this is the method we want.
+
+This method will look for a `route` matching the provided `url`, fetch the model, render the view, and execute the client-side controller.
 
 # Command-Line Interface
 

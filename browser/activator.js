@@ -10,7 +10,7 @@ function go (url) {
   fetcher(url, next);
 
   function next (res) {
-    var route = router(url); // TODO comment this and use res.viewModel.action, or something akin, instead
+    var route = router(url);
     var model = res.model;
     document.title = model.title;
     navigation(url, model, 'pushState');

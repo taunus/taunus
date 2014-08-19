@@ -1,3 +1,7 @@
+# v0.4.0 High Seas
+
+- Introduced public API method `.navigate(url)`
+
 # v0.3.6 Route 66
 
 - Added an optional `route` parameter for internal use
