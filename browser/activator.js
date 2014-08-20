@@ -14,7 +14,7 @@ function go (url) {
     var model = res.model;
     document.title = model.title;
     navigation(url, model, 'pushState');
-    partial(state.container, route.action, model, route);
+    partial(state.container, model.action || route.action, model, route);
   }
 }
 
@@ -25,7 +25,7 @@ function start (model) {
   emitter.emit('start', state.container, model);
   emitter.emit('render', state.container, model);
 
-  var controller = state.controllers[route.action];
+  var controller = state.controllers[model.action || route.action];
   if (controller) {
     controller(model, route);
   }

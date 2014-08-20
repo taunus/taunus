@@ -1,3 +1,7 @@
+# v0.4.1 Action Figure
+
+- Ability to change the default action through a property in the model
+
 # v0.4.0 High Seas
 
 - Introduced public API method `.navigate(url)`
