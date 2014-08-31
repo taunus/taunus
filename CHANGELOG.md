@@ -1,3 +1,7 @@
+# v0.4.2 Foo Fighters
+
+- Relative paths for convenience
+
 # v0.4.1 Action Figure
 
 - Ability to change the default action through a property in the model
