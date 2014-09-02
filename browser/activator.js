@@ -12,7 +12,6 @@ function go (url) {
   function next (res) {
     var route = router(url);
     var model = res.model;
-    document.title = model.title;
     navigation(url, model, 'pushState');
     partial(state.container, model.action || route.action, model, route);
   }
@@ -45,6 +44,7 @@ function back (e) {
 }
 
 function navigation (url, model, direction) {
+  document.title = model.title;
   history[direction]({ model: model }, model.title, url);
 }
 

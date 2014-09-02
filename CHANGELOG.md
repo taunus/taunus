@@ -1,3 +1,7 @@
+# v0.4.5 Honorary Title
+
+- Fix a bug when navigating backwards where the `document.title` wouldn't be updated
+
 # v0.4.4 Brokeback Mountain
 
 - Fix a bug when navigating backwards to a view that re-routed the action through `model.action`
