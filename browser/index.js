@@ -14,5 +14,6 @@ module.exports = {
   once: emitter.once.bind(emitter),
   off: emitter.off.bind(emitter),
   intercept: interceptor.intercept,
-  navigate: activator.go
+  navigate: activator.go,
+  state: state
 };

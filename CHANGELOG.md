@@ -1,3 +1,7 @@
+# v0.5.0 Statefulness is a Bliss
+
+- Publish `state` on public API
+
 # v0.4.5 Honorary Title
 
 - Fix a bug when navigating backwards where the `document.title` wouldn't be updated
