@@ -1,3 +1,7 @@
+# v0.4.3 User Matters
+
+- `req.user` is automatically copied into `model.user`
+
 # v0.4.2 Foo Fighters
 
 - Relative paths for convenience
