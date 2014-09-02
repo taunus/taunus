@@ -1,5 +1,6 @@
 'use strict';
 
+var state = require('./state');
 var interceptor = require('./interceptor');
 var activator = require('./activator');
 var emitter = require('./emitter');

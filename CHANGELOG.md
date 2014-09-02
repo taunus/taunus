@@ -1,4 +1,4 @@
-# v0.5.0 Statefulness is a Bliss
+# v0.5.1 Statefulness is a Bliss
 
 - Publish `state` on public API
 
