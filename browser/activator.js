@@ -41,11 +41,11 @@ function back (e) {
   var url = location.pathname;
   var route = router(url);
   navigation(url, model, 'replaceState');
-  partial(state.container, route.action, model, route);
+  partial(state.container, model.action || route.action, model, route);
 }
 
-function navigation (url, model, action) {
-  history[action]({ model: model }, model.title, url);
+function navigation (url, model, direction) {
+  history[direction]({ model: model }, model.title, url);
 }
 
 module.exports = {

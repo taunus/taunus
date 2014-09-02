@@ -1,3 +1,7 @@
+# v0.4.4 Brokeback Mountain
+
+- Fix a bug when navigating backwards to a view that re-routed the action through `model.action`
+
 # v0.4.3 User Matters
 
 - `req.user` is automatically copied into `model.user`
