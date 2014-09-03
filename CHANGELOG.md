@@ -1,4 +1,8 @@
-# v0.5.1 Statefulness is a Bliss
+# v0.5.2 Wary Goblin
+
+- Introduced middleware option to modify base view model on a request basis
+
+# v0.5.1 State of the Art
 
 - Publish `state` on public API
 

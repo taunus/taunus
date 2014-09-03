@@ -73,7 +73,7 @@ If you need to use values other than the defaults shown in the table below, then
 
 Property             | Description                                                    | Default
 ---------------------|----------------------------------------------------------------|---------------
-`viewModel`          | The view model will be extended off of this object             | `{}`
+`viewModel`          | The view model will be merged with this object                 | `{}`
 `views`              | Directory where your view templates live                       | `views`
 `layout`             | The path to the view layout, relative to the views directory   | `__layout`
 `server_routes`      | File path where server routes are located                      | `controllers/routes.js`
