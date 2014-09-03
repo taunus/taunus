@@ -1,3 +1,7 @@
+# v0.5.3 Model of the State
+
+- `taunus.state.model` now exposes the current view's model
+
 # v0.5.2 Wary Goblin
 
 - Introduced middleware option to modify base view model on a request basis

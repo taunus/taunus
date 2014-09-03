@@ -45,6 +45,7 @@ function back (e) {
 
 function navigation (url, model, direction) {
   document.title = model.title;
+  state.model = model;
   history[direction]({ model: model }, model.title, url);
 }
 
