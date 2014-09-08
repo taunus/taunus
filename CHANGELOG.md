@@ -1,3 +1,7 @@
+# v0.5.5 Backwards Compatibility
+
+- Navigating through history properly triggers the corresponding scroll towards the route hash, or the top of the document
+
 # v0.5.4 Logic Route
 
 - Improved routing logic so that it remembers `search` and `hash` parts of a URL, while these won't factor into routing itself

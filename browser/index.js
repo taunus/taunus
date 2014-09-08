@@ -5,12 +5,14 @@ var interceptor = require('./interceptor');
 var activator = require('./activator');
 var emitter = require('./emitter');
 var hooks = require('./hooks');
+var partial = require('./partial');
+var mount = require('./mount');
 
 hooks.attach();
 
 module.exports = {
-  mount: require('./mount'),
-  partial: require('./partial'),
+  mount: mount,
+  partial: partial.standalone,
   on: emitter.on.bind(emitter),
   once: emitter.once.bind(emitter),
   off: emitter.off.bind(emitter),

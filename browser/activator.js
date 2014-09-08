@@ -13,19 +13,14 @@ function go (url) {
     var route = router(url);
     var model = res.model;
     navigation(url, model, 'pushState');
-    partial(state.container, model.action || route.action, model, route);
+    partial(state.container, null, model, route);
   }
 }
 
 function start (model) {
   var route = navigate(model);
   emitter.emit('start', state.container, model);
-  emitter.emit('render', state.container, model);
-
-  var controller = state.controllers[model.action || route.action];
-  if (controller) {
-    controller(model, route);
-  }
+  partial(state.container, null, model, route, { render: false });
   window.onpopstate = back;
 }
 
@@ -36,7 +31,7 @@ function back (e) {
   }
   var model = e.state.model;
   var route = navigate(model);
-  partial(state.container, model.action || route.action, model, route);
+  partial(state.container, null, model, route);
 }
 
 function navigate (model) {
