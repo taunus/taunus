@@ -18,9 +18,7 @@ function go (url) {
 }
 
 function start (model) {
-  var url = location.pathname;
-  var route = router(url);
-  navigation(url, model, 'replaceState');
+  var route = navigate(model);
   emitter.emit('start', state.container, model);
   emitter.emit('render', state.container, model);
 
@@ -37,10 +35,16 @@ function back (e) {
     return;
   }
   var model = e.state.model;
-  var url = location.pathname;
-  var route = router(url);
-  navigation(url, model, 'replaceState');
+  var route = navigate(model);
   partial(state.container, model.action || route.action, model, route);
+}
+
+function navigate (model) {
+  var url = location.pathname;
+  var query = location.search + location.hash;
+  var route = router(url);
+  navigation(url + query, model, 'replaceState');
+  return route;
 }
 
 function navigation (url, model, direction) {

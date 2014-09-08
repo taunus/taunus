@@ -1,3 +1,7 @@
+# v0.5.4 Logic Route
+
+- Improved routing logic so that it remembers `search` and `hash` parts of a URL, while these won't factor into routing itself
+
 # v0.5.3 Model of the State
 
 - `taunus.state.model` now exposes the current view's model
