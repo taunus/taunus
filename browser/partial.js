@@ -1,5 +1,6 @@
 'use strict';
 
+var raf = require('raf');
 var state = require('./state');
 var emitter = require('./emitter');
 

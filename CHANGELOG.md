@@ -1,3 +1,7 @@
+# v1.0.3 Rafael
+
+- Fixed a missing reference to `raf`
+
 # v1.0.2 Broken Promises
 
 - Taunus now expects `data-taunus` attributes to match a `<script>` tag containing the view model
