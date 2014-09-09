@@ -1,3 +1,7 @@
+# v1.0.0 Broken Promises
+
+- Taunus now expects `data-taunus` attributes to match a `<script>` tag containing the view model
+
 # v0.5.5 Backwards Compatibility
 
 - Navigating through history properly triggers the corresponding scroll towards the route hash, or the top of the document

@@ -5,11 +5,11 @@ var router = require('./router');
 var activator = require('./activator');
 
 function mount (container, wiring) {
-  var data = container.dataset.taunus;
-  if (!data) {
-    throw new Error('taunus: expected data-taunus attribute missing');
-  }
-  var model = JSON.parse(data);
+  var id, elem, model;
+
+  id = container.dataset.taunus;
+  elem = document.querySelector('script[data-taunus="' + id + '"]');
+  model = JSON.parse(elem.innerText || elem.textContent);
 
   state.container = container;
   state.controllers = wiring.controllers;

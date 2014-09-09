@@ -106,7 +106,7 @@ In Taunus, everything starts at `mount`.
 taunus.mount(root, wiring);
 ```
 
-The `root` element is expected to have a `data-taunus` attribute whose value is the model that was used by the server to render the partial view the first time around. This model will be parsed and passed to the view controller during the mounting process.
+The `root` element is expected to have a `data-taunus` attribute whose value maps to a `<script type='text/x-taunus' data-taunus={{value}}>` tag, containing the model that was used by the server to render the partial view the first time around. This model will be parsed and passed to the view controller during the mounting process.
 
 When the application mounts for the first time, Taunus will find the route that matches `location.pathname`, and execute its controller. The first time around, the server-side is expected to render the partial view template. From that point on, Taunus will take over rendering templates in the client-side. You should've set the initial model properly as well, as explained in `taunus.mount`.
 
