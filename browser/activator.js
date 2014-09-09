@@ -7,12 +7,14 @@ var router = require('./router');
 var state = require('./state');
 
 function go (url, query) {
+  var q = query || '';
+
   fetcher(url, next);
 
   function next (res) {
     var route = router(url);
     var model = res.model;
-    navigation(url + query, model, 'pushState');
+    navigation(url + q, model, 'pushState');
     partial(state.container, null, model, route);
   }
 }
@@ -38,7 +40,8 @@ function navigate (model) {
   var url = location.pathname;
   var query = location.search + location.hash;
   var route = router(url);
-  navigation(url + query, model, 'replaceState');
+  var q = query || '';
+  navigation(url + q, model, 'replaceState');
   return route;
 }
 

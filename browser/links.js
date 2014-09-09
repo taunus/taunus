@@ -26,7 +26,7 @@ function reroute (e) {
 function link (e) {
   var t = e.target;
   var url = t.pathname;
-  var query = t.search + t.hash;
+  var query = '' + t.search + t.hash;
   var route = router(url);
   if (!route) {
     return;
