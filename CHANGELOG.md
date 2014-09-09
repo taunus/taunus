@@ -1,4 +1,4 @@
-# v1.0.1 Broken Promises
+# v1.0.2 Broken Promises
 
 - Taunus now expects `data-taunus` attributes to match a `<script>` tag containing the view model
 
