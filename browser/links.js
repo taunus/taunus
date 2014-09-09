@@ -24,12 +24,14 @@ function reroute (e) {
 }
 
 function link (e) {
-  var url = e.target.pathname;
+  var t = e.target;
+  var url = t.pathname;
+  var query = t.search + t.hash;
   var route = router(url);
   if (!route) {
     return;
   }
-  activator.go(url);
+  activator.go(url, query);
   e.preventDefault();
 }
 

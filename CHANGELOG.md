@@ -1,3 +1,7 @@
+# v1.0.4 Anchor Fighters
+
+- Play nice on links with `href='#...'`
+
 # v1.0.3 Rafael
 
 - Fixed a missing reference to `raf`

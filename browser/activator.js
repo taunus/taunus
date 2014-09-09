@@ -6,13 +6,13 @@ var partial = require('./partial');
 var router = require('./router');
 var state = require('./state');
 
-function go (url) {
+function go (url, query) {
   fetcher(url, next);
 
   function next (res) {
     var route = router(url);
     var model = res.model;
-    navigation(url, model, 'pushState');
+    navigation(url + query, model, 'pushState');
     partial(state.container, null, model, route);
   }
 }
