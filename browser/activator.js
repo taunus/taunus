@@ -38,10 +38,9 @@ function back (e) {
 
 function navigate (model) {
   var url = location.pathname;
-  var query = location.search + location.hash;
+  var query = '' + location.search + location.hash;
   var route = router(url);
-  var q = query || '';
-  navigation(url + q, model, 'replaceState');
+  navigation(url + query, model, 'replaceState');
   return route;
 }
 

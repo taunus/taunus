@@ -1,4 +1,4 @@
-# v1.0.5 Anchor Fighters
+# v1.0.6 Anchor Fighters
 
 - Play nice on links with `href='#...'`
 
