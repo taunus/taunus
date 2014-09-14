@@ -17,13 +17,13 @@ Taunus aims to simplify the state of MVC and shared rendering. Taunus will handl
 
 Currently, the server-side aspect of Taunus only exposes a single method, the mount point.
 
-## `.mount(app, routes, options?)`
+## `.mount(app, routes, options)`
 
 Taunus comes with a mount point for the server-side, as well.
 
 - `app` should be a `connect` or `express` application
 - `routes` is used to configure routing, see below
-- `options` allows you to customize Taunus. This is optional
+- `options` allows you to customize Taunus.
 
 The mount point will register each route, and configure them to return HTML or JSON according to the `accept` header. If HTML is expected, then the template will be rendered server-side, and surrounded with a layout. If JSON is expected, the view model is passed to the response as-is, and no rendering occurs on the server-side.
 
@@ -48,10 +48,11 @@ These routes can also be used to generate the routes used by the client-side. Th
 
 ### `options`
 
-Options is an optional object. You can provide a `resolvers` property to change the default lookups in Taunus.
+Within the options you must provide a `layout` function. This function will be passed a model and it should use that model to render the full layout. You can provide a `resolvers` property to change the default lookups in Taunus.
 
 ```js
 {
+  layout: fn,
   resolvers: {
     getControllerActionPath: function (action) {
       // return path to controller action module
