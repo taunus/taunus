@@ -6,10 +6,11 @@ var partial = require('./partial');
 var router = require('./router');
 var state = require('./state');
 
-function go (url, query) {
+function go (url, query, options) {
+  var context = options && options.context || null;
   var q = query || '';
 
-  fetcher(url, next);
+  fetcher(url, context, next);
 
   function next (res) {
     var route = router(url);

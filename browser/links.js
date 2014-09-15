@@ -31,7 +31,7 @@ function link (e) {
   if (!route) {
     return;
   }
-  activator.go(url, query);
+  activator.go(url, { context: e.target }, query);
   e.preventDefault();
 }
 

@@ -1,3 +1,7 @@
+# v1.2.0 Switcheroo
+
+- Moved around arguments for `'error'` event
+
 # v1.1.1 Silent Killer
 
 - Event emitter no longer throws on errors
