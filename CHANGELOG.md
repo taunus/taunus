@@ -1,4 +1,4 @@
-# v1.2.0 Switcheroo
+# v1.2.1 Switcheroo
 
 - Moved around arguments for `'error'` event
 
