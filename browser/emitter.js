@@ -2,4 +2,4 @@
 
 var emitter = require('contra.emitter');
 
-module.exports = emitter();
+module.exports = emitter({}, { throws: false });

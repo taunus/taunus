@@ -1,3 +1,7 @@
+# v1.1.1 Silent Killer
+
+- Event emitter no longer throws on errors
+
 # v1.1.0 Renderist
 
 - Renders views using `function(model)` on the server-side as well
