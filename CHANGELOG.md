@@ -1,3 +1,7 @@
+# v1.4.0 Responsive Design
+
+- Implemented public API method that allows generating a response using the Taunus API
+
 # v1.3.0 Ion Drive
 
 - Browser support when `history` API is missing

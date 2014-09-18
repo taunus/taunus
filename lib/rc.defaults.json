@@ -1,6 +1,5 @@
 {
   "views": "views",
-  "layout": "__layout",
   "server_routes": "controllers/routes.js",
   "server_controllers": "controllers",
   "client_controllers": "client/js/controllers",

@@ -8,7 +8,7 @@ var activator = require('./activator');
 function mount (container, wiring) {
   var id, elem, model;
 
-  id = container.dataset.taunus;
+  id = container.getAttribute('data-taunus');
   elem = document.querySelector('script[data-taunus="' + id + '"]');
   model = JSON.parse(unescape(elem.innerText || elem.textContent));
 
