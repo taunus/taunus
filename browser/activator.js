@@ -5,8 +5,12 @@ var fetcher = require('./fetcher');
 var partial = require('./partial');
 var router = require('./router');
 var state = require('./state');
+var modern = 'history' in window && 'pushState' in history;
 
 function go (url, query, options) {
+  if (!modern) {
+    location.href = url + query;
+  }
   var context = options && options.context || null;
   var q = query || '';
 

@@ -13,8 +13,8 @@ function positioning () {
   if (!target) {
     target = document.documentElement;
   }
-  raf(focus);
-  function focus () {
+  raf(focusin);
+  function focusin () {
     target.scrollIntoView();
   }
 }

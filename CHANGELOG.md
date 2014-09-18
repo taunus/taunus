@@ -1,3 +1,7 @@
+# v1.3.0 Ion Drive
+
+- Browser support when `history` API is missing
+
 # v1.2.2 Switcheroo
 
 - Moved around arguments for `'error'` event
