@@ -1,4 +1,4 @@
-# v1.4.1 Fancy Treat
+# v1.4.2 Fancy Treat
 
 - Introduced ability to set response status code in model
 
