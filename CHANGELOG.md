@@ -1,3 +1,7 @@
+# v1.4.5 Shy Shoulder
+
+- Fix a bug where links wouldn't be ajax-enhanced
+
 # v1.4.4 Sankara Stones
 
 - Introduced `skip` to skip over view routes in certain situations
