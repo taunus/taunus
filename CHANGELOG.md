@@ -1,3 +1,7 @@
+# v1.4.1 Fancy Treat
+
+- Introduced ability to set response status code in model
+
 # v1.4.0 Responsive Design
 
 - Implemented public API method that allows generating a response using the Taunus API
