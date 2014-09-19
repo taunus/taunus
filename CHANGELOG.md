@@ -1,3 +1,7 @@
+# v1.4.4 Sankara Stones
+
+- Introduced `skip` to skip over view routes in certain situations
+
 # v1.4.3 Dividing Line
 
 - Added `ignore` option to allow routes that go straight to the server
