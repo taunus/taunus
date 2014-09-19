@@ -28,10 +28,10 @@ function link (e) {
   var url = t.pathname;
   var query = '' + t.search + t.hash;
   var route = router(url);
-  if (!route) {
+  if (!route || route.ignore) {
     return;
   }
-  activator.go(url, query, { context: e.target });
+  activator.go(url, query, options);
   e.preventDefault();
 }
 

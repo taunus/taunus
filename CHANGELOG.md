@@ -1,3 +1,7 @@
+# v1.4.3 Dividing Line
+
+- Added `ignore` option to allow routes that go straight to the server
+
 # v1.4.2 Fancy Treat
 
 - Introduced ability to set response status code in model
