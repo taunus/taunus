@@ -52,7 +52,9 @@ function navigate (model) {
 function navigation (url, model, direction) {
   document.title = model.title;
   state.model = model;
-  history[direction]({ model: model }, model.title, url);
+  if (modern) {
+    history[direction]({ model: model }, model.title, url);
+  }
 }
 
 module.exports = {

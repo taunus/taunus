@@ -21,11 +21,10 @@ function positioning () {
 
 function partial (container, enforcedAction, model, route, options) {
   var action = enforcedAction || model && model.action || route && route.action;
-  var template = state.templates[action];
   var controller = state.controllers[action];
   var internals = options || {};
   if (internals.render !== false) {
-    container.innerHTML = template(model);
+    container.innerHTML = render(action, model);
     if (internals.routed !== false) {
       positioning();
     }
@@ -33,6 +32,15 @@ function partial (container, enforcedAction, model, route, options) {
   emitter.emit('render', container, model);
   if (controller) {
     controller(model, route);
+  }
+}
+
+function render (action, model) {
+  var template = state.templates[action];
+  try {
+    return template(model);
+  } catch (e) {
+    throw new Error('Error rendering "' + action + '" template', e);
   }
 }
 

@@ -1,3 +1,9 @@
+# v1.4.6 Skeptic Magician
+
+- Fix a bug in browsers without history API
+- Prevent `.mount` to be called more than once in the client-side
+- Friendly error message if view rendering fails
+
 # v1.4.5 Shy Shoulder
 
 - Fix a bug where links wouldn't be ajax-enhanced

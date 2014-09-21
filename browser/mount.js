@@ -4,9 +4,15 @@ var unescape = require('lodash.unescape');
 var state = require('./state');
 var router = require('./router');
 var activator = require('./activator');
+var mounted;
 
 function mount (container, wiring) {
   var id, elem, model;
+
+  if (mounted) {
+    throw new Error('Taunus already mounted!');
+  }
+  mounted = true;
 
   id = container.getAttribute('data-taunus');
   elem = document.querySelector('script[data-taunus="' + id + '"]');
