@@ -40,7 +40,7 @@ function render (action, model) {
   try {
     return template(model);
   } catch (e) {
-    throw new Error('Error rendering "' + action + '" template', e);
+    throw new Error('Error rendering "' + action + '" template\n' + e.stack);
   }
 }
 

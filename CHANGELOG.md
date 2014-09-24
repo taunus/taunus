@@ -1,3 +1,7 @@
+# v1.4.7 Sleepy Hollow
+
+- Print the stack trace of captured template rendering errors
+
 # v1.4.6 Skeptic Magician
 
 - Fix a bug in browsers without history API
