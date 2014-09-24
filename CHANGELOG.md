@@ -1,3 +1,7 @@
+# v1.4.8 Hollow Point
+
+- Anchor links containing `<span>` or any other child elements that may be event targets now get hijacked as well
+
 # v1.4.7 Sleepy Hollow
 
 - Print the stack trace of captured template rendering errors

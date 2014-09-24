@@ -9,29 +9,39 @@ function links () {
   document.body.addEventListener('click', reroute);
 }
 
-function so (a) {
-  return a.origin === origin;
+function so (anchor) {
+  return anchor.origin === origin;
 }
 
-function leftClickOnLink (e) {
-  return e.target.pathname && e.which === leftClick && !e.metaKey && !e.ctrlKey;
+function leftClickOnAnchor (e, anchor) {
+  return anchor.pathname && e.which === leftClick && !e.metaKey && !e.ctrlKey;
 }
 
-function reroute (e) {
-  if (so(e.target) && leftClickOnLink(e)) {
-    link(e);
+function targetOrAnchor (e) {
+  var anchor = e.target;
+  while (anchor) {
+    if (anchor.tagName === 'A') {
+      return anchor;
+    }
+    anchor = anchor.parentElement;
   }
 }
 
-function link (e) {
-  var t = e.target;
-  var url = t.pathname;
-  var query = '' + t.search + t.hash;
+function reroute (e) {
+  var anchor = targetOrAnchor(e);
+  if (anchor && so(anchor) && leftClickOnAnchor(e, anchor)) {
+    link(e, anchor);
+  }
+}
+
+function link (e, anchor) {
+  var url = anchor.pathname;
+  var query = '' + anchor.search + anchor.hash;
   var route = router(url);
   if (!route || route.ignore) {
     return;
   }
-  activator.go(url, query, { context: e.target });
+  activator.go(url, query, { context: anchor });
   e.preventDefault();
 }
 
