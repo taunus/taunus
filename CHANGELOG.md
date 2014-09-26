@@ -1,3 +1,7 @@
+# v1.4.9 Ancient Browsing
+
+- Fix a bug where old browsers would change the `location.href` and execute AJAX code afterwards
+
 # v1.4.8 Hollow Point
 
 - Anchor links containing `<span>` or any other child elements that may be event targets now get hijacked as well

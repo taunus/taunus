@@ -9,7 +9,7 @@ var modern = 'history' in window && 'pushState' in history;
 
 function go (url, query, options) {
   if (!modern) {
-    location.href = url + query;
+    location.href = url + query; return;
   }
   var context = options && options.context || null;
   var q = query || '';
