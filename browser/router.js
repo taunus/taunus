@@ -18,8 +18,9 @@ function define (definitions, key) {
     params.args = match.splats;
     return {
       route: key,
-      action: definitions[key],
-      params: params
+      params: params,
+      action: definitions[key].action || null,
+      ignore: definitions[key].ignore
     };
   });
 }
