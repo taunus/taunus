@@ -1,4 +1,4 @@
-# v1.4.9 Ancient Browsing
+# v1.4.10 Ancient Browsing
 
 - Fix a bug where old browsers would change the `location.href` and execute AJAX code afterwards
 - Fix a bug where `ignore` wouldn't be propagated by the CLI to client-side routes
