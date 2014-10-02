@@ -1,3 +1,7 @@
+# v1.5.0 Cache Machine
+
+- Introduced server-side view caching, setting `ETag`, `Vary`, and `cache-control` HTTP headers
+
 # v1.4.10 Ancient Browsing
 
 - Fix a bug where old browsers would change the `location.href` and execute AJAX code afterwards
