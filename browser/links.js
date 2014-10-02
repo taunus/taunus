@@ -36,12 +36,15 @@ function reroute (e) {
 
 function link (e, anchor) {
   var url = anchor.pathname;
-  var query = '' + anchor.search + anchor.hash;
   var route = router(url);
   if (!route || route.ignore) {
     return;
   }
-  activator.go(url, query, { context: anchor });
+  activator.go(url, {
+    context: anchor,
+    query: anchor.search,
+    hash: anchor.hash
+  });
   e.preventDefault();
 }
 

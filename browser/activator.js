@@ -7,19 +7,25 @@ var router = require('./router');
 var state = require('./state');
 var modern = 'history' in window && 'pushState' in history;
 
-function go (url, query, options) {
-  if (!modern) {
-    location.href = url + query; return;
-  }
-  var context = options && options.context || null;
-  var q = query || '';
+function go (url, o) {
+  var options = o || {};
+  var context = options.context || null;
+  var q = options.query || '';
+  var s = options.search || '';
 
-  fetcher(url, context, next);
+  if (!modern) {
+    location.href = url + q; return;
+  }
+  fetcher(url + jsonify(q), context, next);
+
+  function jsonify (q) {
+    return (q ? q + '&' : '?') + 'json';
+  }
 
   function next (res) {
     var route = router(url);
     var model = res.model;
-    navigation(url + q, model, 'pushState');
+    navigation(url + q + s, model, 'pushState');
     partial(state.container, null, model, route);
   }
 }

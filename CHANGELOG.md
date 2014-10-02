@@ -1,3 +1,7 @@
+# v1.5.1 Cache Negotiation
+
+- Use a different URL when hijacking AJAX requests so that browsers properly cache JSON vs HTML
+
 # v1.5.0 Cache Machine
 
 - Introduced server-side view caching, setting `ETag`, `Vary`, and `cache-control` HTTP headers
