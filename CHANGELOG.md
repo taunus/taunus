@@ -1,4 +1,4 @@
-# v1.6.1 Golf Cart
+# v1.6.2 Golf Cart
 
 - Default view model no longer request-based, more memory efficient
 
