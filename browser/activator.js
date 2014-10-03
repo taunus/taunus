@@ -16,15 +16,15 @@ function go (url, o) {
   if (!modern) {
     location.href = url + q; return;
   }
-  fetcher(url + jsonify(q), context, next);
+  fetcher(url + jsonify(q), context, resolved);
 
   function jsonify (q) {
     return (q ? q + '&' : '?') + 'json';
   }
 
-  function next (res) {
+  function resolved (data) {
     var route = router(url);
-    var model = res.model;
+    var model = data.model;
     navigation(url + q + s, model, 'pushState');
     partial(state.container, null, model, route);
   }

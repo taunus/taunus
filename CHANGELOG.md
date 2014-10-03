@@ -1,3 +1,7 @@
+# v1.6.0
+
+- Default view model no longer request-based, more memory efficient
+
 # v1.5.1 Cache Negotiation
 
 - Use a different URL when hijacking AJAX requests so that browsers properly cache JSON vs HTML
