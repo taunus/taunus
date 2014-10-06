@@ -1,3 +1,7 @@
+# v1.6.4 Crash Course
+
+- Changed caching model to `private, must-revalidate`, and set `max-age` to a day
+
 # v1.6.3 Golf Cart
 
 - Default view model no longer request-based, more memory efficient
