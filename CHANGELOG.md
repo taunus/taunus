@@ -1,6 +1,7 @@
 # v1.6.5 Cat Food
 
 - Fixed an issue with links being reloaded
+- Fixed an issue when navigating backwards
 
 # v1.6.4 Crash Course
 
