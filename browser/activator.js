@@ -7,10 +7,7 @@ var router = require('./router');
 var state = require('./state');
 var modern = 'history' in window && 'pushState' in history;
 
-console.log('modern', modern);
-
 function go (url, o) {
-  console.log('go', url);
   var options = o || {};
   var context = options.context || null;
   var q = options.query || '';
@@ -34,7 +31,6 @@ function go (url, o) {
 }
 
 function start (model) {
-  console.log('start', model);
   var route = navigate(model);
   emitter.emit('start', state.container, model);
   partial(state.container, null, model, route, { render: false });
@@ -52,7 +48,6 @@ function back (e) {
 }
 
 function navigate (model) {
-  console.log('navigate', model);
   var url = location.pathname;
   var query = '' + location.search + location.hash;
   var route = router(url);

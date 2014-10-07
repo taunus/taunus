@@ -1,4 +1,4 @@
-# v1.6.5 Cat Food
+# v1.6.6 Cat Food
 
 - Fixed an issue with links being reloaded
 - Fixed an issue when navigating backwards
