@@ -38,7 +38,7 @@ function start (model) {
 }
 
 function back (e) {
-  var empty = !(e || e.state || e.state.model);
+  var empty = !(e && e.state && e.state.model);
   if (empty) {
     return;
   }

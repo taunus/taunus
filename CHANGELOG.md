@@ -1,3 +1,7 @@
+# v1.6.5 Cat Food
+
+- Fixed an issue with links being reloaded
+
 # v1.6.4 Crash Course
 
 - Changed caching model to `private, must-revalidate`, and set `max-age` to a day

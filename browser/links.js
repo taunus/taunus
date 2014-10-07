@@ -36,6 +36,9 @@ function reroute (e) {
 
 function link (e, anchor) {
   var url = anchor.pathname;
+  if (url === location.pathname) {
+    return;
+  }
   var route = router(url);
   if (!route || route.ignore) {
     return;
