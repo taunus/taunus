@@ -35,6 +35,7 @@ function reroute (e) {
 }
 
 function link (e, anchor) {
+  console.log('link', anchor);
   var url = anchor.pathname;
   if (url === location.pathname) {
     return;
