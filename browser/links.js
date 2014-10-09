@@ -35,10 +35,18 @@ function reroute (e) {
   }
 }
 
+function scrollInto (id) {
+  var elem = document.getElementById(id);
+  if (elem && elem.scrollIntoView) {
+    elem.scrollIntoView();
+  }
+}
+
 function link (e, anchor) {
   var url = anchor.pathname;
-  if (url === location.pathname && anchor.hash) {
+  if (url === location.pathname && anchor.hash) { // hash navigation under same page ignores router
     if (anchor.hash === location.hash) {
+      scrollInto(anchor.hash.substr(1));
       e.preventDefault();
     }
     return;

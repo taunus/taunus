@@ -1,3 +1,7 @@
+# v1.6.18 Hollow Point
+
+- Fixed an issue when navigating to hashes
+
 # v1.6.8 Cat Food
 
 - Fixed an issue with links being reloaded
