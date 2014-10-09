@@ -18,7 +18,7 @@ var extras = /toString|(function).*?(?=\\\()| for .+?(?=\\\])/g;
 // Compile a regexp using a common native method as a template.
 // We chose `Object#toString` because there's a good chance it is not being mucked with.
 var fnString = String(toString).replace(specials, '\\$&').replace(extras, '$1.*?');
-var reNative = RegExp('^' + fnString + '$');
+var reNative = new RegExp('^' + fnString + '$');
 
 function isNative (value) {
   var type = typeof value;
