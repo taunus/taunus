@@ -31,10 +31,10 @@ function go (url, o) {
 }
 
 function start (model) {
-  var route = replaceWith(model);
+  // var route = replaceWith(model);
   emitter.emit('start', state.container, model);
-  partial(state.container, null, model, route, { render: false });
-  window.onpopstate = back;
+  // partial(state.container, null, model, route, { render: false });
+  // window.onpopstate = back;
 }
 
 function back (e) {
