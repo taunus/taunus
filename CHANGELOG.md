@@ -1,4 +1,4 @@
-# v1.6.18 Hollow Point
+# v1.6.19 Hollow Point
 
 - Fixed an issue when navigating to hashes
 

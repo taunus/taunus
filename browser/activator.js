@@ -5,7 +5,9 @@ var fetcher = require('./fetcher');
 var partial = require('./partial');
 var router = require('./router');
 var state = require('./state');
+var isNative = require('./isNative');
 var modern = 'history' in window && 'pushState' in history;
+var nativeReplace = modern && isNative(window.history.replaceState);
 
 function go (url, o) {
   var options = o || {};
@@ -58,7 +60,7 @@ function replaceWith (model) {
 function navigation (url, model, direction) {
   document.title = model.title;
   state.model = model;
-  if (modern) {
+  if (modern && direction !== 'replaceState' || nativeReplace) {
     history[direction]({ model: model }, model.title, url);
   }
 }
