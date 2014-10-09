@@ -7,6 +7,8 @@ var router = require('./router');
 var state = require('./state');
 var isNative = require('./isNative');
 var modern = 'history' in window && 'pushState' in history;
+
+// Google Chrome 38 on iOS makes weird changes to history.replaceState, breaking it
 var nativeReplace = modern && isNative(window.history.replaceState);
 
 function go (url, o) {
