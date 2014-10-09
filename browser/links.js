@@ -2,11 +2,12 @@
 
 var router = require('./router');
 var activator = require('./activator');
+var events = require('./events');
 var origin = document.location.origin;
 var leftClick = 1;
 
 function links () {
-  document.body.addEventListener('click', reroute);
+  events.add(document.body, 'click', reroute);
 }
 
 function so (anchor) {

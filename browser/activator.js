@@ -31,7 +31,7 @@ function go (url, o) {
 }
 
 function start (model) {
-  var route = navigate(model);
+  var route = replaceWith(model);
   emitter.emit('start', state.container, model);
   partial(state.container, null, model, route, { render: false });
   window.onpopstate = back;
@@ -43,11 +43,11 @@ function back (e) {
     return;
   }
   var model = e.state.model;
-  var route = navigate(model);
+  var route = replaceWith(model);
   partial(state.container, null, model, route);
 }
 
-function navigate (model) {
+function replaceWith (model) {
   var url = location.pathname;
   var query = '' + location.search + location.hash;
   var route = router(url);

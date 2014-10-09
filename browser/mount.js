@@ -24,7 +24,8 @@ function mount (container, wiring) {
   state.routes = wiring.routes;
 
   router.setup(wiring.routes);
-  activator.start(model);
+  // activator.start(model);
+  require('./links')();
 }
 
 module.exports = mount;
