@@ -1,4 +1,4 @@
-# v1.7.0 Slave Driver
+# v1.7.1 Slave Driver
 
 - Add ability to rebuild default view model at a later point in time
 
