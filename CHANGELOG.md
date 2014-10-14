@@ -1,3 +1,7 @@
+# v1.6.21 Early Bird
+
+Wait for `defaults` to become available before serving any responses
+
 # v1.6.20 Negotiator
 
 - Use `accepts` for content negotiation
