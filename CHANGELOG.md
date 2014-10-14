@@ -1,3 +1,7 @@
+# v1.6.20 Negotiator
+
+- Use `accepts` for content negotiation
+
 # v1.6.19 Hollow Point
 
 - Fixed an issue when navigating to hashes

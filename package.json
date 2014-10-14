@@ -1,7 +1,7 @@
 {
   "name": "taunus",
   "description": "Micro Isomorphic MVC Engine for Node.js",
-  "version": "1.6.19",
+  "version": "1.6.20",
   "homepage": "https://github.com/bevacqua/taunus",
   "authors": [
     "Nicolas Bevacqua <nicolasbevacqua@gmail.com>"
@@ -24,6 +24,7 @@
     "test": "npm run lint"
   },
   "dependencies": {
+    "accepts": "^1.1.1",
     "browserify": "^4.1.5",
     "chalk": "^0.4.0",
     "chokidar": "^0.8.2",
