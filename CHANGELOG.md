@@ -1,3 +1,7 @@
+# v1.7.0 Slave Driver
+
+- Add ability to rebuild default view model at a later point in time
+
 # v1.6.21 Early Bird
 
 Wait for `defaults` to become available before serving any responses
