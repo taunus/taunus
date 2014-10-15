@@ -1,3 +1,7 @@
+# v1.7.2 Cache Driver
+
+- Changed `max-age` to only 1 hour
+
 # v1.7.1 Slave Driver
 
 - Add ability to rebuild default view model at a later point in time
