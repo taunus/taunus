@@ -1,3 +1,7 @@
+# v1.7.3 Cache Driver
+
+- A `max-age=0` header prevents stale content from never being refreshed
+
 # v1.7.2 Cache Driver
 
 - Changed `max-age` to only 1 hour
