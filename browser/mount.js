@@ -1,6 +1,6 @@
 'use strict';
 
-var unescape = require('lodash.unescape');
+var unescape = require('./unescape');
 var state = require('./state');
 var router = require('./router');
 var activator = require('./activator');

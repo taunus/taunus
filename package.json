@@ -1,7 +1,7 @@
 {
   "name": "taunus",
   "description": "Micro Isomorphic MVC Engine for Node.js",
-  "version": "1.7.3",
+  "version": "1.7.4",
   "homepage": "https://github.com/bevacqua/taunus",
   "authors": [
     "Nicolas Bevacqua <nicolasbevacqua@gmail.com>"
@@ -30,7 +30,6 @@
     "chokidar": "^0.8.2",
     "contra.emitter": "^1.0.0",
     "lodash": "^2.4.1",
-    "lodash.unescape": "^2.4.1",
     "minimist": "^0.1.0",
     "raf": "^2.0.3",
     "routes": "^1.1.0",
