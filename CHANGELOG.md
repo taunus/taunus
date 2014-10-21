@@ -1,3 +1,7 @@
+# v1.7.4 Dependency Hoarder
+
+- Removed dependency on `lodash.unescape`
+
 # v1.7.3 Cache Driver
 
 - A `max-age=0` header prevents stale content from never being refreshed
