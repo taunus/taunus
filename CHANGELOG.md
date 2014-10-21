@@ -1,4 +1,4 @@
-# v1.7.4 Dependency Hoarder
+# v1.7.5 Dependency Hoarder
 
 - Removed dependency on `lodash.unescape`
 

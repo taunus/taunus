@@ -6,7 +6,7 @@ var htmlUnescapes = {
   '&lt;': '<',
   '&gt;': '>',
   '&quot;': '"',
-  '&#39;': "'",
+  '&#39;': '\'',
   '&#96;': '`'
 };
 
@@ -15,8 +15,8 @@ function unescapeHtmlChar (c) {
 }
 
 function unescape (input) {
-  var data = string == null ? '' : String(input);
-  if (data && (reEscapedHtml.lastIndex = 0, reEscapedHtml.test(data)) {
+  var data = input == null ? '' : String(input);
+  if (data && (reEscapedHtml.lastIndex = 0, reEscapedHtml.test(data))) {
     return data.replace(reEscapedHtml, unescapeHtmlChar);
   }
   return data;
