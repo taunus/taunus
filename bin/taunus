@@ -45,7 +45,7 @@ function browser () {
 function watch () {
   var chokidar = require('chokidar');
   var location = path.resolve(rc.server_routes);
-  var watcher = chokidar.watch(rc.server_routes, { persistent: true });
+  var watcher = chokidar.watch(location, { persistent: true });
 
   console.log(chalk.yellow('taunus: watching...'));
 
