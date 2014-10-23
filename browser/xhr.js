@@ -9,7 +9,7 @@ module.exports = function (url, context, done) {
     json: true,
     headers: { Accept: 'application/json' }
   };
-  xhr(options, handle);
+  return xhr(options, handle);
 
   function handle (err, res, body) {
     if (err) {
@@ -18,5 +18,4 @@ module.exports = function (url, context, done) {
       done(body);
     }
   }
-
 };

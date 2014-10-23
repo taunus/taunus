@@ -1,3 +1,7 @@
+# v1.7.6 Refund
+
+- Requesting a new page provokes Taunus to `.abort` the request currently being made
+
 # v1.7.5 Dependency Hoarder
 
 - Removed dependency on `lodash.unescape`
