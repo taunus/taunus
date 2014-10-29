@@ -1,4 +1,4 @@
-# v1.8.1 Defer All The Things
+# v1.8.2 Defer All The Things
 
 - Model is now expected to load asynchronously via `taunusReady` global
 - Introduced `jsonp` support
