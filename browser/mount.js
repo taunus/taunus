@@ -15,10 +15,10 @@ function mount (container, wiring) {
   mounted = true;
 
   // handle race condition gracefully.
-  if (typeof w.taunusReady === 'function') {
-    w.taunusReady = boot;
-  } else {
+  if (w.taunusReady && typeof w.taunusReady === 'object') {
     boot(w.taunusReady);
+  } else {
+    w.taunusReady = boot;
   }
 
   function boot (model) {

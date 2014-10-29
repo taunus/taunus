@@ -19,7 +19,7 @@ Currently, the server-side aspect of Taunus only exposes a single method, the mo
 
 ## `.mount(app, routes, options)`
 
-Taunus comes with a mount point for the server-side, as well.
+Taunus comes with a mount point for the server-side.
 
 - `app` should be a `connect` or `express` application
 - `routes` is used to configure routing, see below
@@ -108,6 +108,28 @@ taunus.mount(root, wiring);
 ```
 
 The `root` element is expected to have a `data-taunus` attribute whose value maps to a `<script type='text/x-taunus' data-taunus={{value}}>` tag, containing the model that was used by the server to render the partial view the first time around. This model will be parsed and passed to the view controller during the mounting process.
+
+Before invoking `taunus.mount` your application is expected to configure `window.taunusReady`. You can set `window.taunusReady` to an object, in which case Taunus will immediately initialize it's client-side engine when `.mount` is invoked. If `taunusReady` isn't set to an object by the time `taunus.mount` is invoked, it'll be assigned a special function that you can invoke later on with the base model, when it's ready. This enables you to do asynchronous calls to fetch the model, rather than embedding it in the server-side rendered view.
+
+Here's the two alternatives.
+
+```js
+taunusReady = {
+  title: 'Foo',
+  tags: ['foo', 'bar', 'baz'],
+  nonce: 1249283
+};
+taunus.mount(root, wiring);
+```
+
+```js
+taunus.mount(root, wiring);
+taunusReady({
+  title: 'Foo',
+  tags: ['foo', 'bar', 'baz'],
+  nonce: 1249283
+});
+```
 
 When the application mounts for the first time, Taunus will find the route that matches `location.pathname`, and execute its controller. The first time around, the server-side is expected to render the partial view template. From that point on, Taunus will take over rendering templates in the client-side. You should've set the initial model properly as well, as explained in `taunus.mount`.
 

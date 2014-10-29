@@ -1,6 +1,8 @@
 # v1.8.0 Defer All The Things
 
 - Model is now expected to load asynchronously via `taunusReady` global
+- Introduced `jsonp` support
+- Reduced amount of data transferred over JSON
 
 # v1.7.6 Refund
 
