@@ -1,3 +1,7 @@
+# v1.8.0 Defer All The Things
+
+- Model is now expected to load asynchronously via `taunusReady` global
+
 # v1.7.6 Refund
 
 - Requesting a new page provokes Taunus to `.abort` the request currently being made

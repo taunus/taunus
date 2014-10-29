@@ -26,9 +26,8 @@ function go (url, o) {
     return (q ? q + '&' : '?') + 'json';
   }
 
-  function resolved (data) {
+  function resolved (model) {
     var route = router(url);
-    var model = data.model;
     navigation(url + q + s, model, 'pushState');
     partial(state.container, null, model, route);
   }

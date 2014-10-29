@@ -4,27 +4,39 @@ var unescape = require('./unescape');
 var state = require('./state');
 var router = require('./router');
 var activator = require('./activator');
+var w = window;
 var mounted;
+var booted;
 
 function mount (container, wiring) {
-  var id, elem, model;
-
   if (mounted) {
     throw new Error('Taunus already mounted!');
   }
   mounted = true;
 
-  id = container.getAttribute('data-taunus');
-  elem = document.querySelector('script[data-taunus="' + id + '"]');
-  model = JSON.parse(unescape(elem.innerText || elem.textContent));
+  // handle race condition gracefully.
+  if (typeof w.taunusReady === 'function') {
+    w.taunusReady = boot;
+  } else {
+    boot(w.taunusReady);
+  }
 
-  state.container = container;
-  state.controllers = wiring.controllers;
-  state.templates = wiring.templates;
-  state.routes = wiring.routes;
+  function boot (model) {
+    if (booted) {
+      return;
+    }
+    if (!model) {
+      throw new Error('Taunus model must not be falsy!');
+    }
+    booted = true;
+    state.container = container;
+    state.controllers = wiring.controllers;
+    state.templates = wiring.templates;
+    state.routes = wiring.routes;
 
-  router.setup(wiring.routes);
-  activator.start(model);
+    router.setup(wiring.routes);
+    activator.start(model);
+  }
 }
 
 module.exports = mount;
