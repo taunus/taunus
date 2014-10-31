@@ -141,11 +141,14 @@ Anchor links are analyzed and matched to a route definition. If a route matches 
 
 Taunus gets exported as a full-featured event emitter. It emits signals during the events listed below.
 
-Event      | Arguments                   | Description
------------|-----------------------------|---------------
-`'start'`  | `container, model`          | Emitted on page load (for `document.body`). Listen to this event before calling `app.mount`
-`'render'` | `container, model`          | Emitted on page load (for `document.body`), and also whenever a partial gets rendered
-`'fetch.error'`  |  err, origin, context`      | Emitted whenever an error happens. `source` is the responsible for emitting the error
+Event            | Arguments               | Description
+-----------------|-------------------------|------------------------------------
+`'start'`        | `container, model`      | Emitted on page load (for `document.body`). Listen to this event before calling `app.mount`
+`'render'`       | `container, model`      | Emitted on page load (for `document.body`), and also whenever a partial gets rendered
+`'fetch.start'`  |  ``                     | Emitted whenever an XHR request starts.
+`'fetch.done'`   |  ``                     | Emitted whenever an XHR request ends successfully.
+`'fetch.abort'`  |  ``                     | Emitted whenever an XHR request is aborted.
+`'fetch.error'`  |  `err, origin, context` | Emitted whenever an XHR request results in an HTTP error.
 
 To listen to these events, you can use `.on`, `.once`, and `.off`.
 

@@ -1,3 +1,7 @@
+# v1.8.3 Evented XHR
+
+- Introduced more XHR-tracking events
+
 # v1.8.2 Defer All The Things
 
 - Model is now expected to load asynchronously via `taunusReady` global
