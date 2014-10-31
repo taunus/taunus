@@ -13,7 +13,7 @@ module.exports = function (url, context, done) {
 
   function handle (err, res, body) {
     if (err) {
-      emitter.emit('error', err, { source: 'xhr', context: context }, res);
+      emitter.emit('fetch.error', err, { source: 'xhr', context: context }, res);
     } else {
       done(body);
     }

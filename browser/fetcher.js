@@ -2,6 +2,7 @@
 
 var lastXhr;
 var xhr = require('./xhr');
+var emitter = require('./emitter');
 var interceptor = require('./interceptor');
 
 module.exports = function (url, context, done) {
@@ -10,8 +11,15 @@ module.exports = function (url, context, done) {
     done(intercepted);
   } else {
     if (lastXhr) {
+      emitter.emit('fetch.abort');
       lastXhr.abort();
     }
-    lastXhr = xhr(url, context, done);
+    emitter.emit('fetch.start');
+    lastXhr = xhr(url, context, cleanup);
+  }
+
+  function cleanup (err) {
+    emitter.emit('fetch.done');
+    done.apply(null, arguments);
   }
 };
