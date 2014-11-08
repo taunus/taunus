@@ -3,7 +3,7 @@
 var emitter = require('contra.emitter');
 var once = require('./once');
 var router = require('./router');
-var interceptors = emitter({ count: 0 });
+var interceptors = emitter({ count: 0 }, { async: true });
 
 function getInterceptorEvent (url, route) {
   var e = {
