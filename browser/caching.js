@@ -3,7 +3,7 @@
 var cache = require('./cache');
 var emitter = require('./emitter');
 var interceptor = require('./interceptor');
-var defaults = 600;
+var defaults = 10;
 var baseline;
 
 function e (value) {

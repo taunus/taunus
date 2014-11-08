@@ -10,14 +10,11 @@ function clone (value) {
 }
 
 function get (url, done) {
-  var result;
-  var store;
-  var k;
   var i = 0;
 
   function next () {
     var gotOnce = once(got);
-    store = stores[i++];
+    var store = stores[i++];
     if (store) {
       store.get(url, gotOnce);
       setTimeout(gotOnce, 400); // at worst, spend 400ms on this caching layer
@@ -40,6 +37,9 @@ function get (url, done) {
 }
 
 function set (url, data, duration) {
+  if (duration < 1) { // sanity
+    return;
+  }
   var cloned = clone(data); // freeze a copy for our records
   stores.forEach(store);
   function store (s) {
