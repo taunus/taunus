@@ -3,19 +3,21 @@
 var cache = require('./cache');
 var emitter = require('./emitter');
 var interceptor = require('./interceptor');
-var defaults = 10;
+var defaults = 5;
 var baseline;
 
 function e (value) {
   return value || '';
 }
 
-function setup (value) {
-  baseline = parseDuration(value);
-  if (baseline) {
-    interceptor.add(intercept);
-    emitter.on('fetch.done', persist);
+function setup (duration, route, data) {
+  baseline = parseDuration(duration);
+  if (baseline < 1) {
+    return;
   }
+  interceptor.add(intercept);
+  emitter.on('fetch.done', persist);
+  persist(route, data);
 }
 
 function intercept (e) {

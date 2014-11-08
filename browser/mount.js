@@ -9,6 +9,10 @@ var w = window;
 var mounted;
 var booted;
 
+function orEmpty (value) {
+  return value || '';
+}
+
 function mount (container, wiring, options) {
   var o = options || {};
   if (mounted) {
@@ -37,8 +41,13 @@ function mount (container, wiring, options) {
     state.routes = wiring.routes;
 
     router.setup(wiring.routes);
+
+    var url = location.pathname;
+    var query = orEmpty(location.search) + orEmpty(location.hash);
+    var route = router(url + query);
+
+    caching.setup(o.cache, route, model);
     activator.start(model);
-    caching.setup(o.cache);
   }
 }
 

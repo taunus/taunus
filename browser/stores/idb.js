@@ -4,10 +4,12 @@ var ls = require('./ls');
 var api = {};
 var g = global;
 var idb = g.indexedDB || g.mozIndexedDB || g.webkitIndexedDB || g.msIndexedDB;
+var supports;
 var db;
 var name = 'taunus-cache';
 var store = 'view-models';
 var keyPath = 'url';
+var setQueue = [];
 
 function noop () {}
 
@@ -17,13 +19,14 @@ function test () {
   var req;
   var db;
 
-  if (!('deleteDatabase' in idb)) {
-    return;
+  if (!(idb && 'deleteDatabase' in idb)) {
+    supports = false; return;
   }
 
   try {
     idb.deleteDatabase(name).onsuccess = transactionalTest;
   } catch (e) {
+    supports = false;
   }
 
   function transactionalTest () {
@@ -43,7 +46,9 @@ function test () {
         db.close();
         idb.deleteDatabase(name);
         if (success) {
-          create();
+          open();
+        } else {
+          supports = false;
         }
       }
     }
@@ -62,21 +67,31 @@ function open () {
 
   function success () {
     db = req.result;
+    drainQueue();
+    api.name = 'IndexedDB';
+    api.get = get;
+    api.set = set;
   }
-}
-
-function create () {
-  open();
-  api.name = 'IndexedDB';
-  api.get = get;
-  api.set = set;
-  return api;
 }
 
 function fallback () {
   api.name = ls.name;
   api.get = ls.get;
-  api.set = ls.set;
+  api.set = enqueueSet;
+}
+
+function enqueueSet (key, value, done) {
+  if (supports !== false) {
+    setQueue.push({ key: key, value: value, done: done });
+  }
+  ls.set(key, value, done);
+}
+
+function drainQueue () {
+  while (setQueue.length) {
+    var item = setQueue.shift();
+    set(item.key, item.value, item.done);
+  }
 }
 
 function query (op, value, done) {
