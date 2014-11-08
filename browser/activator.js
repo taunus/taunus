@@ -14,21 +14,17 @@ var nativeReplace = modern && isNative(window.history.replaceState);
 function go (url, o) {
   var options = o || {};
   var context = options.context || null;
-  var q = options.query || '';
-  var s = options.search || '';
 
   if (!modern) {
-    location.href = url + q; return;
+    location.href = url; return;
   }
-  fetcher(url + jsonify(q), context, resolved);
 
-  function jsonify (q) {
-    return (q ? q + '&' : '?') + 'json';
-  }
+  var route = router(url);
+
+  fetcher(route, context, resolved);
 
   function resolved (model) {
-    var route = router(url);
-    navigation(url + q + s, model, 'pushState');
+    navigation(route, model, 'pushState');
     partial(state.container, null, model, route);
   }
 }
@@ -52,17 +48,21 @@ function back (e) {
 
 function replaceWith (model) {
   var url = location.pathname;
-  var query = '' + location.search + location.hash;
-  var route = router(url);
-  navigation(url + query, model, 'replaceState');
+  var query = orEmpty(location.search) + orEmpty(location.hash);
+  var route = router(url + query);
+  navigation(route, model, 'replaceState');
   return route;
 }
 
-function navigation (url, model, direction) {
+function orEmpty (value) {
+  return value || '';
+}
+
+function navigation (route, model, direction) {
   document.title = model.title;
   state.model = model;
   if (modern && direction !== 'replaceState' || nativeReplace) {
-    history[direction]({ model: model }, model.title, url);
+    history[direction]({ model: model }, model.title, route.url);
   }
 }
 

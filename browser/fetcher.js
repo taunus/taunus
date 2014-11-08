@@ -1,25 +1,37 @@
 'use strict';
 
-var lastXhr;
 var xhr = require('./xhr');
 var emitter = require('./emitter');
 var interceptor = require('./interceptor');
+var lastXhr;
 
-module.exports = function (url, context, done) {
-  var intercepted = interceptor.intercept(url);
-  if (intercepted !== void 0) {
-    done(intercepted);
+function e (value) {
+  return value || '';
+}
+
+function jsonify (route) {
+  var parts = route.parts;
+  var qs = e(parts.search);
+  var p = qs ? '&' : '?';
+  return parts.pathname + qs + p + 'json' + e(parts.hash);
+}
+
+module.exports = function (route, context, done) {
+  var url = route.url;
+  if (lastXhr) {
+    emitter.emit('fetch.abort', route);
+    lastXhr.abort();
+  }
+  var intercepted = interceptor.execute(route);
+  if (intercepted.defaultPrevented) {
+    done(intercepted.model);
   } else {
-    if (lastXhr) {
-      emitter.emit('fetch.abort');
-      lastXhr.abort();
-    }
-    emitter.emit('fetch.start');
-    lastXhr = xhr(url, context, cleanup);
+    emitter.emit('fetch.start', route);
+    lastXhr = xhr(jsonify(route), context, notify);
   }
 
-  function cleanup (err) {
-    emitter.emit('fetch.done');
+  function notify (data) {
+    emitter.emit('fetch.done', route, data);
     done.apply(null, arguments);
   }
 };

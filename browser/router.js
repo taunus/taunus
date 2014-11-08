@@ -1,11 +1,18 @@
 'use strict';
 
+var url = require('fast-url-parser');
 var routes = require('routes');
 var matcher = routes();
 
-function router (url) {
-  var match = matcher.match(url);
-  return match ? match.fn(match) : null;
+function router (raw) {
+  var parts = url.parse(raw);
+  var result = matcher.match(parts.pathname);
+  var route = result ? result.fn(result) : null;
+  if (route) {
+    route.url = raw;
+    route.parts = parts;
+  }
+  return route;
 }
 
 function setup (definitions) {
@@ -20,7 +27,8 @@ function define (definitions, key) {
       route: key,
       params: params,
       action: definitions[key].action || null,
-      ignore: definitions[key].ignore
+      ignore: definitions[key].ignore,
+      cache: definitions[key].cache
     };
   });
 }

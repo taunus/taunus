@@ -166,13 +166,15 @@ Removes the `cb` event listener for `type` events.
 
 ## `.intercept(action)`
 
-Interceptors allow you to prevent queries being made to the server-side when a model is requested. If the interceptor returns `undefined` then the request will still be made. Note that there can only be one interceptor per controller action.
+Interceptors allow you to prevent queries being made to the server-side when a model is requested. If an interceptor invokes `preventDefault` passing a model object, the request will not be made, and that model will be used instead.
 
 ```js
-taunus.intercept('home/index', function (params) {
-  return {};
+taunus.intercept('home/index', function (e) {
+  e.preventDefault({ title: 'foo', ... });
 });
 ```
+
+You can also omit the action entirely _(or use `'*'` explicitly)_, in that case you'll get a chance to examine any model requests _(and prevent them)_ before they're actually requested. This is in fact what Taunus uses internally to manage its client-side caching engine.
 
 ## `.partial(container, action, model, route?)`
 

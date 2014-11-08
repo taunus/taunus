@@ -7,6 +7,7 @@ var emitter = require('./emitter');
 var hooks = require('./hooks');
 var partial = require('./partial');
 var mount = require('./mount');
+var router = require('./router');
 
 hooks.attach();
 
@@ -16,7 +17,8 @@ module.exports = {
   on: emitter.on.bind(emitter),
   once: emitter.once.bind(emitter),
   off: emitter.off.bind(emitter),
-  intercept: interceptor.intercept,
+  intercept: interceptor.add,
   navigate: activator.go,
-  state: state
+  state: state,
+  route: router
 };

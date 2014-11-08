@@ -4,11 +4,13 @@ var unescape = require('./unescape');
 var state = require('./state');
 var router = require('./router');
 var activator = require('./activator');
+var caching = require('./caching');
 var w = window;
 var mounted;
 var booted;
 
-function mount (container, wiring) {
+function mount (container, wiring, options) {
+  var o = options || {};
   if (mounted) {
     throw new Error('Taunus already mounted!');
   }
@@ -36,6 +38,7 @@ function mount (container, wiring) {
 
     router.setup(wiring.routes);
     activator.start(model);
+    caching.setup(o.cache);
   }
 }
 

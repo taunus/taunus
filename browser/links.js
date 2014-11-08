@@ -43,7 +43,7 @@ function scrollInto (id) {
 }
 
 function link (e, anchor) {
-  var url = anchor.pathname;
+  var url = anchor.pathname + anchor.search + anchor.hash;
   if (url === location.pathname && anchor.hash) { // hash navigation under same page ignores router
     if (anchor.hash === location.hash) {
       scrollInto(anchor.hash.substr(1));
@@ -55,12 +55,10 @@ function link (e, anchor) {
   if (!route || route.ignore) {
     return;
   }
-  activator.go(url, {
-    context: anchor,
-    query: anchor.search,
-    hash: anchor.hash
-  });
   e.preventDefault();
+  activator.go(url, {
+    context: anchor
+  });
 }
 
 module.exports = links;

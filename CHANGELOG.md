@@ -1,3 +1,8 @@
+# v2.0.0 Carrier Interceptor
+
+- Interceptors are now event-drived
+- Introduced blind-caching engine based on interceptors, disabled by default
+
 # v1.8.3 Evented XHR
 
 - Introduced more XHR-tracking events
