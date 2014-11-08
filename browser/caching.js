@@ -12,14 +12,19 @@ function e (value) {
 
 function setup (value) {
   baseline = parseDuration(value);
-  interceptor.add(intercept);
-  emitter.on('fetch.done', persist);
+  if (baseline) {
+    interceptor.add(intercept);
+    emitter.on('fetch.done', persist);
+  }
 }
 
 function intercept (e) {
-  var cached = cache.get(e.url);
-  if (cached) {
-    e.preventDefault(cached);
+  cache.get(e.url, result);
+
+  function result (err, result) {
+    if (!err && result) {
+      e.preventDefault(result);
+    }
   }
 }
 

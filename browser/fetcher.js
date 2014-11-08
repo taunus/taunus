@@ -22,12 +22,15 @@ module.exports = function (route, context, done) {
     emitter.emit('fetch.abort', route);
     lastXhr.abort();
   }
-  var intercepted = interceptor.execute(route);
-  if (intercepted.defaultPrevented) {
-    done(intercepted.model);
-  } else {
-    emitter.emit('fetch.start', route);
-    lastXhr = xhr(jsonify(route), context, notify);
+  interceptor.execute(route, interceptionResult);
+
+  function interceptionResult (err, result) {
+    if (!err && result.defaultPrevented) {
+      done(result.model);
+    } else {
+      emitter.emit('fetch.start', route);
+      lastXhr = xhr(jsonify(route), context, notify);
+    }
   }
 
   function notify (data) {

@@ -1,30 +1,46 @@
 'use strict';
 
-var ls = require('./ls');
-var raw = require('./raw');
-var stores = [raw, ls];
-
-// TODO: IndexedDB
+var once = require('./once');
+var raw = require('./stores/raw');
+var idb = require('./stores/idb');
+var stores = [raw, idb];
 
 function clone (value) {
   return JSON.parse(JSON.stringify(value));
 }
 
-function get (url) {
+function get (url, done) {
   var result;
-  var any = stores.some(had);
-  function had (s) {
-    var item = s.get(url);
-    if (item && Date.now() < item.expires) {
-      result = clone(item.data);
-      return true;
+  var store;
+  var k;
+  var i = 0;
+
+  function next () {
+    var gotOnce = once(got);
+    store = stores[i++];
+    if (store) {
+      store.get(url, gotOnce);
+      setTimeout(gotOnce, 400); // at worst, spend 400ms on this caching layer
+    } else {
+      done(true);
+    }
+
+    function got (err, item) {
+      if (err) {
+        next();
+      } else if (item && typeof item.expires === 'number' && Date.now() < item.expires) {
+        done(false, clone(item.data)); // always return a unique copy
+      } else {
+        next();
+      }
     }
   }
-  return result;
+
+  next();
 }
 
 function set (url, data, duration) {
-  var cloned = clone(data);
+  var cloned = clone(data); // freeze a copy for our records
   stores.forEach(store);
   function store (s) {
     s.set(url, {
