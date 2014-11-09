@@ -194,10 +194,10 @@ This method will look for a `route` matching the provided `url`, fetch the model
 
 # Command-Line Interface
 
-The `taunus` CLI uses the Taunus configuration to organize the client-side routes, controllers, and templates into a single file. The `-o` flag will output the routes to the file indicated in the RC configuration property `client_wiring`. When `-o` is omitted, the output is printed to standard out. You can also use the `-w` option to watch for changes.
+The `taunus` CLI uses the Taunus configuration to organize the client-side routes, controllers, and templates into a single file. The `-o` flag will output the routes to the file indicated in the RC configuration property `client_wiring`. When `--output` is omitted, the output is printed to standard out. You can also use the `--watch` option to watch for changes.
 
 ```shell
-taunus -o
+taunus --output
 ```
 
 Note that, since this will `require` both view templates and client-side controllers, views and routes don't need to be duplicated in code, other than what the CLI generates. Below is an example of the output `taunus` generates, based on the routes presented earlier. The `require` statements will be relative to the `client_wiring` path.
@@ -234,10 +234,10 @@ taunus.mount(root, wiring);
 
 #### Resolving Module Paths
 
-The `taunus` CLI can take resolver replacements as well, just execute it using the `-r` property.
+The `taunus` CLI can take resolver replacements as well, just execute it using the `--replacements` property.
 
 ```shell
-taunus -o -r path/to/module
+taunus --output --replacements path/to/module
 ```
 
 There's a few different resolvers used by the CLI, as well.

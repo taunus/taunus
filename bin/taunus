@@ -2,20 +2,29 @@
 
 'use strict';
 
-var argv = require('minimist')(process.argv.slice(2));
+var argv = require('minimist')(process.argv.slice(2), {
+  alias: {
+    replacements: 'r',
+    standalone: 's',
+    output: 'o',
+    watch: 'w',
+    transform: 't'
+  }
+});
 var path = require('path');
 var fs = require('fs');
 var chalk = require('chalk');
 var browserify = require('browserify');
 var rc = require('../lib/rc');
 var cli = require('../lib/cli');
-var replacements = argv.r ? require(argv.r) : null;
+var replacements = argv.replacements ? require(argv.replacements) : null;
 var standalone = argv.standalone;
+var t = argv.transform ? require(argv.transform) : identity;
 
 function output (force) {
-  var data = cli.render(force, replacements);
+  var data = cli.render(force, replacements, t);
 
-  if (standalone || argv.o) {
+  if (standalone || argv.output) {
     fs.writeFileSync(rc.client_wiring, data);
   } else {
     console.log(data);
@@ -24,6 +33,8 @@ function output (force) {
     browser();
   }
 }
+
+function identity (d) { return d; }
 
 function browser () {
   var b = browserify();
@@ -34,7 +45,7 @@ function browser () {
   b.bundle({ standalone: 'taunus' }).pipe(out());
 
   function out () {
-    if (!argv.o) {
+    if (!argv.output) {
       return process.stdout;
     } else {
       return fs.createWriteStream(standalone, { encoding: 'utf8' });
@@ -57,6 +68,6 @@ function watch () {
 
 output();
 
-if (argv.w) {
+if (argv.watch) {
   watch();
 }
