@@ -1,8 +1,9 @@
-# v2.2.0 Back-End Portability
+# v2.2.1 Back-End Portability
 
 - Introduced ability to use different backends through `taunus-express` or `taunus-hapi`
 - CLI arguments now have proper shorthand one-character aliases
 - CLI supports transforming routes, e.g using `hapiify` to transform Hapi routes into something the client-side Taunus router understands
+- Reasonable defaults using a dedicated `.bin` directory
 
 # v2.0.0 Carrier Interceptor
 

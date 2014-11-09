@@ -1,7 +1,7 @@
 {
-  "views": "views",
+  "views": ".bin/views",
   "server_routes": "controllers/routes.js",
   "server_controllers": "controllers",
   "client_controllers": "client/js/controllers",
-  "client_wiring": "bin/wiring.js"
+  "client_wiring": ".bin/wiring.js"
 }
