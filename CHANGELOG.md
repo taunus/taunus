@@ -1,3 +1,7 @@
+# v2.1.0 Back-End Portability
+
+- Introduced ability to use different backends through `taunus-express` or `taunus-hapi`
+
 # v2.0.0 Carrier Interceptor
 
 - Interceptors are now event-drived
