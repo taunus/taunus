@@ -1,13 +1,21 @@
 'use strict';
 
+var state = require('./state');
 var router = require('./router');
-var activator = require('./activator');
 var events = require('./events');
+var fetcher = require('./fetcher');
+var activator = require('./activator');
 var origin = document.location.origin;
 var leftClick = 1;
+var prefetching = [];
+var clicksOnHold = [];
 
 function links () {
-  events.add(document.body, 'click', reroute);
+  if (state.prefetch && state.cache) { // prefetch without cache makes no sense
+    events.add(document.body, 'mouseover', maybePrefetch);
+    events.add(document.body, 'touchstart', maybePrefetch);
+  }
+  events.add(document.body, 'click', maybeReroute);
 }
 
 function so (anchor) {
@@ -28,10 +36,17 @@ function targetOrAnchor (e) {
   }
 }
 
-function reroute (e) {
+function maybeReroute (e) {
   var anchor = targetOrAnchor(e);
   if (anchor && so(anchor) && leftClickOnAnchor(e, anchor)) {
-    link(e, anchor);
+    reroute(e, anchor);
+  }
+}
+
+function maybePrefetch (e) {
+  var anchor = targetOrAnchor(e);
+  if (anchor && so(anchor)) {
+    prefetch(e, anchor);
   }
 }
 
@@ -42,23 +57,54 @@ function scrollInto (id) {
   }
 }
 
-function link (e, anchor) {
+function reroute (e, anchor) {
   var url = anchor.pathname + anchor.search + anchor.hash;
-  if (url === location.pathname && anchor.hash) { // hash navigation under same page ignores router
+  if (url === location.pathname && anchor.hash) {
     if (anchor.hash === location.hash) {
       scrollInto(anchor.hash.substr(1));
-      e.preventDefault();
+      prevent();
     }
-    return;
+    return; // anchor hash-navigation on same page ignores router
   }
   var route = router(url);
   if (!route || route.ignore) {
     return;
   }
-  e.preventDefault();
-  activator.go(url, {
-    context: anchor
-  });
+  prevent();
+  if (prefetching.indexOf(anchor) !== -1) {
+    clicksOnHold.push(anchor);
+    return;
+  }
+  activator.go(url, { context: anchor });
+
+  function prevent () { e.preventDefault(); }
 }
+
+function prefetch (e, anchor) {
+  var url = anchor.pathname + anchor.search + anchor.hash;
+  if (url === location.pathname && anchor.hash) {
+    return; // anchor hash-navigation on same page ignores router
+  }
+  var route = router(url);
+  if (!route || route.ignore) {
+    return;
+  }
+  if (prefetching.indexOf(anchor) !== -1) {
+    return;
+  }
+  prefetching.push(anchor);
+  fetcher('links.prefetch', route, anchor, resolved);
+
+  function resolved (err, data) {
+    prefetching.splice(prefetching.indexOf(anchor), 1);
+    if (clicksOnHold.indexOf(anchor) !== -1) {
+      clicksOnHold.splice(clicksOnHold.indexOf(anchor), 1);
+      activator.go(url, { context: anchor });
+    }
+  }
+}
+
+window.prefetching = prefetching;
+window.clicksOnHold=clicksOnHold;
 
 module.exports = links;

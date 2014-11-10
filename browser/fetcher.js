@@ -3,7 +3,7 @@
 var xhr = require('./xhr');
 var emitter = require('./emitter');
 var interceptor = require('./interceptor');
-var lastXhr;
+var lastXhr = {};
 
 function e (value) {
   return value || '';
@@ -16,25 +16,45 @@ function jsonify (route) {
   return parts.pathname + qs + p + 'json' + e(parts.hash);
 }
 
-module.exports = function (route, context, done) {
-  var url = route.url;
-  if (lastXhr) {
-    emitter.emit('fetch.abort', route);
-    lastXhr.abort();
+function abort (source) {
+  if (lastXhr[source]) {
+    lastXhr[source].abort();
   }
-  interceptor.execute(route, interceptionResult);
+}
 
-  function interceptionResult (err, result) {
+function abortPending () {
+  Object.keys(lastXhr).forEach(abort);
+  lastXhr = {};
+}
+
+function fetcher (source, route, context, done) {
+  var url = route.url;
+  if (lastXhr[source]) {
+    emitter.emit('fetch.abort', route);
+    lastXhr[source].abort();
+    lastXhr[source] = null;
+  }
+  interceptor.execute(route, afterInterceptors);
+
+  function afterInterceptors (err, result) {
     if (!err && result.defaultPrevented) {
-      done(result.model);
+      done(null, result.model);
     } else {
       emitter.emit('fetch.start', route);
-      lastXhr = xhr(jsonify(route), context, notify);
+      lastXhr[source] = xhr(jsonify(route), notify);
     }
   }
 
-  function notify (data) {
-    emitter.emit('fetch.done', route, data);
-    done.apply(null, arguments);
+  function notify (err, data) {
+    if (err) {
+      emitter.emit('fetch.error', err, { source: 'xhr', context: context });
+    } else {
+      emitter.emit('fetch.done', route, data);
+    }
+    done(err, data);
   }
-};
+}
+
+fetcher.abortPending = abortPending;
+
+module.exports = fetcher;

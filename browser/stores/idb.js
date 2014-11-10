@@ -1,12 +1,11 @@
 'use strict';
 
-var ls = require('./ls');
 var api = {};
 var g = global;
 var idb = g.indexedDB || g.mozIndexedDB || g.webkitIndexedDB || g.msIndexedDB;
 var supports;
 var db;
-var name = 'taunus-cache';
+var dbName = 'taunus-cache';
 var store = 'view-models';
 var keyPath = 'url';
 var setQueue = [];
@@ -14,8 +13,7 @@ var setQueue = [];
 function noop () {}
 
 function test () {
-  var name = 'indexed-db-feature-detection';
-  var success;
+  var key = 'indexed-db-feature-detection';
   var req;
   var db;
 
@@ -24,13 +22,13 @@ function test () {
   }
 
   try {
-    idb.deleteDatabase(name).onsuccess = transactionalTest;
+    idb.deleteDatabase(key).onsuccess = transactionalTest;
   } catch (e) {
     supports = false;
   }
 
   function transactionalTest () {
-    req = idb.open(name, 1);
+    req = idb.open(key, 1);
     req.onupgradeneeded = upgneeded;
     req.onsuccess = success;
 
@@ -42,13 +40,13 @@ function test () {
       db = req.result;
       try {
         db.transaction('store', 'readwrite').objectStore('store').add(new Blob(), 'key');
+      } catch (e) {
+        supports = false;
       } finally {
         db.close();
-        idb.deleteDatabase(name);
-        if (success) {
+        idb.deleteDatabase(key);
+        if (supports) {
           open();
-        } else {
-          supports = false;
         }
       }
     }
@@ -56,7 +54,7 @@ function test () {
 }
 
 function open () {
-  var req = idb.open(name, 1);
+  var req = idb.open(dbName, 1);
   req.onerror = fallback;
   req.onupgradeneeded = upgneeded;
   req.onsuccess = success;
@@ -75,16 +73,22 @@ function open () {
 }
 
 function fallback () {
-  api.name = ls.name;
-  api.get = ls.get;
+  api.name = 'IndexedDB Fallback';
+  api.get = undefinedGet;
   api.set = enqueueSet;
 }
 
-function enqueueSet (key, value, done) {
-  if (supports !== false) {
+function undefinedGet (key, done) {
+  done(null, null);
+}
+
+function enqueueSet (key,  value, done) {
+  if (setQueue.length > 2) { // let's not waste any more memory
+    return;
+  }
+  if (supports !== false) { // let's assume the capability is validated soon
     setQueue.push({ key: key, value: value, done: done });
   }
-  ls.set(key, value, done);
 }
 
 function drainQueue () {

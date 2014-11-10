@@ -1,3 +1,8 @@
+# v2.3.0 Clickety Click
+
+- Got rid of `localStorage` cache, relying solely on memory and IndexedDB cache stores
+- Introduced link prefetching on `mouseover` and `touchstart` for anchor links with valid Taunus routes
+
 # v2.2.1 Back-End Portability
 
 - Introduced ability to use different backends through `taunus-express` or `taunus-hapi`

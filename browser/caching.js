@@ -13,19 +13,20 @@ function e (value) {
 function setup (duration, route, data) {
   baseline = parseDuration(duration);
   if (baseline < 1) {
-    return;
+    return false;
   }
   interceptor.add(intercept);
   emitter.on('fetch.done', persist);
   persist(route, data);
+  return true;
 }
 
 function intercept (e) {
   cache.get(e.url, result);
 
-  function result (err, result) {
-    if (!err && result) {
-      e.preventDefault(result);
+  function result (err, data) {
+    if (!err && data) {
+      e.preventDefault(data);
     }
   }
 }

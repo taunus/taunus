@@ -5,5 +5,5 @@ module.exports = function (fn) {
   return function once () {
     if (used) { return; } used = true;
     return fn.apply(this, arguments);
-  }
+  };
 };

@@ -3,7 +3,7 @@
 var xhr = require('xhr');
 var emitter = require('./emitter');
 
-module.exports = function (url, context, done) {
+module.exports = function (url, done) {
   var options = {
     url: url,
     json: true,
@@ -12,10 +12,6 @@ module.exports = function (url, context, done) {
   return xhr(options, handle);
 
   function handle (err, res, body) {
-    if (err) {
-      emitter.emit('fetch.error', err, { source: 'xhr', context: context }, res);
-    } else {
-      done(body);
-    }
+    done(err, body);
   }
 };

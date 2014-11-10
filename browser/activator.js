@@ -21,9 +21,12 @@ function go (url, o) {
 
   var route = router(url);
 
-  fetcher(route, context, resolved);
+  fetcher('activator.go', route, context, resolved);
 
-  function resolved (model) {
+  function resolved (err, model) {console.log(err,model);
+    if (err) {
+      return;
+    }
     navigation(route, model, 'pushState');
     partial(state.container, null, model, route);
   }

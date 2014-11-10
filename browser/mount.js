@@ -39,6 +39,7 @@ function mount (container, wiring, options) {
     state.controllers = wiring.controllers;
     state.templates = wiring.templates;
     state.routes = wiring.routes;
+    state.prefetch = !!options.prefetch;
 
     router.setup(wiring.routes);
 
@@ -46,7 +47,7 @@ function mount (container, wiring, options) {
     var query = orEmpty(location.search) + orEmpty(location.hash);
     var route = router(url + query);
 
-    caching.setup(o.cache, route, model);
+    state.cache = !!caching.setup(o.cache, route, model);
     activator.start(model);
   }
 }
