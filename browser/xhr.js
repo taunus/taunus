@@ -9,9 +9,15 @@ module.exports = function (url, done) {
     json: true,
     headers: { Accept: 'application/json' }
   };
-  return xhr(options, handle);
+  var req = xhr(options, handle);
+
+  return req;
 
   function handle (err, res, body) {
-    done(err, body);
+    if (err && !req.getAllResponseHeaders()) {
+      done(new Error('aborted'));
+    } else {
+      done(err, body);
+    }
   }
 };

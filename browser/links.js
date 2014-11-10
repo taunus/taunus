@@ -93,7 +93,7 @@ function prefetch (e, anchor) {
     return;
   }
   prefetching.push(anchor);
-  fetcher('links.prefetch', route, anchor, resolved);
+  fetcher(route, { element: anchor, source: 'prefetch' }, resolved);
 
   function resolved (err, data) {
     prefetching.splice(prefetching.indexOf(anchor), 1);
@@ -103,8 +103,5 @@ function prefetch (e, anchor) {
     }
   }
 }
-
-window.prefetching = prefetching;
-window.clicksOnHold=clicksOnHold;
 
 module.exports = links;

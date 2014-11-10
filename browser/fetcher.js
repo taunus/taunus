@@ -27,12 +27,11 @@ function abortPending () {
   lastXhr = {};
 }
 
-function fetcher (source, route, context, done) {
+function fetcher (route, context, done) {
   var url = route.url;
-  if (lastXhr[source]) {
-    emitter.emit('fetch.abort', route);
-    lastXhr[source].abort();
-    lastXhr[source] = null;
+  if (lastXhr[context.source]) {
+    lastXhr[context.source].abort();
+    lastXhr[context.source] = null;
   }
   interceptor.execute(route, afterInterceptors);
 
@@ -40,16 +39,20 @@ function fetcher (source, route, context, done) {
     if (!err && result.defaultPrevented) {
       done(null, result.model);
     } else {
-      emitter.emit('fetch.start', route);
-      lastXhr[source] = xhr(jsonify(route), notify);
+      emitter.emit('fetch.start', route, context);
+      lastXhr[context.source] = xhr(jsonify(route), notify);
     }
   }
 
   function notify (err, data) {
     if (err) {
-      emitter.emit('fetch.error', err, { source: 'xhr', context: context });
+      if (err.message === 'aborted') {
+        emitter.emit('fetch.abort', route, context);
+      } else {
+        emitter.emit('fetch.error', route, context, err);
+      }
     } else {
-      emitter.emit('fetch.done', route, data);
+      emitter.emit('fetch.done', route, context, data);
     }
     done(err, data);
   }

@@ -145,10 +145,10 @@ Event            | Arguments               | Description
 -----------------|-------------------------|------------------------------------
 `'start'`        | `container, model`      | Emitted on page load (for `document.body`). Listen to this event before calling `app.mount`
 `'render'`       | `container, model`      | Emitted on page load (for `document.body`), and also whenever a partial gets rendered
-`'fetch.start'`  |  ``                     | Emitted whenever an XHR request starts.
-`'fetch.done'`   |  ``                     | Emitted whenever an XHR request ends successfully.
-`'fetch.abort'`  |  ``                     | Emitted whenever an XHR request is aborted.
-`'fetch.error'`  |  `err, origin, context` | Emitted whenever an XHR request results in an HTTP error.
+`'fetch.start'`  |  `route, context`       | Emitted whenever an XHR request starts.
+`'fetch.done'`   |  `route, context, data` | Emitted whenever an XHR request ends successfully.
+`'fetch.abort'`  |  `route, context`       | Emitted whenever an XHR request is purposely aborted.
+`'fetch.error'`  |  `route, context, err`  | Emitted whenever an XHR request results in an HTTP error.
 
 To listen to these events, you can use `.on`, `.once`, and `.off`.
 

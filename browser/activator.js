@@ -22,7 +22,7 @@ function go (url, o) {
   var route = router(url);
 
   fetcher.abortPending();
-  fetcher('activator.go', route, context, resolved);
+  fetcher(route, { element: context, source: 'intent' }, resolved);
 
   function resolved (err, model) {
     if (err) {
