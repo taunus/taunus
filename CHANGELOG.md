@@ -2,6 +2,7 @@
 
 - Got rid of `localStorage` cache, relying solely on memory and IndexedDB cache stores
 - Introduced link prefetching on `mouseover` and `touchstart` for anchor links with valid Taunus routes
+- Default cache half-life set to `30` seconds
 
 # v2.2.1 Back-End Portability
 

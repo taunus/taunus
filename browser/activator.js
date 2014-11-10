@@ -21,9 +21,10 @@ function go (url, o) {
 
   var route = router(url);
 
+  fetcher.abortPending();
   fetcher('activator.go', route, context, resolved);
 
-  function resolved (err, model) {console.log(err,model);
+  function resolved (err, model) {
     if (err) {
       return;
     }
