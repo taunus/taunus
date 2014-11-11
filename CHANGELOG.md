@@ -2,6 +2,8 @@
 
 - Added additional safe-guards against failed IndexedDB bootstrapping
 - Fixed a bug when resolving relative paths in the Taunus CLI
+- Fixed a bug when omitting the `options` object when invoking `taunus.mount` in the client-side
+- `document.title` only changes if it's defined in the model
 
 # v2.4.0 Bootstrap Overload
 

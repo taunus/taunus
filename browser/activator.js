@@ -63,8 +63,10 @@ function orEmpty (value) {
 }
 
 function navigation (route, model, direction) {
-  document.title = model.title;
   state.model = model;
+  if (model.title) {
+    document.title = model.title;
+  }
   if (modern && direction !== 'replaceState' || nativeReplace) {
     history[direction]({ model: model }, model.title, route.url);
   }

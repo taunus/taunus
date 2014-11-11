@@ -26,7 +26,7 @@ function mount (container, wiring, options) {
   state.controllers = wiring.controllers;
   state.templates = wiring.templates;
   state.routes = wiring.routes;
-  state.prefetch = !!options.prefetch;
+  state.prefetch = !!o.prefetch;
 
   router.setup(wiring.routes);
 
@@ -47,7 +47,7 @@ function mount (container, wiring, options) {
   }
 
   function autoboot () {
-    fetcher(route, container, fetched);
+    fetcher(route, { element: container, source: 'boot' }, fetched);
   }
 
   function fetched (err, data) {
