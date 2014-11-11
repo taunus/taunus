@@ -19,6 +19,9 @@ function mount (container, wiring, options) {
   if (mounted) {
     throw new Error('Taunus already mounted!');
   }
+  if (!container || !container.tagName) { // naïve is enough
+    throw new Error('You must define an application root container!');
+  }
 
   mounted = true;
 
