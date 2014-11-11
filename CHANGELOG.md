@@ -4,6 +4,7 @@
 - Fixed a bug when resolving relative paths in the Taunus CLI
 - Fixed a bug when omitting the `options` object when invoking `taunus.mount` in the client-side
 - `document.title` only changes if it's defined in the model
+- The `container` object passed to `taunus.mount` on the client-side must be a DOM element
 
 # v2.4.0 Bootstrap Overload
 
