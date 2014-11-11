@@ -31,6 +31,7 @@ function test () {
   function transactionalTest () {
     req = idb.open(key, 1);
     req.onupgradeneeded = upgneeded;
+    req.onerror = error;
     req.onsuccess = success;
 
     function upgneeded () {
@@ -51,12 +52,16 @@ function test () {
         }
       }
     }
+
+    function error () {
+      support(false);
+    }
   }
 }
 
 function open () {
   var req = idb.open(dbName, 1);
-  req.onerror = fallback;
+  req.onerror = error;
   req.onupgradeneeded = upgneeded;
   req.onsuccess = success;
 
@@ -71,6 +76,10 @@ function open () {
     api.set = set;
     drainSet();
     support(true);
+  }
+
+  function error () {
+    support(false);
   }
 }
 
@@ -140,12 +149,20 @@ function tested (fn) {
 }
 
 function support (value) {
+  if (supports !== void 0) {
+    return; // sanity
+  }console.log(Date.now()-a);
   supports = value;
   drainTested();
 }
 
+function failed () {
+  support(false);
+}
+
 fallback();
 test();
+setTimeout(failed, 600); // the test can take somewhere near 300ms to complete
 
 module.exports = api;
 

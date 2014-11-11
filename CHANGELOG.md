@@ -1,3 +1,7 @@
+# v2.4.1 Nitpick
+
+- Added additional safe-guards against failed IndexedDB bootstrapping
+
 # v2.4.0 Bootstrap Overload
 
 - Removed `manual` bootstrap option
