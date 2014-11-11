@@ -151,7 +151,7 @@ function tested (fn) {
 function support (value) {
   if (supports !== void 0) {
     return; // sanity
-  }console.log(Date.now()-a);
+  }
   supports = value;
   drainTested();
 }
