@@ -1,6 +1,7 @@
 # v2.4.1 Nitpick
 
 - Added additional safe-guards against failed IndexedDB bootstrapping
+- Fixed a bug when resolving relative paths in the Taunus CLI
 
 # v2.4.0 Bootstrap Overload
 
