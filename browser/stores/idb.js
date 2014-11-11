@@ -9,6 +9,7 @@ var dbName = 'taunus-cache';
 var store = 'view-models';
 var keyPath = 'url';
 var setQueue = [];
+var testedQueue = [];
 
 function noop () {}
 
@@ -18,13 +19,13 @@ function test () {
   var db;
 
   if (!(idb && 'deleteDatabase' in idb)) {
-    supports = false; return;
+    support(false); return;
   }
 
   try {
     idb.deleteDatabase(key).onsuccess = transactionalTest;
   } catch (e) {
-    supports = false;
+    support(false);
   }
 
   function transactionalTest () {
@@ -41,11 +42,11 @@ function test () {
       try {
         db.transaction('store', 'readwrite').objectStore('store').add(new Blob(), 'key');
       } catch (e) {
-        supports = false;
+        support(false);
       } finally {
         db.close();
         idb.deleteDatabase(key);
-        if (supports) {
+        if (supports !== false) {
           open();
         }
       }
@@ -65,10 +66,11 @@ function open () {
 
   function success () {
     db = req.result;
-    drainQueue();
     api.name = 'IndexedDB';
     api.get = get;
     api.set = set;
+    drainSet();
+    support(true);
   }
 }
 
@@ -91,7 +93,7 @@ function enqueueSet (key,  value, done) {
   }
 }
 
-function drainQueue () {
+function drainSet () {
   while (setQueue.length) {
     var item = setQueue.shift();
     set(item.key, item.value, item.done);
@@ -123,7 +125,28 @@ function set (key, value, done) {
   query('put', value, done); // attempt to update
 }
 
+function drainTested () {
+  while (testedQueue.length) {
+    testedQueue.shift()();
+  }
+}
+
+function tested (fn) {
+  if (supports !== void 0) {
+    fn();
+  } else {
+    testedQueue.push(fn);
+  }
+}
+
+function support (value) {
+  supports = value;
+  drainTested();
+}
+
 fallback();
 test();
 
 module.exports = api;
+
+api.tested = tested;

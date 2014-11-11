@@ -17,7 +17,7 @@ function get (url, done) {
     var store = stores[i++];
     if (store) {
       store.get(url, gotOnce);
-      setTimeout(gotOnce, 400); // at worst, spend 400ms on this caching layer
+      setTimeout(gotOnce, store === idb ? 100 : 50); // at worst, spend 150ms on caching layers
     } else {
       done(true);
     }

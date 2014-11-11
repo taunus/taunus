@@ -1,3 +1,10 @@
+# v2.4.0 Bootstrap Overload
+
+- Removed `manual` bootstrap option
+- Introduced automatic bootstrap that fetches the model for you
+- Reinstated inline bootstrap that expects model to be inline in a `<script type='text/taunus'>` tag
+- Reduced maximum caching latency to `200ms` from `500ms`
+
 # v2.3.0 Clickety Click
 
 - Got rid of `localStorage` cache, relying solely on memory and IndexedDB cache stores

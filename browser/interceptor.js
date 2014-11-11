@@ -54,7 +54,7 @@ function execute (route, done) {
   interceptors.emit('*', e);
   interceptors.emit(route.action, e);
 
-  setTimeout(fn, 500); // at worst, spend 500ms waiting on interceptors
+  setTimeout(fn, 200); // at worst, spend 200ms waiting on interceptors
 
   function preventDefaultEnds () {
     preventDefaultBase.apply(null, arguments);

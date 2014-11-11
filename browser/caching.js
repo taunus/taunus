@@ -1,6 +1,7 @@
 'use strict';
 
 var cache = require('./cache');
+var idb = require('./stores/idb');
 var state = require('./state');
 var emitter = require('./emitter');
 var interceptor = require('./interceptor');
@@ -11,15 +12,15 @@ function e (value) {
   return value || '';
 }
 
-function setup (duration, route, data) {
+function setup (duration, route) {
   baseline = parseDuration(duration);
   if (baseline < 1) {
-    return false;
+    state.cache = false;
+    return;
   }
   interceptor.add(intercept);
   emitter.on('fetch.done', persist);
-  persist(route, state.container, data);
-  return true;
+  state.cache = true;
 }
 
 function intercept (e) {
@@ -43,11 +44,24 @@ function parseDuration (value) {
 }
 
 function persist (route, context, data) {
+  if (!state.cache) {
+    return;
+  }
   var key = route.parts.pathname + e(route.parts.query);
   var d = route.cache !== void 0 ? route.cache : baseline;
   cache.set(key, data, parseDuration(d) * 1000);
 }
 
+function ready (fn) {
+  if (state.cache) {
+    idb.tested(fn); // wait on idb compatibility tests
+  } else {
+    fn(); // caching is a no-op
+  }
+}
+
 module.exports = {
-  setup: setup
+  setup: setup,
+  persist: persist,
+  ready: ready
 };
