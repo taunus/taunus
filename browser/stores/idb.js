@@ -84,7 +84,7 @@ function open () {
 }
 
 function fallback () {
-  api.name = 'IndexedDB Fallback';
+  api.name = 'IndexedDB-fallbackStore';
   api.get = undefinedGet;
   api.set = enqueueSet;
 }
