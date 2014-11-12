@@ -48,6 +48,8 @@ function mount (container, wiring, options) {
       inlineboot();
     } else if (o.bootstrap === 'manual') {
       manualboot();
+    } else {
+      throw new Error(o.bootstrap + ' is not a valid bootstrap mode!');
     }
   }
 
@@ -72,8 +74,10 @@ function mount (container, wiring, options) {
   function manualboot () {
     if (typeof g.taunusReady === 'function') {
       g.taunusReady = boot; // not yet an object? turn it into the boot method
-    } else {
+    } else if (g.taunusReady && typeof g.taunusReady === 'object') {
       boot(g.taunusReady); // already an object? boot with that as the model
+    } else {
+      throw new Error('Did you forget to add the taunusReady global?');
     }
   }
 

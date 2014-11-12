@@ -6,6 +6,9 @@
   - `getViewTemplatePath` is now `getView`
   - `getViewControllerPath` is now `getClientController`
   - `getControllerActionPath` is now `getServerController`
+- On the client-side, throw if `bootstrap` is unsupported when `taunus.mount` is called
+- If `taunus.navigate` is called with an URL that doesn't match any route, then the user will be redirected via `location.href`
+- Added `canPreventDefault` property to interceptor `event` parameters
 
 # v2.6.0 Event Bar
 

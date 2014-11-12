@@ -20,6 +20,9 @@ function go (url, o) {
   }
 
   var route = router(url);
+  if (!route) {
+    location.href = url; return;
+  }
 
   fetcher.abortPending();
   fetcher(route, { element: context, source: 'intent' }, resolved);

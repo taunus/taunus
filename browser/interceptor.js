@@ -5,17 +5,22 @@ var once = require('./once');
 var router = require('./router');
 var interceptors = emitter({ count: 0 }, { async: true });
 
-function getInterceptorEvent (url, route) {
+function getInterceptorEvent (route) {
   var e = {
-    url: url,
+    url: route.url,
     route: route,
     parts: route.parts,
     model: null,
+    canPreventDefault: true,
     defaultPrevented: false,
     preventDefault: once(preventDefault)
   };
 
   function preventDefault (model) {
+    if (!e.canPreventDefault) {
+      return;
+    }
+    e.canPreventDefault = false;
     e.defaultPrevented = true;
     e.model = model;
   }
@@ -33,7 +38,7 @@ function add (action, fn) {
 }
 
 function executeSync (route) {
-  var e = getInterceptorEvent(route.url, route);
+  var e = getInterceptorEvent(route);
 
   interceptors.emit('*', e);
   interceptors.emit(route.action, e);
@@ -42,7 +47,7 @@ function executeSync (route) {
 }
 
 function execute (route, done) {
-  var e = getInterceptorEvent(route.url, route);
+  var e = getInterceptorEvent(route);
   if (interceptors.count === 0) { // fail fast
     end(); return;
   }
@@ -62,6 +67,7 @@ function execute (route, done) {
   }
 
   function end () {
+    e.canPreventDefault = false;
     done(null, e);
   }
 }
