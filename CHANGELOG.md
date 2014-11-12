@@ -1,3 +1,7 @@
+# v2.6.0 Event Bar
+
+- Client-side controller signature changed to `controller(model, container, route)`
+
 # v2.5.0 Public Speaking
 
 - Renamed public `hget` option into `plaintext`

@@ -31,7 +31,7 @@ function partial (container, enforcedAction, model, route, options) {
   }
   emitter.emit('render', container, model);
   if (controller) {
-    controller(model, route, container);
+    controller(model, container, route);
   }
 }
 
