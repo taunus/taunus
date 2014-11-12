@@ -6,7 +6,7 @@ var router = require('./router');
 var activator = require('./activator');
 var caching = require('./caching');
 var fetcher = require('./fetcher');
-var w = window;
+var g = global;
 var mounted;
 var booted;
 
@@ -46,6 +46,8 @@ function mount (container, wiring, options) {
       autoboot();
     } else if (o.bootstrap === 'inline') {
       inlineboot();
+    } else if (o.bootstrap === 'manual') {
+      manualboot();
     }
   }
 
@@ -67,17 +69,23 @@ function mount (container, wiring, options) {
     boot(model);
   }
 
+  function manualboot () {
+    if (typeof g.taunusReady === 'function') {
+      g.taunusReady = boot; // not yet an object? turn it into the boot method
+    } else {
+      boot(g.taunusReady); // already an object? boot with that as the model
+    }
+  }
+
   function boot (model) {
-    if (booted) {
+    if (booted) { // sanity
       return;
     }
     if (!model || typeof model !== 'object') {
       throw new Error('Taunus model must be an object!');
     }
     booted = true;
-    if (o.bootstrap !== 'auto') { // autoboot uses fetcher, which would've persisted
-      caching.persist(route, state.container, model);
-    }
+    caching.persist(route, state.container, model);
     activator.start(model);
   }
 }

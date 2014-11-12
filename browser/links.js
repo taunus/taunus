@@ -57,41 +57,56 @@ function scrollInto (id) {
   }
 }
 
-function reroute (e, anchor) {
+function noop () {}
+
+function getRoute (anchor, fail) {
   var url = anchor.pathname + anchor.search + anchor.hash;
-  if (url === location.pathname && anchor.hash) {
-    if (anchor.hash === location.hash) {
-      scrollInto(anchor.hash.substr(1));
-      prevent();
-    }
+  if (url === location.pathname + location.search + anchor.hash) {
+    (fail || noop)();
     return; // anchor hash-navigation on same page ignores router
   }
   var route = router(url);
   if (!route || route.ignore) {
     return;
   }
+  return route;
+}
+
+function reroute (e, anchor) {
+  var route = getRoute(anchor, fail);
+  if (!route) {
+    return;
+  }
+
   prevent();
+
   if (prefetching.indexOf(anchor) !== -1) {
     clicksOnHold.push(anchor);
     return;
   }
-  activator.go(url, { context: anchor });
+
+  activator.go(route.url, { context: anchor });
+
+  function fail () {
+    if (anchor.hash === location.hash) {
+      scrollInto(anchor.hash.substr(1));
+      prevent();
+    }
+  }
 
   function prevent () { e.preventDefault(); }
 }
 
 function prefetch (e, anchor) {
-  var url = anchor.pathname + anchor.search + anchor.hash;
-  if (url === location.pathname && anchor.hash) {
-    return; // anchor hash-navigation on same page ignores router
-  }
-  var route = router(url);
-  if (!route || route.ignore) {
+  var route = getRoute(anchor);
+  if (!route) {
     return;
   }
+
   if (prefetching.indexOf(anchor) !== -1) {
     return;
   }
+
   prefetching.push(anchor);
   fetcher(route, { element: anchor, source: 'prefetch' }, resolved);
 
@@ -99,7 +114,7 @@ function prefetch (e, anchor) {
     prefetching.splice(prefetching.indexOf(anchor), 1);
     if (clicksOnHold.indexOf(anchor) !== -1) {
       clicksOnHold.splice(clicksOnHold.indexOf(anchor), 1);
-      activator.go(url, { context: anchor });
+      activator.go(route.url, { context: anchor });
     }
   }
 }

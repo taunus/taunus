@@ -1,3 +1,9 @@
+# v2.5.0 Public Speaking
+
+- Renamed public `hget` option into `plaintext`
+- Fixed link behavior where hash navigation _(as in `/foo#comments`)_ would trigger unnecessary AJAX requests
+- Introduced simpler `manual` bootstrap option
+
 # v2.4.1 Nitpick
 
 - Added additional safe-guards against failed IndexedDB bootstrapping

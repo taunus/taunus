@@ -13,7 +13,7 @@ function jsonify (route) {
   var parts = route.parts;
   var qs = e(parts.search);
   var p = qs ? '&' : '?';
-  return parts.pathname + qs + p + 'json' + e(parts.hash);
+  return parts.pathname + qs + p + 'json';
 }
 
 function abort (source) {
