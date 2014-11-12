@@ -290,4 +290,3 @@ Fixes
 # v0.1.0 Fiery Pony
 
 - Initial Public Release
-
