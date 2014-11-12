@@ -4,7 +4,7 @@
 
 var argv = require('minimist')(process.argv.slice(2), {
   alias: {
-    replacements: 'r',
+    resolvers: 'r',
     standalone: 's',
     output: 'o',
     watch: 'w',
@@ -17,12 +17,12 @@ var chalk = require('chalk');
 var browserify = require('browserify');
 var rc = require('../lib/rc');
 var cli = require('../lib/cli');
-var replacements = argv.replacements ? require(argv.replacements) : null;
+var resolvers = argv.resolvers ? require(argv.resolvers) : null;
 var standalone = argv.standalone;
 var t = argv.transform ? require(argv.transform) : identity;
 
 function output (force) {
-  var data = cli.render(force, replacements, t);
+  var data = cli.render(force, resolvers, t);
 
   if (standalone || argv.output) {
     fs.writeFileSync(rc.client_wiring, data);

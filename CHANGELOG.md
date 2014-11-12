@@ -1,6 +1,11 @@
-# v2.6.1 Treasure Cache
+# v2.7.0 Treasure Cache
 
 - Routes now properly override caching on an individual basis
+- CLI flag `--replacements` renamed `--resolvers` for consistency
+- Shortened resolver names for simplicity and to mitigate confusion
+  - `getViewTemplatePath` is now `getView`
+  - `getViewControllerPath` is now `getClientController`
+  - `getControllerActionPath` is now `getServerController`
 
 # v2.6.0 Event Bar
 
