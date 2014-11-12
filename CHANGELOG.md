@@ -1,3 +1,7 @@
+# v2.7.2 Caching Miracles
+
+- The `ETag` is now calculated using the full `viewModel`, and not just the `partial` view model
+
 # v2.7.0 Treasure Cache
 
 - Routes now properly override caching on an individual basis
