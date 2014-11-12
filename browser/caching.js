@@ -47,8 +47,14 @@ function persist (route, context, data) {
   if (!state.cache) {
     return;
   }
+  if (route.cache === false) {
+    return;
+  }
+  var d = baseline;
+  if (typeof route.cache === 'number') {
+    d = route.cache;
+  }
   var key = route.parts.pathname + e(route.parts.query);
-  var d = route.cache !== void 0 ? route.cache : baseline;
   cache.set(key, data, parseDuration(d) * 1000);
 }
 

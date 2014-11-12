@@ -1,3 +1,7 @@
+# v2.6.1 Treasure Cache
+
+- Routes now properly override caching on an individual basis
+
 # v2.6.0 Event Bar
 
 - Client-side controller signature changed to `controller(model, container, route)`
