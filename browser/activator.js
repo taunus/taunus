@@ -80,7 +80,7 @@ function scrollInto (id, enabled) {
   if (enabled === false) {
     return;
   }
-  var elem = id && document.getElementById(id) || document.body;
+  var elem = id && document.getElementById(id) || document.documentElement;
   if (elem && elem.scrollIntoView) {
     elem.scrollIntoView();
   }
