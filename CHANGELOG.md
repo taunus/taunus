@@ -1,3 +1,7 @@
+# v2.8.5 Window Breaker
+
+- Fixed an issue where the Taunus CLI would generate invalid CommonJS wiring modules
+
 # v2.8.4 Scroll Acrobat
 
 - Introduced `scroll` option for `taunus.navigate`, allowing the consumer to control whether scroll position should be modified
