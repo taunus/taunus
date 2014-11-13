@@ -59,12 +59,8 @@ function scrollInto (id) {
 
 function noop () {}
 
-function getRoute (anchor, fail) {
+function getRoute (anchor) {
   var url = anchor.pathname + anchor.search + anchor.hash;
-  if (url === location.pathname + location.search + anchor.hash) {
-    (fail || noop)();
-    return; // anchor hash-navigation on same page ignores router
-  }
   var route = router(url);
   if (!route || route.ignore) {
     return;
@@ -73,8 +69,15 @@ function getRoute (anchor, fail) {
 }
 
 function reroute (e, anchor) {
-  var route = getRoute(anchor, fail);
+  var route = getRoute(anchor);
   if (!route) {
+    return;
+  }
+
+  // anchor hash-navigation on same page ignores router
+  if (anchor.href === location.href && anchor.hash) {
+    scrollInto(anchor.hash.substr(1));
+    prevent();
     return;
   }
 
@@ -86,13 +89,6 @@ function reroute (e, anchor) {
   }
 
   activator.go(route.url, { context: anchor });
-
-  function fail () {
-    if (anchor.hash === location.hash) {
-      scrollInto(anchor.hash.substr(1));
-      prevent();
-    }
-  }
 
   function prevent () { e.preventDefault(); }
 }

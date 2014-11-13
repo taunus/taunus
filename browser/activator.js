@@ -1,5 +1,6 @@
 'use strict';
 
+var clone = require('./clone');
 var emitter = require('./emitter');
 var fetcher = require('./fetcher');
 var partial = require('./partial');
@@ -11,17 +12,25 @@ var modern = 'history' in window && 'pushState' in history;
 // Google Chrome 38 on iOS makes weird changes to history.replaceState, breaking it
 var nativeReplace = modern && isNative(window.history.replaceState);
 
-function go (url, o) {
-  var options = o || {};
-  var context = options.context || null;
-
-  if (!modern) {
-    location.href = url; return;
-  }
-
+function go (url, options) {
+  var o = options || {};
+  var context = o.context || null;
   var route = router(url);
   if (!route) {
-    location.href = url; return;
+    if (o.strict !== true) {
+      location.href = url;
+    }
+    return;
+  }
+
+  if (o.force !== true && router.equals(route, state.route)) {
+    resolved(null, state.model);
+    return;
+  }
+
+  if (!modern) {
+    location.href = url;
+    return;
   }
 
   fetcher.abortPending();
@@ -66,7 +75,8 @@ function orEmpty (value) {
 }
 
 function navigation (route, model, direction) {
-  state.model = model;
+  state.route = route;
+  state.model = clone(model);
   if (model.title) {
     document.title = model.title;
   }

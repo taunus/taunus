@@ -12,6 +12,10 @@ function e (value) {
   return value || '';
 }
 
+function getKey (route) {
+  return route.parts.pathname + e(route.parts.query);
+}
+
 function setup (duration, route) {
   baseline = parseDuration(duration);
   if (baseline < 1) {
@@ -24,7 +28,7 @@ function setup (duration, route) {
 }
 
 function intercept (e) {
-  cache.get(e.url, result);
+  cache.get(getKey(e.route), result);
 
   function result (err, data) {
     if (!err && data) {
@@ -54,8 +58,7 @@ function persist (route, context, data) {
   if (typeof route.cache === 'number') {
     d = route.cache;
   }
-  var key = route.parts.pathname + e(route.parts.query);
-  cache.set(key, data, parseDuration(d) * 1000);
+  cache.set(getKey(route), data, parseDuration(d) * 1000);
 }
 
 function ready (fn) {

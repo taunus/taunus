@@ -1,3 +1,13 @@
+# v2.8.0 Posted Bail
+
+- Created `router.equals(route, route)` method
+- Router now works even when passed partial routes such as `'#foo'` or `''`, using `location.href` as reference
+- `taunus.navigate` won't fetch the model for a route that has the same parameters as the last route
+- A `force` option on `taunus.navigate` can be used to request a model anyways
+- A `strict` option on `taunus.navigate` can be used to ignore unmatched URLs
+- `taunus.state` now exposes the current `route` alongside its model
+- Fixed a bug where the caching layer would never pull cached results for hashed routes
+
 # v2.7.2 Caching Miracles
 
 - The `ETag` is now calculated using the full `viewModel`, and not just the `partial` view model

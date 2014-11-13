@@ -1,13 +1,10 @@
 'use strict';
 
+var clone = require('./clone');
 var once = require('./once');
 var raw = require('./stores/raw');
 var idb = require('./stores/idb');
 var stores = [raw, idb];
-
-function clone (value) {
-  return JSON.parse(JSON.stringify(value));
-}
 
 function get (url, done) {
   var i = 0;
