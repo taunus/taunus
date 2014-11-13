@@ -15,7 +15,7 @@ var nativeReplace = modern && isNative(window.history.replaceState);
 
 function go (url, options) {
   var o = options || {};
-  var direction = 'pushState';
+  var direction = o.replaceState ? 'replaceState' : 'pushState';
   var context = o.context || null;
   var route = router(url);
   if (!route) {
