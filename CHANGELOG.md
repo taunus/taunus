@@ -1,4 +1,4 @@
-# v2.8.5 Window Breaker
+# v2.8.6 Window Breaker
 
 - Fixed an issue where the Taunus CLI would generate invalid CommonJS wiring modules
 

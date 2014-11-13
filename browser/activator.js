@@ -69,9 +69,9 @@ function back (e) {
   var model = e.state.model;
   var route = replaceWith(model);
   partial(state.container, null, model, route);
-  raf(scroll);
+  raf(scrollSoon);
 
-  function scroll () {
+  function scrollSoon () {
     scrollInto(orEmpty(route.parts.hash).substr(1));
   }
 }

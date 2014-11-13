@@ -58,10 +58,7 @@ function define (definitions, key) {
 }
 
 function equals (left, right) {
-  return left
-      && right
-      && left.route === right.route
-      && JSON.stringify(left.params) === JSON.stringify(right.params);
+  return left && right && left.route === right.route && JSON.stringify(left.params) === JSON.stringify(right.params);
 }
 
 router.setup = setup;
