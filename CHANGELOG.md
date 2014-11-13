@@ -1,4 +1,4 @@
-# v2.8.2 Scroll Acrobat
+# v2.8.3 Scroll Acrobat
 
 - Introduced `scroll` option for `taunus.navigate`, allowing the consumer to control whether scroll position should be modified
 - Use `document.documentElement` as the default scroll target
