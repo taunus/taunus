@@ -1,3 +1,7 @@
+# v2.8.1 Scroll Acrobat
+
+- Introduced `scroll` option for `taunus.navigate`, allowing the consumer to control whether scroll position should be modified
+
 # v2.8.0 Posted Bail
 
 - Created `router.equals(route, route)` method

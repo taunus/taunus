@@ -50,13 +50,6 @@ function maybePrefetch (e) {
   }
 }
 
-function scrollInto (id) {
-  var elem = document.getElementById(id);
-  if (elem && elem.scrollIntoView) {
-    elem.scrollIntoView();
-  }
-}
-
 function noop () {}
 
 function getRoute (anchor) {
@@ -71,13 +64,6 @@ function getRoute (anchor) {
 function reroute (e, anchor) {
   var route = getRoute(anchor);
   if (!route) {
-    return;
-  }
-
-  // anchor hash-navigation on same page ignores router
-  if (anchor.href === location.href && anchor.hash) {
-    scrollInto(anchor.hash.substr(1));
-    prevent();
     return;
   }
 

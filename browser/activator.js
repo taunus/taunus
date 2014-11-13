@@ -14,6 +14,7 @@ var nativeReplace = modern && isNative(window.history.replaceState);
 
 function go (url, options) {
   var o = options || {};
+  var direction = 'pushState';
   var context = o.context || null;
   var route = router(url);
   if (!route) {
@@ -23,7 +24,13 @@ function go (url, options) {
     return;
   }
 
-  if (o.force !== true && router.equals(route, state.route)) {
+  var same = router.equals(route, state.route);
+  if (same && o.force !== true) {
+    if (route.parts.hash) {
+      scrollInto(route.parts.hash.substr(1));
+      navigation(route, state.model, direction);
+      return; // anchor hash-navigation on same page ignores router
+    }
     resolved(null, state.model);
     return;
   }
@@ -40,8 +47,19 @@ function go (url, options) {
     if (err) {
       return;
     }
-    navigation(route, model, 'pushState');
+    navigation(route, model, direction);
     partial(state.container, null, model, route);
+    scrollInto();
+  }
+
+  function scrollInto (id) {
+    if (o.scroll === false) {
+      return;
+    }
+    var elem = id && document.getElementById(id) || document.body;
+    if (elem && elem.scrollIntoView) {
+      elem.scrollIntoView();
+    }
   }
 }
 
