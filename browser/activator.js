@@ -1,5 +1,6 @@
 'use strict';
 
+var raf = require('raf');
 var clone = require('./clone');
 var emitter = require('./emitter');
 var fetcher = require('./fetcher');
@@ -27,7 +28,7 @@ function go (url, options) {
   var same = router.equals(route, state.route);
   if (same && o.force !== true) {
     if (route.parts.hash) {
-      scrollInto(route.parts.hash.substr(1));
+      scrollInto(route.parts.hash.substr(1), o.scroll);
       navigation(route, state.model, direction);
       return; // anchor hash-navigation on same page ignores router
     }
@@ -49,17 +50,7 @@ function go (url, options) {
     }
     navigation(route, model, direction);
     partial(state.container, null, model, route);
-    scrollInto();
-  }
-
-  function scrollInto (id) {
-    if (o.scroll === false) {
-      return;
-    }
-    var elem = id && document.getElementById(id) || document.body;
-    if (elem && elem.scrollIntoView) {
-      elem.scrollIntoView();
-    }
+    scrollInto(null, o.scroll);
   }
 }
 
@@ -78,6 +69,21 @@ function back (e) {
   var model = e.state.model;
   var route = replaceWith(model);
   partial(state.container, null, model, route);
+  raf(scroll);
+
+  function scroll () {
+    scrollInto(orEmpty(route.parts.hash).substr(1));
+  }
+}
+
+function scrollInto (id, enabled) {
+  if (enabled === false) {
+    return;
+  }
+  var elem = id && document.getElementById(id) || document.body;
+  if (elem && elem.scrollIntoView) {
+    elem.scrollIntoView();
+  }
 }
 
 function replaceWith (model) {
