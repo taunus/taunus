@@ -20,7 +20,7 @@ var extras = /toString|(function).*?(?=\\\()| for .+?(?=\\\])/g;
 var fnString = String(toString).replace(specials, '\\$&').replace(extras, '$1.*?');
 var reNative = new RegExp('^' + fnString + '$');
 
-function isNative (value) {
+function nativeFn (value) {
   var type = typeof value;
   if (type === 'function') {
     // Use `Function#toString` to bypass the value's own `toString` method
@@ -34,4 +34,4 @@ function isNative (value) {
   return (value && type === 'object' && host.test(toString.call(value))) || false;
 }
 
-module.exports = isNative;
+module.exports = nativeFn;

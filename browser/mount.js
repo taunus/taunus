@@ -6,6 +6,7 @@ var router = require('./router');
 var activator = require('./activator');
 var caching = require('./caching');
 var fetcher = require('./fetcher');
+var versioning = require('../versioning');
 var g = global;
 var mounted;
 var booted;
@@ -30,6 +31,7 @@ function mount (container, wiring, options) {
   state.templates = wiring.templates;
   state.routes = wiring.routes;
   state.prefetch = !!o.prefetch;
+  state.version = versioning.get(o.version || '1');
 
   router.setup(wiring.routes);
 

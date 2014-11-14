@@ -7,11 +7,12 @@ var fetcher = require('./fetcher');
 var partial = require('./partial');
 var router = require('./router');
 var state = require('./state');
-var isNative = require('./isNative');
+var nativeFn = require('./nativeFn');
+var versioning = require('../versioning');
 var modern = 'history' in window && 'pushState' in history;
 
 // Google Chrome 38 on iOS makes weird changes to history.replaceState, breaking it
-var nativeReplace = modern && isNative(window.history.replaceState);
+var nativeReplace = modern && nativeFn(window.history.replaceState);
 
 function go (url, options) {
   var o = options || {};
@@ -48,6 +49,9 @@ function go (url, options) {
     if (err) {
       return;
     }
+    if (versioning.ensure(model.__tv, state.version)) {
+      location.href = url; // version changes demands fallback to strict navigation
+    }
     navigation(route, model, direction);
     partial(state.container, null, model, route);
     scrollInto(null, o.scroll);
@@ -55,6 +59,9 @@ function go (url, options) {
 }
 
 function start (model) {
+  if (versioning.ensure(model.__tv, state.version)) {
+    location.reload(); // version may change between Taunus being loaded and a model being available
+  }
   var route = replaceWith(model);
   emitter.emit('start', state.container, model);
   partial(state.container, null, model, route, { render: false });

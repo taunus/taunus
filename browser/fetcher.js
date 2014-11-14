@@ -1,6 +1,7 @@
 'use strict';
 
 var xhr = require('./xhr');
+var state = require('./state');
 var emitter = require('./emitter');
 var interceptor = require('./interceptor');
 var lastXhr = {};
@@ -52,6 +53,9 @@ function fetcher (route, context, done) {
         emitter.emit('fetch.error', route, context, err);
       }
     } else {
+      if (data && data.__tv) {
+        state.version = data.__tv; // sync version expectation with server-side
+      }
       emitter.emit('fetch.done', route, context, data);
     }
     done(err, data);

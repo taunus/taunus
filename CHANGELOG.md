@@ -1,3 +1,7 @@
+# v2.9.0
+
+- Introduced versioning API, Taunus now has the ability to work through application version changes
+
 # v2.8.6 Window Breaker
 
 - Fixed an issue where the Taunus CLI would generate invalid CommonJS wiring modules
