@@ -40,19 +40,19 @@ function router (raw) {
 }
 
 function setup (definitions) {
-  Object.keys(definitions).forEach(define.bind(null, definitions));
+  definitions.forEach(define);
 }
 
-function define (definitions, key) {
-  matcher.addRoute(key, function definition (match) {
+function define (definition) {
+  matcher.addRoute(definition.route, function build (match) {
     var params = match.params;
     params.args = match.splats;
     return {
-      route: key,
+      route: definition.route,
       params: params,
-      action: definitions[key].action || null,
-      ignore: definitions[key].ignore,
-      cache: definitions[key].cache
+      action: definition.action || null,
+      ignore: definition.ignore,
+      cache: definition.cache
     };
   });
 }

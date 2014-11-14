@@ -1,3 +1,7 @@
+# v2.10.0 Consistent Baker
+
+- Routes baked by the CLI are an array similar to the server-side routes created by the consumer, avoiding confusion
+
 # v2.9.3 Exposed Request
 
 - Exposed an `.xhr(url, options?, done)` method on the client-side Taunus API
