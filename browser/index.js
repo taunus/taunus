@@ -8,6 +8,7 @@ var hooks = require('./hooks');
 var partial = require('./partial');
 var mount = require('./mount');
 var router = require('./router');
+var xhr = require('./xhr');
 
 hooks.attach();
 
@@ -20,5 +21,6 @@ module.exports = {
   intercept: interceptor.add,
   navigate: activator.go,
   state: state,
-  route: router
+  route: router,
+  xhr: xhr
 };

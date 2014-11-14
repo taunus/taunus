@@ -1,3 +1,7 @@
+# v2.9.3 Exposed Request
+
+- Exposed an `.xhr(url, options?, done)` method on the client-side Taunus API
+
 # v2.9.2 Hash Awareness
 
 - When navigating to a hashed route on a different view, the scroll position will be properly updated
