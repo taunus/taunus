@@ -22,7 +22,8 @@
   "scripts": {
     "lint": "jshint . --reporter node_modules/jshint-stylish/stylish.js",
     "test": "npm run lint",
-    "deploy": "npm version ${BUMP:-\"patch\"} -m \"Taunus release v%s $(emoji-random)\" && cat package.json | jq .version > version && git add version && git commit -m \"Updated version\" && npm publish && git push"
+    "deploy": "npm version ${BUMP:-\"patch\"} --no-git-tag-version && cat package.json | jq .version > version && git add version && git commit -m \"Taunus release v$(cat package.json | jq .version)\" && npm publish && git push",
+    "diagnose": "browserify . --full-paths | uglifyjs -m -c | discify --open & browserify . --full-paths | uglifyjs -m -c | gzip-size | pretty-bytes"
   },
   "dependencies": {
     "accepts": "^1.1.1",
@@ -40,8 +41,12 @@
     "xhr": "^1.14.1"
   },
   "devDependencies": {
+    "disc": "^1.3.0",
     "emoji-random": "^0.1.2",
+    "gzip-size": "^1.0.0",
     "jshint": "^2.5.0",
-    "jshint-stylish": "^0.2.0"
+    "jshint-stylish": "^0.2.0",
+    "pretty-bytes": "^1.0.1",
+    "uglify-js": "^2.4.15"
   }
 }

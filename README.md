@@ -10,6 +10,20 @@ For usage examples, please check out [ponyfoo/ponyfoo][4], and [taunus/taunus.be
 
 Enjoy!
 
+# Development
+
+Install dependencies.
+
+```shell
+npm install
+```
+
+You can analyze the bundle size using the command below.
+
+```shell
+npm run diagnose
+```
+
 # License
 
 MIT
