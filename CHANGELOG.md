@@ -1,4 +1,8 @@
-# v2.9.1 Version
+# v2.9.2 Hash Awareness
+
+- When navigating to a hashed route on a different view, the scroll position will be properly updated
+
+# v2.9.1 Version Awareness
 
 - Introduced versioning API, Taunus now has the ability to work through application version changes
 

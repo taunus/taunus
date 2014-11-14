@@ -29,7 +29,7 @@ function go (url, options) {
   var same = router.equals(route, state.route);
   if (same && o.force !== true) {
     if (route.parts.hash) {
-      scrollInto(route.parts.hash.substr(1), o.scroll);
+      scrollInto(id(route.parts.hash), o.scroll);
       navigation(route, state.model, direction);
       return; // anchor hash-navigation on same page ignores router
     }
@@ -54,7 +54,7 @@ function go (url, options) {
     }
     navigation(route, model, direction);
     partial(state.container, null, model, route);
-    scrollInto(null, o.scroll);
+    scrollInto(id(route.parts.hash), o.scroll);
   }
 }
 
@@ -76,11 +76,7 @@ function back (e) {
   var model = e.state.model;
   var route = replaceWith(model);
   partial(state.container, null, model, route);
-  raf(scrollSoon);
-
-  function scrollSoon () {
-    scrollInto(orEmpty(route.parts.hash).substr(1));
-  }
+  scrollInto(id(route.parts.hash));
 }
 
 function scrollInto (id, enabled) {
@@ -89,8 +85,16 @@ function scrollInto (id, enabled) {
   }
   var elem = id && document.getElementById(id) || document.documentElement;
   if (elem && elem.scrollIntoView) {
+    raf(scrollSoon);
+  }
+
+  function scrollSoon () {
     elem.scrollIntoView();
   }
+}
+
+function id (hash) {
+  return orEmpty(hash).substr(1);
 }
 
 function replaceWith (model) {
