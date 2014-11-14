@@ -22,7 +22,7 @@
   "scripts": {
     "lint": "jshint . --reporter node_modules/jshint-stylish/stylish.js",
     "test": "npm run lint",
-    "deploy": "npm version ${BUMP:-\"patch\"} -m \"Taunus release v%s $(emoji-random)\" && cat package.json | jq .version > version && npm publish && git push"
+    "deploy": "npm version ${BUMP:-\"patch\"} -m \"Taunus release v%s $(emoji-random)\" && cat package.json | jq .version > version && git add version && git commit -m \"Updated version\" && npm publish && git push"
   },
   "dependencies": {
     "accepts": "^1.1.1",
