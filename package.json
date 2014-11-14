@@ -22,7 +22,7 @@
   "scripts": {
     "lint": "jshint . --reporter node_modules/jshint-stylish/stylish.js",
     "test": "npm run lint",
-    "deploy": "npm version ${BUMP:-\"patch\"} --no-git-tag-version && cat package.json | jq .version > version && git add version && git commit -m \"Taunus release v$(cat package.json | jq .version)\" && npm publish && git push",
+    "deploy": "npm version ${BUMP:-\"patch\"} --no-git-tag-version && cat package.json | jq .version > version && git add version package.json && git commit -m \"Taunus release v$(cat package.json | jq .version)\" && npm publish && git push",
     "diagnose": "browserify . --full-paths | uglifyjs -m -c | discify --open & browserify . --full-paths | uglifyjs -m -c | gzip-size | pretty-bytes"
   },
   "dependencies": {
