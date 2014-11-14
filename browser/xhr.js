@@ -2,7 +2,7 @@
 
 var xhr = require('xhr');
 
-module.exports = function (url, o, done) {
+function request (url, o, done) {
   var options = {
     url: url,
     json: true,
@@ -23,9 +23,11 @@ module.exports = function (url, o, done) {
 
   function handle (err, res, body) {
     if (err && !req.getAllResponseHeaders()) {
-      done(new Error('aborted'));
+      done(new Error('aborted'), null, res);
     } else {
-      done(err, body);
+      done(err, body, res);
     }
   }
-};
+}
+
+module.exports = request;
