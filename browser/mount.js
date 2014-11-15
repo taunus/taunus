@@ -61,7 +61,7 @@ function mount (container, wiring, options) {
 
   function fetched (err, data) {
     if (err) {
-      throw new Error('Fetching JSON data model for first view failed.');
+      throw new Error('Fetching JSON data model failed at mountpoint.');
     }
     boot(data);
   }
@@ -69,30 +69,36 @@ function mount (container, wiring, options) {
   function inlineboot () {
     var id = container.getAttribute('data-taunus');
     var script = document.getElementById(id);
-    var model = JSON.parse(unescape(script.innerText || script.textContent));
-    boot(model);
+    var data = JSON.parse(unescape(script.innerText || script.textContent));
+    boot(data);
   }
 
   function manualboot () {
     if (typeof g.taunusReady === 'function') {
       g.taunusReady = boot; // not yet an object? turn it into the boot method
     } else if (g.taunusReady && typeof g.taunusReady === 'object') {
-      boot(g.taunusReady); // already an object? boot with that as the model
+      boot(g.taunusReady); // already an object? boot with that as the data object
     } else {
       throw new Error('Did you forget to add the taunusReady global?');
     }
   }
 
-  function boot (model) {
+  function boot (data) {
     if (booted) { // sanity
       return;
     }
-    if (!model || typeof model !== 'object') {
-      throw new Error('Taunus model must be an object!');
+    if (!data) {
+      throw new Error('Taunus data is required! Boot failed');
+    }
+    if (!data.__tv) {
+      throw new Error('Version data is missing! Boot failed');
+    }
+    if (!data.model || typeof data.model !== 'object') {
+      throw new Error('Taunus model must be an object! Boot failed');
     }
     booted = true;
-    caching.persist(route, state.container, model);
-    activator.start(model);
+    caching.persist(route, state.container, data);
+    activator.start(data);
   }
 }
 

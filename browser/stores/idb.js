@@ -5,9 +5,9 @@ var g = global;
 var idb = g.indexedDB || g.mozIndexedDB || g.webkitIndexedDB || g.msIndexedDB;
 var supports;
 var db;
-var dbName = 'taunus-cache';
-var store = 'view-models';
-var keyPath = 'url';
+var dbName = 'taunus';
+var store = 'wildstore';
+var keyPath = 'key';
 var setQueue = [];
 var testedQueue = [];
 

@@ -35,7 +35,7 @@ function get (url, done) {
       if (!item) {
         return false; // cache must have item
       }
-      var mismatch = typeof item.version !== 'string' || !versioning.match(item.version, state.version);
+      var mismatch = typeof item.version !== 'string' || item.version !== state.version;
       if (mismatch) {
         return false; // cache must match current version
       }
@@ -59,7 +59,7 @@ function set (url, data, duration) {
   function store (s) {
     s.set(url, {
       data: cloned,
-      version: cloned.__tv,
+      version: state.version,
       expires: Date.now() + duration
     });
   }

@@ -45,23 +45,24 @@ function go (url, options) {
   fetcher.abortPending();
   fetcher(route, { element: context, source: 'intent' }, resolved);
 
-  function resolved (err, model) {
+  function resolved (err, data) {
     if (err) {
       return;
     }
-    if (versioning.ensure(model.__tv, state.version)) {
+    if (data.__tv !== state.version) {
       location.href = url; // version changes demands fallback to strict navigation
     }
-    navigation(route, model, direction);
-    partial(state.container, null, model, route);
+    navigation(route, data.model, direction);
+    partial(state.container, null, data.model, route);
     scrollInto(id(route.parts.hash), o.scroll);
   }
 }
 
-function start (model) {
-  if (versioning.ensure(model.__tv, state.version)) {
+function start (data) {
+  if (data.__tv !== state.version) {
     location.reload(); // version may change between Taunus being loaded and a model being available
   }
+  var model = data.model;
   var route = replaceWith(model);
   emitter.emit('start', state.container, model);
   partial(state.container, null, model, route, { render: false });

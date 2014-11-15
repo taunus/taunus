@@ -92,7 +92,7 @@ function prefetch (e, anchor) {
   prefetching.push(anchor);
   fetcher(route, { element: anchor, source: 'prefetch' }, resolved);
 
-  function resolved (err, data) {
+  function resolved () {
     prefetching.splice(prefetching.indexOf(anchor), 1);
     if (clicksOnHold.indexOf(anchor) !== -1) {
       clicksOnHold.splice(clicksOnHold.indexOf(anchor), 1);
