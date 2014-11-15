@@ -33,7 +33,7 @@ function go (url, options) {
       navigation(route, state.model, direction);
       return; // anchor hash-navigation on same page ignores router
     }
-    resolved(null, state.model);
+    resolved(state.model);
     return;
   }
 
@@ -43,17 +43,22 @@ function go (url, options) {
   }
 
   fetcher.abortPending();
-  fetcher(route, { element: context, source: 'intent' }, resolved);
+  fetcher(route, { element: context, source: 'intent' }, maybeResolved);
 
-  function resolved (err, data) {
+  function maybeResolved (err, data) {
     if (err) {
       return;
     }
     if (data.version !== state.version) {
       location.href = url; // version change demands fallback to strict navigation
+      return;
     }
-    navigation(route, data.model, direction);
-    partial(state.container, null, data.model, route);
+    resolved(data.model);
+  }
+
+  function resolved (model) {
+    navigation(route, model, direction);
+    partial(state.container, null, model, route);
     scrollInto(id(route.parts.hash), o.scroll);
   }
 }
@@ -61,6 +66,7 @@ function go (url, options) {
 function start (data) {
   if (data.version !== state.version) {
     location.reload(); // version may change between Taunus loading and a model becoming available
+    return;
   }
   var model = data.model;
   var route = replaceWith(model);

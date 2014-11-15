@@ -12,8 +12,8 @@ function e (value) {
   return value || '';
 }
 
-function getViewKey (route) {
-  return 'view:/' + route.parts.pathname + e(route.parts.query);
+function getModelKey (route) {
+  return 'model:/' + route.parts.pathname + e(route.parts.query);
 }
 
 function setup (duration, route) {
@@ -28,7 +28,7 @@ function setup (duration, route) {
 }
 
 function intercept (e) {
-  cache.get(getViewKey(e.route), result);
+  cache.get(getModelKey(e.route), result);
 
   function result (err, data) {
     if (!err && data) {
@@ -58,9 +58,16 @@ function persist (route, context, data) {
   if (typeof route.cache === 'number') {
     d = route.cache;
   }
+  var freshness = parseDuration(d) * 1000;
   if (data.model) {
-    cache.set(getViewKey(route), data.model, parseDuration(d) * 1000);
+    cache.set(getModelKey(route), v(data, 'model'), freshness);
   }
+}
+
+function v (data, key) {
+  var result = { version: data.version };
+  result[key] = data[key];
+  return result;
 }
 
 function ready (fn) {
