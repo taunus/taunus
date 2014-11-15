@@ -50,7 +50,7 @@ function go (url, options) {
       return;
     }
     if (data.version !== state.version) {
-      location.href = url; // version changes demands fallback to strict navigation
+      location.href = url; // version change demands fallback to strict navigation
     }
     navigation(route, data.model, direction);
     partial(state.container, null, data.model, route);
@@ -60,7 +60,7 @@ function go (url, options) {
 
 function start (data) {
   if (data.version !== state.version) {
-    location.reload(); // version may change between Taunus being loaded and a model being available
+    location.reload(); // version may change between Taunus loading and a model becoming available
   }
   var model = data.model;
   var route = replaceWith(model);
