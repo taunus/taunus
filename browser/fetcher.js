@@ -53,8 +53,8 @@ function fetcher (route, context, done) {
         emitter.emit('fetch.error', route, context, err);
       }
     } else {
-      if (data && data.__tv) {
-        state.version = data.__tv; // sync version expectation with server-side
+      if (data && data.version) {
+        state.version = data.version; // sync version expectation with server-side
       }
       emitter.emit('fetch.done', route, context, data);
     }

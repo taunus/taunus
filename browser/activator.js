@@ -49,7 +49,7 @@ function go (url, options) {
     if (err) {
       return;
     }
-    if (data.__tv !== state.version) {
+    if (data.version !== state.version) {
       location.href = url; // version changes demands fallback to strict navigation
     }
     navigation(route, data.model, direction);
@@ -59,7 +59,7 @@ function go (url, options) {
 }
 
 function start (data) {
-  if (data.__tv !== state.version) {
+  if (data.version !== state.version) {
     location.reload(); // version may change between Taunus being loaded and a model being available
   }
   var model = data.model;

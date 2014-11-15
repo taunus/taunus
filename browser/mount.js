@@ -90,7 +90,7 @@ function mount (container, wiring, options) {
     if (!data) {
       throw new Error('Taunus data is required! Boot failed');
     }
-    if (!data.__tv) {
+    if (!data.version) {
       throw new Error('Version data is missing! Boot failed');
     }
     if (!data.model || typeof data.model !== 'object') {
