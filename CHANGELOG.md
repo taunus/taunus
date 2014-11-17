@@ -1,4 +1,4 @@
-# v2.10.0 Consistent Baker
+# v2.10.1 Consistent Baker
 
 - Routes baked by the CLI are an array similar to the server-side routes created by the consumer, avoiding confusion
 
