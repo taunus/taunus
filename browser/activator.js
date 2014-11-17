@@ -4,7 +4,7 @@ var raf = require('raf');
 var clone = require('./clone');
 var emitter = require('./emitter');
 var fetcher = require('./fetcher');
-var partial = require('./partial');
+var view = require('./view');
 var router = require('./router');
 var state = require('./state');
 var nativeFn = require('./nativeFn');
@@ -58,7 +58,7 @@ function go (url, options) {
 
   function resolved (model) {
     navigation(route, model, direction);
-    partial(state.container, null, model, route);
+    view(state.container, null, model, route);
     scrollInto(id(route.parts.hash), o.scroll);
   }
 }
@@ -70,8 +70,8 @@ function start (data) {
   }
   var model = data.model;
   var route = replaceWith(model);
-  emitter.emit('start', state.container, model);
-  partial(state.container, null, model, route, { render: false });
+  emitter.emit('start', state.container, model, route);
+  view(state.container, null, model, route, { render: false });
   window.onpopstate = back;
 }
 
@@ -82,7 +82,7 @@ function back (e) {
   }
   var model = e.state.model;
   var route = replaceWith(model);
-  partial(state.container, null, model, route);
+  view(state.container, null, model, route);
   scrollInto(id(route.parts.hash));
 }
 
