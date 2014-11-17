@@ -1,3 +1,7 @@
+# v2.10.2 Event Planner
+
+- Improved consistency across event handler arguments
+
 # v2.10.1 Consistent Baker
 
 - Routes baked by the CLI are an array similar to the server-side routes created by the consumer, avoiding confusion
