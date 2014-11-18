@@ -1,6 +1,6 @@
 {
   "name": "taunus",
-  "description": "Micro Isomorphic MVC Engine for Node.js",
+  "description": "Micro Isomorphic MVC. Progressive Enhancement. Content-First. Single-Page Applications (that are also server-side rendered). Predictive Caching. Bring Your Own View Engine.",
   "version": "2.10.2",
   "homepage": "https://github.com/bevacqua/taunus",
   "authors": [
