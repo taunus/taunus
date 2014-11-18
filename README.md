@@ -6,7 +6,7 @@ Taunus aims to simplify the state of MVC and shared rendering using [convention 
 
 Full documentation is available at [taunus.bevacqua.io][1].
 
-For usage examples, please check out [ponyfoo/ponyfoo][4], and [taunus/taunus.bevacqua.io][5]!
+For usage examples, please check out [ponyfoo/ponyfoo][4], [taunus/taunus.bevacqua.io][5], or walk through [taunus/getting-started][6]!
 
 Enjoy!
 
@@ -33,3 +33,4 @@ MIT
 [3]: https://raw.github.com/bevacqua/taunus/master/resources/taunus.png
 [4]: https://github.com/ponyfoo/ponyfoo
 [5]: https://github.com/taunus/taunus.bevacqua.io
+[6]: https://github.com/taunus/getting-started
