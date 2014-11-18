@@ -1,6 +1,6 @@
 ![taunus.png][3]
 
-> Micro Isomorphic MVC Engine for Node.js
+> Micro Isomorphic MVC. Progressive Enhancement. Content-First. Single-Page Applications (that are also server-side rendered). Predictive Caching. Bring Your Own View Engine.
 
 Taunus aims to simplify the state of MVC and shared rendering using [convention over configuration][2]. Taunus will handle routing,  allow you to lay out controllers and view templates independently for each view.
 
