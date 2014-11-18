@@ -13,6 +13,7 @@ var argv = require('minimist')(process.argv.slice(2), {
 });
 var path = require('path');
 var fs = require('fs');
+var mkdirp = require('mkdirp');
 var chalk = require('chalk');
 var browserify = require('browserify');
 var rc = require('../lib/rc');
@@ -25,6 +26,7 @@ function output (force) {
   var data = cli.render(force, resolvers, t);
 
   if (standalone || argv.output) {
+    mkdirp.sync(path.dirname(rc.client_wiring));
     fs.writeFileSync(rc.client_wiring, data);
   } else {
     console.log(data);

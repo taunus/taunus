@@ -1,3 +1,8 @@
+# v2.10.3 Cache Buster
+
+- Reduced maximum interceptor latency to `50ms`, from previous `200ms` maximum
+- Force directory creation when using the `taunus` CLI
+
 # v2.10.2 Event Planner
 
 - Improved consistency across event handler arguments
