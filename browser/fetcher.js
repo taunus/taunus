@@ -4,17 +4,29 @@ var xhr = require('./xhr');
 var state = require('./state');
 var emitter = require('./emitter');
 var interceptor = require('./interceptor');
+var deferred = require('../lib/deferred');
 var lastXhr = {};
 
 function e (value) {
   return value || '';
 }
 
-function jsonify (route) {
+function negotiate (route, done) {
   var parts = route.parts;
   var qs = e(parts.search);
   var p = qs ? '&' : '?';
-  return parts.pathname + qs + p + 'json';
+  var demands = ['json'];
+  var is = deferred(route.action, state.deferrals);
+  if (is === false) {
+    end();
+  } else { // if !cached.. demand it
+    demands.push('view');
+    demands.push('controller');
+    end();
+  }
+  function end () {
+    done(parts.pathname + qs + p + demands.join('&'));
+  }
 }
 
 function abort (source) {
@@ -41,8 +53,12 @@ function fetcher (route, context, done) {
       done(null, result.model);
     } else {
       emitter.emit('fetch.start', route, context);
-      lastXhr[context.source] = xhr(jsonify(route), notify);
+      negotiate(route, negotiated);
     }
+  }
+
+  function negotiated (url) {
+    lastXhr[context.source] = xhr(url, notify);
   }
 
   function notify (err, data) {

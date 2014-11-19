@@ -8,7 +8,8 @@ var argv = require('minimist')(process.argv.slice(2), {
     standalone: 's',
     output: 'o',
     watch: 'w',
-    transform: 't'
+    transform: 't',
+    defer: 'd'
   }
 });
 var path = require('path');
@@ -18,12 +19,31 @@ var chalk = require('chalk');
 var browserify = require('browserify');
 var rc = require('../lib/rc');
 var cli = require('../lib/cli');
-var resolvers = argv.resolvers ? require(argv.resolvers) : null;
 var standalone = argv.standalone;
-var t = argv.transform ? require(argv.transform) : identity;
+var options = parse();
+
+function parse () {
+  var t = argv.transform ? require(argv.transform) : identity;
+  var resolvers = argv.resolvers && require(argv.resolvers);
+  var defer = getDeferred();
+  return {
+    resolvers: resolvers,
+    transform: t,
+    deferred: defer
+  };
+  function getDeferred () {
+    if (typeof argv.defer === 'string') {
+      return argv.defer.split(',');
+    }
+    if (argv.defer === true) {
+      return ['?'];
+    }
+    return [];
+  }
+}
 
 function output (force) {
-  var data = cli.render(force, resolvers, t);
+  var data = cli.render(options, force);
 
   if (standalone || argv.output) {
     mkdirp.sync(path.dirname(rc.client_wiring));

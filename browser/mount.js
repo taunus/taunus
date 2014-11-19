@@ -30,6 +30,7 @@ function mount (container, wiring, options) {
   state.controllers = wiring.controllers;
   state.templates = wiring.templates;
   state.routes = wiring.routes;
+  state.deferrals = wiring.deferrals;
   state.prefetch = !!o.prefetch;
   state.version = versioning.get(o.version || '1');
 
