@@ -14,6 +14,16 @@ function view (container, enforcedAction, model, route, options) {
     ready();
   }
 
+  function pull () {
+    var victim = route || state.routes[0];
+    var context = {
+      source: 'hijacking',
+      hijacker: action,
+      element: container
+    };
+    fetcher(victim, context, ready);
+  }
+
   function ready () {
     var controller = state.controllers[action];
     var internals = options || {};
@@ -24,11 +34,6 @@ function view (container, enforcedAction, model, route, options) {
     if (controller) {
       controller(model, container, route || null);
     }
-  }
-
-  function pull () {
-    var victim = route || state.routes[0];
-    fetcher(victim, { element: container, source: 'hijacking', hijacker: action }, ready);
   }
 }
 
