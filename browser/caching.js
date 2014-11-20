@@ -13,7 +13,7 @@ function e (value) {
 }
 
 function getModelKey (route) {
-  return 'model:/' + route.parts.pathname + e(route.parts.query);
+  return route.parts.pathname + e(route.parts.query);
 }
 
 function setup (duration, route) {
@@ -28,7 +28,7 @@ function setup (duration, route) {
 }
 
 function intercept (e) {
-  cache.get(getModelKey(e.route), result);
+  cache.get('models', getModelKey(e.route), result);
 
   function result (err, data) {
     if (!err && data) {
@@ -60,21 +60,21 @@ function persist (route, context, data) {
   }
   var freshness = parseDuration(d) * 1000;
   if (data.model) {
-    cache.set(getModelKey(route), v(data, 'model'), freshness);
+    cache.set('models', getModelKey(route), data.model, freshness);
   }
-}
-
-function v (data, key) {
-  var result = { version: data.version };
-  result[key] = data[key];
-  return result;
+  if (data.template) {
+    cache.set('templates', route.action, data.template, freshness);
+  }
+  if (data.controller) {
+    cache.set('controllers', route.action, data.controller, freshness);
+  }
 }
 
 function ready (fn) {
   if (state.cache) {
     idb.tested(fn); // wait on idb compatibility tests
   } else {
-    fn(); // caching is a no-op
+    fn(false); // caching is a no-op
   }
 }
 

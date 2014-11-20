@@ -3,30 +3,24 @@
 var xhr = require('./xhr');
 var state = require('./state');
 var emitter = require('./emitter');
+var deferral = require('./deferral');
 var interceptor = require('./interceptor');
-var deferred = require('../lib/deferred');
+var componentCache = require('./componentCache');
 var lastXhr = {};
 
 function e (value) {
   return value || '';
 }
 
-function negotiate (route, done) {
+function negotiate (route, context) {
   var parts = route.parts;
   var qs = e(parts.search);
   var p = qs ? '&' : '?';
-  var demands = ['json'];
-  var is = deferred(route.action, state.deferrals);
-  if (is === false) {
-    end();
-  } else { // if !cached.. demand it
-    demands.push('view');
-    demands.push('controller');
-    end();
+  var demands = ['json'].concat(deferral.needs(route.action));
+  if (context.hijacker) {
+    demands.push('hijacker=' + context.hijacker);
   }
-  function end () {
-    done(parts.pathname + qs + p + demands.join('&'));
-  }
+  return parts.pathname + qs + p + demands.join('&');
 }
 
 function abort (source) {
@@ -53,12 +47,8 @@ function fetcher (route, context, done) {
       done(null, result.model);
     } else {
       emitter.emit('fetch.start', route, context);
-      negotiate(route, negotiated);
+      lastXhr[context.source] = xhr(negotiate(route, context), notify);
     }
-  }
-
-  function negotiated (url) {
-    lastXhr[context.source] = xhr(url, notify);
   }
 
   function notify (err, data) {
@@ -71,6 +61,7 @@ function fetcher (route, context, done) {
     } else {
       if (data && data.version) {
         state.version = data.version; // sync version expectation with server-side
+        componentCache.set(route.action, data);
       }
       emitter.emit('fetch.done', route, context, data);
     }

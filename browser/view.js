@@ -2,17 +2,33 @@
 
 var state = require('./state');
 var emitter = require('./emitter');
+var fetcher = require('./fetcher');
+var deferral = require('./deferral');
 
 function view (container, enforcedAction, model, route, options) {
   var action = enforcedAction || model && model.action || route && route.action;
-  var controller = state.controllers[action];
-  var internals = options || {};
-  if (internals.render !== false) {
-    container.innerHTML = render(action, model);
+  var demands = deferral.needs(action);
+  if (demands.length) {
+    pull();
+  } else {
+    ready();
   }
-  emitter.emit('render', container, model, route || null);
-  if (controller) {
-    controller(model, container, route || null);
+
+  function ready () {
+    var controller = state.controllers[action];
+    var internals = options || {};
+    if (internals.render !== false) {
+      container.innerHTML = render(action, model);
+    }
+    emitter.emit('render', container, model, route || null);
+    if (controller) {
+      controller(model, container, route || null);
+    }
+  }
+
+  function pull () {
+    var victim = route || state.routes[0];
+    fetcher(victim, { element: container, source: 'hijacking', hijacker: action }, ready);
   }
 }
 

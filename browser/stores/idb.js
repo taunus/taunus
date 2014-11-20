@@ -5,8 +5,8 @@ var g = global;
 var idb = g.indexedDB || g.mozIndexedDB || g.webkitIndexedDB || g.msIndexedDB;
 var supports;
 var db;
+var dbVersion = 2;
 var dbName = 'taunus';
-var store = 'wildstore';
 var keyPath = 'key';
 var setQueue = [];
 var testedQueue = [];
@@ -60,13 +60,15 @@ function test () {
 }
 
 function open () {
-  var req = idb.open(dbName, 1);
+  var req = idb.open(dbName, dbVersion);
   req.onerror = error;
   req.onupgradeneeded = upgneeded;
   req.onsuccess = success;
 
   function upgneeded () {
-    req.result.createObjectStore(store, { keyPath: keyPath });
+    req.result.createObjectStore('models', { keyPath: keyPath });
+    req.result.createObjectStore('templates', { keyPath: keyPath });
+    req.result.createObjectStore('controllers', { keyPath: keyPath });
   }
 
   function success () {
@@ -89,27 +91,27 @@ function fallback () {
   api.set = enqueueSet;
 }
 
-function undefinedGet (key, done) {
-  done(null, null);
+function undefinedGet (store, key, done) {
+  (done || key)(null, null);
 }
 
-function enqueueSet (key,  value, done) {
+function enqueueSet (store, key,  value, done) {
   if (setQueue.length > 2) { // let's not waste any more memory
     return;
   }
   if (supports !== false) { // let's assume the capability is validated soon
-    setQueue.push({ key: key, value: value, done: done });
+    setQueue.push({ store: store, key: key, value: value, done: done });
   }
 }
 
 function drainSet () {
   while (setQueue.length) {
     var item = setQueue.shift();
-    set(item.key, item.value, item.done);
+    set(item.store, item.key, item.value, item.done);
   }
 }
 
-function query (op, value, done) {
+function query (op, store, value, done) {
   var req = db.transaction(store, 'readwrite').objectStore(store)[op](value);
 
   req.onsuccess = success;
@@ -124,25 +126,56 @@ function query (op, value, done) {
   }
 }
 
-function get (key, done) {
-  query('get', key, done);
+function all (store, done) {
+  var tx = db.transaction(store, 'readonly');
+  var s = tx.objectStore(store);
+  var req = s.openCursor();
+  var items = [];
+
+  req.onsuccess = success;
+  req.onerror = error;
+  tx.oncomplete = complete;
+
+  function complete () {
+    (done || noop)(null, items);
+  }
+
+  function success (e) {
+    var cursor = e.target.result;
+    if (cursor) {
+      items.push(cursor.value);
+      cursor.continue();
+    }
+  }
+
+  function error () {
+    (done || noop)(new Error('Taunus cache query failed at IndexedDB!'));
+  }
 }
 
-function set (key, value, done) {
+function get (store, key, done) {
+  if (done === void 0) {
+    all(store, key);
+  } else {
+    query('get', store, key, done);
+  }
+}
+
+function set (store, key, value, done) {
   value[keyPath] = key;
-  query('add', value, done); // attempt to insert
-  query('put', value, done); // attempt to update
+  query('add', store, value, done); // attempt to insert
+  query('put', store, value, done); // attempt to update
 }
 
 function drainTested () {
   while (testedQueue.length) {
-    testedQueue.shift()();
+    testedQueue.shift()(supports);
   }
 }
 
 function tested (fn) {
   if (supports !== void 0) {
-    fn();
+    fn(supports);
   } else {
     testedQueue.push(fn);
   }

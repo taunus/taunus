@@ -8,14 +8,14 @@ var idb = require('./stores/idb');
 var versioning = require('../versioning');
 var stores = [raw, idb];
 
-function get (url, done) {
+function get (type, key, done) {
   var i = 0;
 
   function next () {
     var gotOnce = once(got);
     var store = stores[i++];
     if (store) {
-      store.get(url, gotOnce);
+      store.get(type, key, gotOnce);
       setTimeout(gotOnce, store === idb ? 35 : 5); // at worst, spend 40ms on caching layers
     } else {
       done(true);
@@ -50,14 +50,14 @@ function get (url, done) {
   next();
 }
 
-function set (url, data, duration) {
+function set (type, key, data, duration) {
   if (duration < 1) { // sanity
     return;
   }
   var cloned = clone(data); // freeze a copy for our records
   stores.forEach(store);
   function store (s) {
-    s.set(url, {
+    s.set(type, key, {
       data: cloned,
       version: state.version,
       expires: Date.now() + duration

@@ -5,6 +5,7 @@ var state = require('./state');
 var router = require('./router');
 var activator = require('./activator');
 var caching = require('./caching');
+var componentCache = require('./componentCache');
 var fetcher = require('./fetcher');
 var versioning = require('../versioning');
 var g = global;
@@ -42,6 +43,7 @@ function mount (container, wiring, options) {
 
   caching.setup(o.cache, route);
   caching.ready(kickstart);
+  componentCache.refill();
 
   function kickstart () {
     if (!o.bootstrap) { o.bootstrap = 'auto'; }

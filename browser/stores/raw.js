@@ -4,12 +4,18 @@ var raw = {};
 
 function noop () {}
 
-function get (key, done) {
-  done(null, raw[key]);
+function ensure (store) {
+  if (!raw[store]) { raw[store] = {}; }
 }
 
-function set (key, value, done) {
-  raw[key] = value;
+function get (store, key, done) {
+  ensure(store);
+  done(null, raw[store][key]);
+}
+
+function set (store, key, value, done) {
+  ensure(store);
+  raw[store][key] = value;
   (done || noop)(null);
 }
 
