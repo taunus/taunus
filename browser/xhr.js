@@ -13,6 +13,9 @@ function request (url, o, done) {
   } else {
     done = o;
   }
+
+  global.DEBUG && global.DEBUG('[xhr] %s %s', options.method || 'GET', options.url);
+
   var req = xhr(options, handle);
 
   return req;
@@ -23,8 +26,10 @@ function request (url, o, done) {
 
   function handle (err, res, body) {
     if (err && !req.getAllResponseHeaders()) {
+      global.DEBUG && global.DEBUG('[xhr] %s %s aborted', options.method || 'GET', options.url);
       done(new Error('aborted'), null, res);
     } else {
+      global.DEBUG && global.DEBUG('[xhr] %s %s done', options.method || 'GET', options.url);
       done(err, body, res);
     }
   }

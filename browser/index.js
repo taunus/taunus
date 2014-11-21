@@ -12,7 +12,7 @@ var xhr = require('./xhr');
 
 hooks.attach();
 
-module.exports = {
+module.exports = global.taunus = {
   mount: mount,
   partial: view.partial,
   on: emitter.on.bind(emitter),

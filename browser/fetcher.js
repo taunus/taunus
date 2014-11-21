@@ -40,10 +40,14 @@ function fetcher (route, context, done) {
     lastXhr[context.source].abort();
     lastXhr[context.source] = null;
   }
+
+  global.DEBUG && global.DEBUG('[fetcher] requested %s', route.url);
+
   interceptor.execute(route, afterInterceptors);
 
   function afterInterceptors (err, result) {
     if (!err && result.defaultPrevented) {
+      global.DEBUG && global.DEBUG('[fetcher] prevented %s with model', route.url, result.model);
       done(null, result.model);
     } else {
       emitter.emit('fetch.start', route, context);
@@ -53,12 +57,14 @@ function fetcher (route, context, done) {
 
   function notify (err, data) {
     if (err) {
+      global.DEBUG && global.DEBUG('[fetcher] failed for %s', route.url);
       if (err.message === 'aborted') {
         emitter.emit('fetch.abort', route, context);
       } else {
         emitter.emit('fetch.error', route, context, err);
       }
     } else {
+      global.DEBUG && global.DEBUG('[fetcher] succeeded for %s', route.url);
       if (data && data.version) {
         state.version = data.version; // sync version expectation with server-side
         componentCache.set(route.action, data);

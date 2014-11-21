@@ -162,6 +162,7 @@ function get (store, key, done) {
 }
 
 function set (store, key, value, done) {
+  global.DEBUG && global.DEBUG('[idb] storing %s, in %s db', key, store, value);
   value[keyPath] = key;
   query('add', store, value, done); // attempt to insert
   query('put', store, value, done); // attempt to update
@@ -185,6 +186,7 @@ function support (value) {
   if (supports !== void 0) {
     return; // sanity
   }
+  global.DEBUG && global.DEBUG('[idb] test result %s, db %s', value, value ? 'ready' : 'unavailable');
   supports = value;
   drainTested();
 }

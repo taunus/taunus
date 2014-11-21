@@ -56,6 +56,8 @@ function execute (route, done) {
 
   e.preventDefault = once(preventDefaultEnds);
 
+  global.DEBUG && global.DEBUG('[interceptor] executing for %s', route.url);
+
   interceptors.emit('*', e);
   interceptors.emit(route.action, e);
 
@@ -67,6 +69,7 @@ function execute (route, done) {
   }
 
   function end () {
+    global.DEBUG && global.DEBUG('[interceptor] %s for %s', e.defaultPrevented ? 'prevented' : 'timed out', route.url);
     e.canPreventDefault = false;
     done(null, e);
   }

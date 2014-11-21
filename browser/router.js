@@ -36,6 +36,9 @@ function router (raw) {
     route.url = full;
     route.parts = parts;
   }
+
+  global.DEBUG && global.DEBUG('[router] %s yields %s', raw, route.route);
+
   return route;
 }
 

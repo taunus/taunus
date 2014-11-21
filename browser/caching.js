@@ -28,9 +28,11 @@ function setup (duration, route) {
 }
 
 function intercept (e) {
+  global.DEBUG && global.DEBUG('[cache] attempting to intercept %s', e.route.url);
   cache.get('models', getModelKey(e.route), result);
 
   function result (err, data) {
+    global.DEBUG && global.DEBUG('[cache] interception for %s %s', e.route.url, err || !data ? 'failed' : 'succeeded');
     if (!err && data) {
       e.preventDefault(data);
     }
@@ -60,12 +62,15 @@ function persist (route, context, data) {
   }
   var freshness = parseDuration(d) * 1000;
   if (data.model) {
+    global.DEBUG && global.DEBUG('[cache] saving model for %s', getModelKey(route));
     cache.set('models', getModelKey(route), data.model, freshness);
   }
   if (data.template) {
+    global.DEBUG && global.DEBUG('[cache] saving template for %s', route.action);
     cache.set('templates', route.action, data.template, freshness);
   }
   if (data.controller) {
+    global.DEBUG && global.DEBUG('[cache] saving controller for %s', route.action);
     cache.set('controllers', route.action, data.controller, freshness);
   }
 }

@@ -5,7 +5,7 @@
 var argv = require('minimist')(process.argv.slice(2), {
   alias: {
     resolvers: 'r',
-    standalone: 's',
+    bundle: 'b',
     output: 'o',
     watch: 'w',
     transform: 't',
@@ -19,7 +19,7 @@ var chalk = require('chalk');
 var browserify = require('browserify');
 var rc = require('../lib/rc');
 var cli = require('../lib/cli');
-var standalone = argv.standalone;
+var bundle = argv.bundle;
 var options = parse();
 
 function parse () {
@@ -45,13 +45,13 @@ function parse () {
 function output (force) {
   var data = cli.render(options, force);
 
-  if (standalone || argv.output) {
+  if (bundle || argv.output) {
     mkdirp.sync(path.dirname(rc.client_wiring));
     fs.writeFileSync(rc.client_wiring, data);
   } else {
     console.log(data);
   }
-  if (standalone) {
+  if (bundle) {
     browser();
   }
 }
@@ -60,7 +60,7 @@ function identity (d) { return d; }
 
 function browser () {
   var b = browserify();
-  var lib = path.join(__dirname, '../browser/standalone');
+  var lib = path.join(__dirname, '../browser/bundle');
   var routes = path.resolve(rc.client_wiring);
   b.require(routes, { expose: 'embedded-wiring' });
   b.add(lib);
@@ -70,7 +70,7 @@ function browser () {
     if (!argv.output) {
       return process.stdout;
     } else {
-      return fs.createWriteStream(standalone, { encoding: 'utf8' });
+      return fs.createWriteStream(bundle, { encoding: 'utf8' });
     }
   }
 }

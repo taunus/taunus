@@ -1,3 +1,13 @@
+# v3.0.0 Deferred Execution
+
+- Renamed `--standalone` to `--bundle`
+- Taunus exposes itself as a global to simplify script deferral
+- `deferMinified` option to `taunus.mount` determines minification
+
+# v2.10.4 Version Tracker
+
+- Fixed an issue where Taunus version-tracking was updating the wrong file
+
 # v2.10.3 Cache Buster
 
 - Reduced maximum interceptor latency to `50ms`, from previous `200ms` maximum

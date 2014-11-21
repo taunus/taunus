@@ -24,8 +24,11 @@ function mount (container, wiring, options) {
   if (!container || !container.tagName) { // naïve is enough
     throw new Error('You must define an application root container!');
   }
+  if (!o.bootstrap) { o.bootstrap = 'auto'; }
 
   mounted = true;
+
+  global.DEBUG && global.DEBUG('[mount] mountpoint invoked using "%s" strategy', o.bootstrap);
 
   state.container = container;
   state.controllers = wiring.controllers;
@@ -46,7 +49,6 @@ function mount (container, wiring, options) {
   componentCache.refill();
 
   function kickstart () {
-    if (!o.bootstrap) { o.bootstrap = 'auto'; }
     if (o.bootstrap === 'auto') {
       autoboot();
     } else if (o.bootstrap === 'inline') {
@@ -90,6 +92,9 @@ function mount (container, wiring, options) {
     if (booted) { // sanity
       return;
     }
+
+    global.DEBUG && global.DEBUG('[mount] mountpoint booted with data', data);
+
     if (!data) {
       throw new Error('Taunus data is required! Boot failed');
     }

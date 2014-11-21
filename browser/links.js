@@ -12,9 +12,11 @@ var clicksOnHold = [];
 
 function links () {
   if (state.prefetch && state.cache) { // prefetch without cache makes no sense
+    global.DEBUG && global.DEBUG('[links] listening for prefetching opportunities');
     events.add(document.body, 'mouseover', maybePrefetch);
     events.add(document.body, 'touchstart', maybePrefetch);
   }
+  global.DEBUG && global.DEBUG('[links] listening for rerouting opportunities');
   events.add(document.body, 'click', maybeReroute);
 }
 
@@ -70,10 +72,12 @@ function reroute (e, anchor) {
   prevent();
 
   if (prefetching.indexOf(anchor) !== -1) {
+    global.DEBUG && global.DEBUG('[links] waiting on prefetcher for %s', route.url);
     clicksOnHold.push(anchor);
     return;
   }
 
+  global.DEBUG && global.DEBUG('[links] navigating to %s', route.url);
   activator.go(route.url, { context: anchor });
 
   function prevent () { e.preventDefault(); }
@@ -89,6 +93,7 @@ function prefetch (e, anchor) {
     return;
   }
 
+  global.DEBUG && global.DEBUG('[links] prefetching %s', route.url);
   prefetching.push(anchor);
   fetcher(route, { element: anchor, source: 'prefetch' }, resolved);
 
@@ -96,6 +101,8 @@ function prefetch (e, anchor) {
     prefetching.splice(prefetching.indexOf(anchor), 1);
     if (clicksOnHold.indexOf(anchor) !== -1) {
       clicksOnHold.splice(clicksOnHold.indexOf(anchor), 1);
+
+      global.DEBUG && global.DEBUG('[links] prefetcher resumed %s', route.url);
       activator.go(route.url, { context: anchor });
     }
   }
