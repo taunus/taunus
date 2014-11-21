@@ -2,6 +2,10 @@
 
 global.DEBUG && global.DEBUG('[index] loading taunus');
 
+if (global.taunus !== void 0) {
+  throw new Error('Use require(\'taunus/global\') after the initial require(\'taunus\') statement!');
+}
+
 var state = require('./state');
 var interceptor = require('./interceptor');
 var activator = require('./activator');
