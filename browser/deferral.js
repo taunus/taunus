@@ -17,8 +17,8 @@ function needs (action) {
 
   function invalid (type) {
     var store = state[type];
-    var invalid = !store[action] || store[action].version !== state.version;
-    if (invalid) {
+    var fail = !store[action] || store[action].version !== state.version;
+    if (fail) {
       global.DEBUG && global.DEBUG('[deferral] deferred %s %s not found', action, type.substr(0, type.length - 1));
       return true;
     }
