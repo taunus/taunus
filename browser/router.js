@@ -29,7 +29,7 @@ function router (raw) {
   if (full === null) {
     return full;
   }
-  var parts = url.parse(full);
+  var parts = url.parse(full, true);
   var result = matcher.match(parts.pathname);
   var route = result ? result.fn(result) : null;
   if (route) {

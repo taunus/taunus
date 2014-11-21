@@ -18,13 +18,13 @@ function view (container, enforcedAction, model, route, options) {
   }
 
   function pull () {
-    var victim = route || state.routes[0];
+    var victim = route || state.route;
     var context = {
       source: 'hijacking',
       hijacker: action,
       element: container
     };
-    global.DEBUG && global.DEBUG('[view] pull %s hijacking %s', action, victim.url);
+    global.DEBUG && global.DEBUG('[view] hijacking %s for action %s', victim.url, action);
     fetcher(victim, context, ready);
   }
 
@@ -47,6 +47,9 @@ function view (container, enforcedAction, model, route, options) {
 function render (action, model) {
   global.DEBUG && global.DEBUG('[view] rendering %s', action);
   var template = state.templates[action];
+  if (typeof template !== 'function') {
+    throw new Error('Client-side "' + action + '" template not found');
+  }
   try {
     return template(model);
   } catch (e) {

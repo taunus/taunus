@@ -69,7 +69,7 @@ function execute (route, done) {
   }
 
   function end () {
-    global.DEBUG && global.DEBUG('[interceptor] %s for %s', e.defaultPrevented ? 'prevented' : 'timed out', route.url);
+    global.DEBUG && global.DEBUG('[interceptor] %s for %s', interceptors.count === 0 && 'skipped' || e.defaultPrevented && 'prevented' || 'timed out', route.url);
     e.canPreventDefault = false;
     done(null, e);
   }

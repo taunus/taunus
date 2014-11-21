@@ -3,6 +3,7 @@
 - Renamed `--standalone` to `--bundle`
 - Taunus exposes itself as a global to simplify script deferral
 - `deferMinified` option to `taunus.mount` determines minification
+- `taunus.route()` exposes query string as an object in `route.parts`
 
 # v2.10.4 Version Tracker
 
