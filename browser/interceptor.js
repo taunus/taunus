@@ -10,19 +10,19 @@ function getInterceptorEvent (route) {
     url: route.url,
     route: route,
     parts: route.parts,
-    model: null,
+    data: null,
     canPreventDefault: true,
     defaultPrevented: false,
     preventDefault: once(preventDefault)
   };
 
-  function preventDefault (model) {
+  function preventDefault (data) {
     if (!e.canPreventDefault) {
       return;
     }
     e.canPreventDefault = false;
     e.defaultPrevented = true;
-    e.model = model;
+    e.data = data;
   }
 
   return e;

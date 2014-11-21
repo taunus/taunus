@@ -19,8 +19,13 @@ function set (store, key, value, done) {
   (done || noop)(null);
 }
 
+function clear () {
+  raw = {};
+}
+
 module.exports = {
   name: 'memoryStore',
   get: get,
-  set: set
+  set: set,
+  clear: clear
 };

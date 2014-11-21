@@ -7,6 +7,7 @@ if (global.taunus !== void 0) {
 }
 
 var state = require('./state');
+var stateClear = require('./stateClear');
 var interceptor = require('./interceptor');
 var activator = require('./activator');
 var emitter = require('./emitter');
@@ -16,6 +17,7 @@ var mount = require('./mount');
 var router = require('./router');
 var xhr = require('./xhr');
 
+state.clear = stateClear;
 hooks.attach();
 
 module.exports = global.taunus = {

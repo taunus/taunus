@@ -36,6 +36,9 @@ function view (container, enforcedAction, model, route, options) {
     } else {
       global.DEBUG && global.DEBUG('[view] not rendering %s', action);
     }
+    if (container === state.container) {
+      emitter.emit('change', route, model);
+    }
     emitter.emit('render', container, model, route || null);
     global.DEBUG && global.DEBUG('[view] %s client-side controller for %s', controller ? 'executing' : 'no', action);
     if (controller) {
@@ -45,7 +48,7 @@ function view (container, enforcedAction, model, route, options) {
 }
 
 function render (action, model) {
-  global.DEBUG && global.DEBUG('[view] rendering %s', action);
+  global.DEBUG && global.DEBUG('[view] rendering %s with model', action, model);
   var template = getComponent('templates', action);
   if (typeof template !== 'function') {
     throw new Error('Client-side "' + action + '" template not found');

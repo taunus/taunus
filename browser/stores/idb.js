@@ -5,7 +5,7 @@ var g = global;
 var idb = g.indexedDB || g.mozIndexedDB || g.webkitIndexedDB || g.msIndexedDB;
 var supports;
 var db;
-var dbVersion = 2;
+var dbVersion = 3;
 var dbName = 'taunus';
 var keyPath = 'key';
 var setQueue = [];
@@ -65,10 +65,17 @@ function open () {
   req.onupgradeneeded = upgneeded;
   req.onsuccess = success;
 
-  function upgneeded () {
-    req.result.createObjectStore('models', { keyPath: keyPath });
-    req.result.createObjectStore('templates', { keyPath: keyPath });
-    req.result.createObjectStore('controllers', { keyPath: keyPath });
+  function upgneeded (e) {
+    var db = req.result;
+    var v = e.oldVersion;
+    if (v === 1) {
+      db.deleteObjectStore('wildstore');
+    }
+    if (v < 2) {
+      db.createObjectStore('models', { keyPath: keyPath });
+      db.createObjectStore('templates', { keyPath: keyPath });
+      db.createObjectStore('controllers', { keyPath: keyPath });
+    }
   }
 
   function success () {
@@ -76,6 +83,7 @@ function open () {
     api.name = 'IndexedDB';
     api.get = get;
     api.set = set;
+    api.clear = clear;
     drainSet();
     support(true);
   }
@@ -89,6 +97,7 @@ function fallback () {
   api.name = 'IndexedDB-fallbackStore';
   api.get = undefinedGet;
   api.set = enqueueSet;
+  api.clear = noop;
 }
 
 function undefinedGet (store, key, done) {
@@ -149,7 +158,25 @@ function all (store, done) {
   }
 
   function error () {
-    (done || noop)(new Error('Taunus cache query failed at IndexedDB!'));
+    (done || noop)(new Error('Taunus cache query-all failed at IndexedDB!'));
+  }
+}
+
+function clear (store, done) {
+  var tx = db.transaction(store, 'readwrite');
+  var s = tx.objectStore(store);
+  var req = s.clear();
+  var items = [];
+
+  req.onerror = error;
+  tx.oncomplete = complete;
+
+  function complete () {
+    (done || noop)(null, items);
+  }
+
+  function error () {
+    (done || noop)(new Error('Taunus cache clear failed at IndexedDB!'));
   }
 }
 

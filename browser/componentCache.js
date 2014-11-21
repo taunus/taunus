@@ -4,6 +4,7 @@ var state = require('./state');
 var caching = require('./caching');
 var unstrictEval = require('./unstrictEval');
 var idb = require('./stores/idb');
+var deferred = require('../lib/deferred');
 
 function set (action, data) {
   store('template');
@@ -37,13 +38,16 @@ function pull (type, err, items) {
   items.forEach(pullItem);
 
   function pullItem (item) {
-    global.DEBUG && global.DEBUG('[componentCache] pulling %s for %s', type, item.key);
     push(type, item.key, item.data, item.version);
   }
 }
 
 function push (type, action, value, version) {
   var singular = type.substr(0, type.length - 1);
+  var is = deferred(action, state.deferrals);
+  if (is === false) {
+    return;
+  }
   if (version === state.version) {
     global.DEBUG && global.DEBUG('[componentCache] storing %s for %s in state', singular, action);
     state[type][action] = {

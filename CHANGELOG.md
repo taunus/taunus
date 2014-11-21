@@ -1,10 +1,13 @@
 # v3.0.0 Deferred Execution
 
 - Introduced deferred loading for view templates and view controllers
-- Renamed `--standalone` to `--bundle` in the CLI
 - Taunus exposes itself as a global to simplify script deferral
-- Added `deferMinified` option to `taunus.mount` determines minification
-- `taunus.route()` exposes query string as an object in `route.parts`
+- Added `deferMinified` option to `taunus.mount` to minify deferred bundles
+- Changed `taunus.route()`, now exposes query string as an object in `route.parts`
+- Created `'change'` event, emitted whenever a view navigation occurs
+- Created `taunus.state.clear()` method to clear the cache
+- Renamed `--standalone` to `--bundle` in the CLI
+- Created `getPartial` option for `taunus.mount` on the server-side
 
 # v2.10.4 Version Tracker
 

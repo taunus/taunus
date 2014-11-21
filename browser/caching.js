@@ -12,10 +12,6 @@ function e (value) {
   return value || '';
 }
 
-function getModelKey (route) {
-  return route.parts.pathname + e(route.parts.query);
-}
-
 function setup (duration, route) {
   baseline = parseDuration(duration);
   if (baseline < 1) {
@@ -29,7 +25,7 @@ function setup (duration, route) {
 
 function intercept (e) {
   global.DEBUG && global.DEBUG('[cache] attempting to intercept %s', e.route.url);
-  cache.get('models', getModelKey(e.route), result);
+  cache.get('models', e.route.parts.path, result);
 
   function result (err, data) {
     global.DEBUG && global.DEBUG('[cache] interception for %s %s', e.route.url, err || !data ? 'failed' : 'succeeded');
@@ -60,18 +56,19 @@ function persist (route, context, data) {
   if (typeof route.cache === 'number') {
     d = route.cache;
   }
+  var target = context.hijacker || route.action;
   var freshness = parseDuration(d) * 1000;
-  if (data.model) {
-    global.DEBUG && global.DEBUG('[cache] saving model for %s', getModelKey(route));
-    cache.set('models', getModelKey(route), data.model, freshness);
+  if ('model' in data) {
+    global.DEBUG && global.DEBUG('[cache] saving model for %s', route.parts.path);
+    cache.set('models', route.parts.path, data.model, freshness);
   }
-  if (data.template) {
-    global.DEBUG && global.DEBUG('[cache] saving template for %s', route.action);
-    cache.set('templates', route.action, data.template, freshness);
+  if ('template' in data) {
+    global.DEBUG && global.DEBUG('[cache] saving template for %s', target);
+    cache.set('templates', target, data.template, freshness);
   }
-  if (data.controller) {
-    global.DEBUG && global.DEBUG('[cache] saving controller for %s', route.action);
-    cache.set('controllers', route.action, data.controller, freshness);
+  if ('controller' in data) {
+    global.DEBUG && global.DEBUG('[cache] saving controller for %s', target);
+    cache.set('controllers', target, data.controller, freshness);
   }
 }
 

@@ -17,7 +17,8 @@ function negotiate (route, context) {
   var parts = route.parts;
   var qs = e(parts.search);
   var p = qs ? '&' : '?';
-  var demands = ['json'].concat(deferral.needs(route.action));
+  var target = context.hijacker || route.action;
+  var demands = ['json'].concat(deferral.needs(target));
   if (context.hijacker && context.hijacker !== route.action) {
     demands.push('hijacker=' + context.hijacker);
   }
@@ -47,9 +48,9 @@ function fetcher (route, context, done) {
   interceptor.execute(route, afterInterceptors);
 
   function afterInterceptors (err, result) {
-    if (!err && result.defaultPrevented) {
-      global.DEBUG && global.DEBUG('[fetcher] prevented %s with model', route.url, result.model);
-      done(null, result.model);
+    if (!err && result.defaultPrevented && !context.hijacker) {
+      global.DEBUG && global.DEBUG('[fetcher] prevented %s with data', route.url, result.data);
+      done(null, result.data);
     } else {
       emitter.emit('fetch.start', route, context);
       lastXhr[context.source] = xhr(negotiate(route, context), notify);

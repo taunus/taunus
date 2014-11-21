@@ -25,7 +25,7 @@ function get (type, key, done) {
       if (err) {
         next();
       } else if (valid(item)) {
-        done(false, clone(item.data)); // always return a unique copy
+        done(false, blob(item)); // always return a unique copy
       } else {
         next();
       }
@@ -44,6 +44,16 @@ function get (type, key, done) {
         return false; // cache must be fresh
       }
       return true;
+    }
+
+    function blob (item) {
+      var singular = type.substr(0, type.length - 1);
+      var data = clone(item.data);
+      var response = {
+        version: item.version
+      };
+      response[singular] = data;
+      return response;
     }
   }
 

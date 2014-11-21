@@ -55,10 +55,13 @@ function go (url, options) {
       return;
     }
     if (data.version !== state.version) {
-      global.DEBUG && global.DEBUG('[activator] version change, redirecting to %s', url);
+      global.DEBUG && global.DEBUG('[activator] version change (is "%s", was "%s"), redirecting to %s', data.version, state.version, url);
+      console.log(data);
+      throw new Error('');
       location.href = url; // version change demands fallback to strict navigation
       return;
     }
+    console.log(data.model);
     resolved(data.model);
   }
 
