@@ -1,7 +1,9 @@
 # v3.0.0 Deferred Execution
 
-- Introduced deferred loading for view templates and view controllers
 - Taunus exposes itself as a global to simplify script deferral
+- Introduced `taunus/browser/debug` and `taunus/global` alternative entry points
+- Introduced deferred loading for view templates and view controllers
+- Added `--defer` flag to the CLI
 - Added `deferMinified` option to `taunus.mount` to minify deferred bundles
 - Changed `taunus.route()`, now exposes query string as an object in `route.parts`
 - Created `'change'` event, emitted whenever a view navigation occurs
