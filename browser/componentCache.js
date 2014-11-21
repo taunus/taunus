@@ -47,7 +47,6 @@ function push (type, action, value, version) {
   if (version === state.version) {
     global.DEBUG && global.DEBUG('[componentCache] storing %s for %s in state', singular, action);
     state[type][action] = parse(singular, value);
-    window[singular]= state[type][action];
   } else {
     global.DEBUG && global.DEBUG('[componentCache] bad version: %s !== %s', version, state.version);
   }

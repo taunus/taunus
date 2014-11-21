@@ -1,5 +1,7 @@
 'use strict';
 
+global.DEBUG && global.DEBUG('[index] loading taunus');
+
 var state = require('./state');
 var interceptor = require('./interceptor');
 var activator = require('./activator');
