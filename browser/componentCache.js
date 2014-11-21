@@ -46,23 +46,23 @@ function push (type, action, value, version) {
   var singular = type.substr(0, type.length - 1);
   if (version === state.version) {
     global.DEBUG && global.DEBUG('[componentCache] storing %s for %s in state', singular, action);
-    state[type][action] = parse(singular, value);
+    state[type][action] = {
+      fn: parse(singular, value),
+      version: version
+    };
   } else {
     global.DEBUG && global.DEBUG('[componentCache] bad version: %s !== %s', version, state.version);
   }
 }
 
 function parse (type, value) {
-  /* jshint evil:true */
   if (value) {
     try {
       return unstrictEval(value);
     } catch (e) {
       global.DEBUG && global.DEBUG('[componentCache] %s eval failed', type, e);
-      return '';
     }
   }
-  return ''; // empty string can have properties and is also falsy
 }
 
 module.exports = {

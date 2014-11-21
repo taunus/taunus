@@ -96,10 +96,10 @@ function back (e) {
 }
 
 function scrollInto (id, enabled) {
-  if (enabled === false) {
+  if (enabled === false || !id) {
     return;
   }
-  global.DEBUG && global.DEBUG('[activator] scrolling into %s', id);
+  global.DEBUG && global.DEBUG('[activator] scrolling into "%s"', id);
   var elem = id && document.getElementById(id) || document.documentElement;
   if (elem && elem.scrollIntoView) {
     raf(scrollSoon);

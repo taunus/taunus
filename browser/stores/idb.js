@@ -92,7 +92,7 @@ function fallback () {
 }
 
 function undefinedGet (store, key, done) {
-  (done || key)(null, null);
+  (done || key)(null, done ? null : []);
 }
 
 function enqueueSet (store, key,  value, done) {

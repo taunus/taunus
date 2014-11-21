@@ -29,7 +29,7 @@ function view (container, enforcedAction, model, route, options) {
   }
 
   function ready () {
-    var controller = state.controllers[action];
+    var controller = getComponent('controllers', action);
     var internals = options || {};
     if (internals.render !== false) {
       container.innerHTML = render(action, model);
@@ -46,7 +46,7 @@ function view (container, enforcedAction, model, route, options) {
 
 function render (action, model) {
   global.DEBUG && global.DEBUG('[view] rendering %s', action);
-  var template = state.templates[action];
+  var template = getComponent('templates', action);
   if (typeof template !== 'function') {
     throw new Error('Client-side "' + action + '" template not found');
   }
@@ -54,6 +54,17 @@ function render (action, model) {
     return template(model);
   } catch (e) {
     throw new Error('Error rendering "' + action + '" view template\n' + e.stack);
+  }
+}
+
+function getComponent (type, action) {
+  var component = state[type][action];
+  var transport = typeof component;
+  if (transport === 'object' && component) {
+    return component.fn;
+  }
+  if (transport === 'function') {
+    return component;
   }
 }
 
