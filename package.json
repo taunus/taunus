@@ -1,7 +1,7 @@
 {
   "name": "taunus",
   "description": "Micro Isomorphic MVC. Progressive Enhancement. Content-First. Single-Page Applications (that are also server-side rendered). Predictive Caching. Bring Your Own View Engine.",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "homepage": "https://github.com/bevacqua/taunus",
   "authors": [
     "Nicolas Bevacqua <nicolasbevacqua@gmail.com>"
@@ -30,6 +30,7 @@
     "browserify": "^6.3.2",
     "chalk": "^0.4.0",
     "chokidar": "^0.8.2",
+    "contra": "^1.7.0",
     "contra.emitter": "^1.0.0",
     "fast-url-parser": "^1.0.6-0",
     "glob": "^4.0.6",
