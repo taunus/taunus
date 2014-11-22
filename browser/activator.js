@@ -48,7 +48,7 @@ function go (url, options) {
   }
 
   global.DEBUG && global.DEBUG('[activator] fetching %s', route.url);
-  prefetcher.abortIntents();
+  prefetcher.abortIntent();
   fetcher.abortPending();
   fetcher(route, { element: context, source: 'intent' }, maybeResolved);
 
