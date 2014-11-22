@@ -1,4 +1,4 @@
-![taunus.png][3]
+[![taunus.png][3]][1]
 
 > Micro Isomorphic MVC. Progressive Enhancement. Content-First. Single-Page Applications (that are also server-side rendered). Predictive Caching. Bring Your Own View Engine.
 
@@ -6,7 +6,14 @@ Taunus aims to simplify the state of MVC and shared rendering using [convention 
 
 Full documentation is available at [taunus.bevacqua.io][1].
 
-For usage examples, please check out [ponyfoo/ponyfoo][4], [taunus/taunus.bevacqua.io][5], or walk through [taunus/getting-started][6]!
+#### In The Wild
+
+For usage examples, please check out these sites.
+
+- [ponyfoo.com][8], open-sourced at: [ponyfoo/ponyfoo][4],
+- [taunus.bevacqua.io][1], open-sourced at: [taunus/taunus.bevacqua.io][5]
+
+Alternatively walk through [getting-started][6] or use the [Yeoman generator][7]!
 
 Enjoy!
 
@@ -34,3 +41,5 @@ MIT
 [4]: https://github.com/ponyfoo/ponyfoo
 [5]: https://github.com/taunus/taunus.bevacqua.io
 [6]: https://github.com/taunus/getting-started
+[7]: https://github.com/taunus/generator-taunus
+[8]: http://ponyfoo.com
