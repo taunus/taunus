@@ -1,3 +1,7 @@
+# v3.0.1 Contractual Terms
+
+- Added dependency on `contra`
+
 # v3.0.0 Deferred Execution
 
 - Taunus exposes itself as a global to simplify script deferral
