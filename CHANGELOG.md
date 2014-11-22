@@ -1,3 +1,7 @@
+# v3.1.0 Prefetch Party
+
+- Public `taunus.prefetch(url, element)` API exposed
+
 # v3.0.2 Mirror Entity
 
 - ETag is now computed out of the HTML (or text) and not just the model in non-JSON responses.

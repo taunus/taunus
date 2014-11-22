@@ -32,10 +32,12 @@ function router (raw) {
   var parts = url.parse(full, true);
   var result = matcher.match(parts.pathname);
   var route = result ? result.fn(result) : null;
-  if (route) {
-    route.url = full;
-    route.parts = parts;
+  if (route === null || route.ignore) {
+    return null;
   }
+
+  route.url = full;
+  route.parts = parts;
 
   global.DEBUG && global.DEBUG('[router] %s yields %s', raw, route.route);
 

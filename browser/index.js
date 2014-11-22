@@ -16,6 +16,7 @@ var view = require('./view');
 var mount = require('./mount');
 var router = require('./router');
 var xhr = require('./xhr');
+var prefetcher = require('./prefetcher');
 
 state.clear = stateClear;
 hooks.attach();
@@ -28,6 +29,7 @@ module.exports = global.taunus = {
   off: emitter.off.bind(emitter),
   intercept: interceptor.add,
   navigate: activator.go,
+  prefetch: prefetcher.start,
   state: state,
   route: router,
   xhr: xhr

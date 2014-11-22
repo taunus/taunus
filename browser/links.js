@@ -4,6 +4,7 @@ var state = require('./state');
 var router = require('./router');
 var events = require('./events');
 var fetcher = require('./fetcher');
+var prefetcher = require('./prefetcher');
 var activator = require('./activator');
 var origin = document.location.origin;
 var leftClick = 1;
@@ -54,26 +55,22 @@ function maybePrefetch (e) {
 
 function noop () {}
 
-function getRoute (anchor) {
-  var url = anchor.pathname + anchor.search + anchor.hash;
-  var route = router(url);
-  if (!route || route.ignore) {
-    return;
-  }
-  return route;
+function parse (anchor) {
+  return anchor.pathname + anchor.search + anchor.hash;
 }
 
 function reroute (e, anchor) {
-  var route = getRoute(anchor);
+  var url = parse(anchor);
+  var route = router(url);
   if (!route) {
     return;
   }
 
   prevent();
 
-  if (prefetching.indexOf(anchor) !== -1) {
-    global.DEBUG && global.DEBUG('[links] waiting on prefetcher for %s', route.url);
-    clicksOnHold.push(anchor);
+  if (prefetcher.busy(url)) {
+    global.DEBUG && global.DEBUG('[links] navigation to %s blocked by prefetcher', route.url);
+    prefetcher.registerIntent(url);
     return;
   }
 
@@ -84,28 +81,7 @@ function reroute (e, anchor) {
 }
 
 function prefetch (e, anchor) {
-  var route = getRoute(anchor);
-  if (!route) {
-    return;
-  }
-
-  if (prefetching.indexOf(anchor) !== -1) {
-    return;
-  }
-
-  global.DEBUG && global.DEBUG('[links] prefetching %s', route.url);
-  prefetching.push(anchor);
-  fetcher(route, { element: anchor, source: 'prefetch' }, resolved);
-
-  function resolved () {
-    prefetching.splice(prefetching.indexOf(anchor), 1);
-    if (clicksOnHold.indexOf(anchor) !== -1) {
-      clicksOnHold.splice(clicksOnHold.indexOf(anchor), 1);
-
-      global.DEBUG && global.DEBUG('[links] prefetcher resumed %s', route.url);
-      activator.go(route.url, { context: anchor });
-    }
-  }
+  prefetcher.start(parse(anchor), anchor);
 }
 
 module.exports = links;
