@@ -23,12 +23,11 @@ var bundle = argv.bundle;
 var options = parse();
 
 function parse () {
-  var t = argv.transform ? require(argv.transform) : identity;
   var resolvers = argv.resolvers && require(argv.resolvers);
   var defer = getDeferred();
   return {
     resolvers: resolvers,
-    transform: t,
+    transform: argv.transform,
     deferred: defer
   };
   function getDeferred () {
@@ -54,8 +53,6 @@ function output (force) {
     browser();
   }
 }
-
-function identity (d) { return d; }
 
 function browser () {
   var b = browserify();
