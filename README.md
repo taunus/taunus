@@ -1,4 +1,4 @@
-[![taunus.png][3]][1]
+[![taunus.png][3]][1] [![Build Status](https://secure.travis-ci.org/taunus/taunus.png?branch=master)](https://travis-ci.org/taunus/taunus)
 
 > Micro Isomorphic MVC. Progressive Enhancement. Content-First. Single-Page Applications (that are also server-side rendered). Predictive Caching. Bring Your Own View Engine.
 
@@ -29,6 +29,14 @@ You can analyze the bundle size using the command below.
 
 ```shell
 npm run diagnose
+```
+
+# Tests
+
+Taunus has unit tests. Run them with `npm`.
+
+```shell
+npm test
 ```
 
 # License
