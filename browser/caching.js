@@ -64,11 +64,11 @@ function persist (route, context, data) {
   }
   if ('template' in data) {
     global.DEBUG && global.DEBUG('[cache] saving template for %s', target);
-    cache.set('templates', target, data.template, freshness);
+    cache.set('templates', target, data.template, Infinity);
   }
   if ('controller' in data) {
     global.DEBUG && global.DEBUG('[cache] saving controller for %s', target);
-    cache.set('controllers', target, data.controller, freshness);
+    cache.set('controllers', target, data.controller, Infinity);
   }
 }
 
