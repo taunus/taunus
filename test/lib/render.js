@@ -265,7 +265,7 @@ test('render JSON demanding things gets bundled components', function (t) {
     var map = {
       '.bin/views/foo/bar.js': 'foo',
       'client/js/controllers/foo/bar.js': 'bar'
-    }
+    };
     t.ok(map[file], 'asked for expected component according to convention');
     t.ok(typeof compiled === 'function', 'got done callback');
     compiled(null, map[file]);
@@ -308,7 +308,7 @@ test('render JSON demanding things gets bundled components for different action 
       'client/js/controllers/foo/bar.js': 'taint',
       '.bin/views/foo/mar.js': 'foo',
       'client/js/controllers/foo/mar.js': 'bar'
-    }
+    };
     t.ok(map[file], 'asked for expected component according to convention');
     t.ok(typeof compiled === 'function', 'got done callback');
     compiled(null, map[file]);

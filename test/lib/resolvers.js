@@ -12,7 +12,7 @@ test('resolvers', function (t) {
 
 test('resolvers.use overrides', function (t) {
   var resolvers = require('../../lib/resolvers');
-  resolvers.use({foo:'foo',bar:'bar'})
+  resolvers.use({foo:'foo',bar:'bar'});
   t.equal(resolvers.foo, 'foo');
   t.equal(resolvers.bar, 'bar');
   t.end();
@@ -21,7 +21,7 @@ test('resolvers.use overrides', function (t) {
 test('.use is reserved', function (t) {
   var resolvers = require('../../lib/resolvers');
   var use = resolvers.use;
-  resolvers.use({use:'use'})
+  resolvers.use({use:'use'});
   t.equal(resolvers.use, use);
   t.end();
 });

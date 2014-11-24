@@ -41,7 +41,7 @@ var cases = {
     rules: ['home/index'],
     deferred: ['home/index']
   }
-}
+};
 
 Object.keys(cases).forEach(function register (tc) {
   test(tc, testCase);

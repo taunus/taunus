@@ -28,7 +28,7 @@ cases.forEach(function register (tc, i) {
     if (i === 7) {
       opt = {
         deferred: ['bar/?']
-      }
+      };
     }
     t.equal(cli.render(opt), read('./test/lib/fixture/wiring_expected.' + i + '.js'));
     t.end();
