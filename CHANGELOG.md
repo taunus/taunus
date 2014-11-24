@@ -1,3 +1,7 @@
+# v3.1.1 Bumper Sticker
+
+- Bumped `hget` to `1.1.0`
+
 # v3.1.0 Prefetch Party
 
 - Public `taunus.prefetch(url, element)` API exposed
