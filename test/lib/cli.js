@@ -2,6 +2,7 @@
 
 var fs = require('fs');
 var test = require('tape');
+var proxyquire = require('proxyquire');
 var rc = require('../../lib/rc');
 var cases = [
   'cli produces empty wiring module',
@@ -13,6 +14,9 @@ var cases = [
   'cli finds view templates',
   'cli defers actions and ignores deferred controllers or templates'
 ];
+
+var oldrc = JSON.parse(JSON.stringify(rc));
+var caseCount = 0;
 
 cases.forEach(function register (tc, i) {
   test(tc, function testCase (t) {
@@ -28,8 +32,15 @@ cases.forEach(function register (tc, i) {
     }
     t.equal(cli.render(opt), read('./test/lib/fixture/wiring_expected.' + i + '.js'));
     t.end();
+    okay();
   });
 });
+
+function okay () {
+  if (++caseCount === cases.length) {
+    rc = oldrc;
+  }
+}
 
 function read (file) {
   return fs.readFileSync(file, 'utf8');
