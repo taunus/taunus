@@ -39,6 +39,11 @@ Taunus has unit tests. Run them with `npm`.
 npm test
 ```
 
+# Browser Support
+
+![testling.png][9]
+
+
 # License
 
 MIT
@@ -51,3 +56,4 @@ MIT
 [6]: https://github.com/taunus/getting-started
 [7]: https://github.com/taunus/generator-taunus
 [8]: http://ponyfoo.com
+[9]: https://ci.testling.com/taunus/taunus.png
