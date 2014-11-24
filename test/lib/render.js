@@ -237,7 +237,6 @@ test('render JSON demanding template gets bundled template', function (t) {
   }
 });
 
-
 test('render JSON demanding things gets bundled components', function (t) {
   var state = {
     defaults: {}, // set at mountpoint
@@ -274,6 +273,49 @@ test('render JSON demanding things gets bundled components', function (t) {
   render('foo/bar', vm, req, res, next);
   function json (data) {
     t.deepEqual(data, { controller: 'bar', template: 'foo', model: {}, version: '1' });
+    t.end();
+  }
+});
+
+test('render JSON demanding things gets bundled components for different action when hijacked', function (t) {
+  var state = {
+    defaults: {}, // set at mountpoint
+    version: '1' // set at mountpoint
+  };
+  var render = proxyquire('../../lib/render', {
+    './state': state,
+    './bro': bro
+  });
+  var vm = {};
+  var req = {
+    headers: {
+      accept: 'application/json'
+    },
+    query: {
+      hijacker: 'foo/mar',
+      controller: '',
+      template: ''
+    }
+  };
+  var res = {
+    set: sinon.spy(),
+    json: json
+  };
+  function next () {}
+  function bro (file, compiled) {
+    var map = {
+      '.bin/views/foo/bar.js': 'tar',
+      'client/js/controllers/foo/bar.js': 'taint',
+      '.bin/views/foo/mar.js': 'foo',
+      'client/js/controllers/foo/mar.js': 'bar'
+    }
+    t.ok(map[file], 'asked for expected component according to convention');
+    t.ok(typeof compiled === 'function', 'got done callback');
+    compiled(null, map[file]);
+  }
+  render('foo/bar', vm, req, res, next);
+  function json (data) {
+    t.deepEqual(data, { controller: 'bar', template: 'foo', version: '1' });
     t.end();
   }
 });
