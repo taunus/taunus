@@ -1,4 +1,4 @@
-[![taunus.png][3]][1] [![travis.png][12]][11]
+[![taunus.png][3]][1]
 
 > Micro Isomorphic MVC. Progressive Enhancement. Content-First. Single-Page Applications (that are also server-side rendered). Predictive Caching. Bring Your Own View Engine.
 
@@ -46,6 +46,8 @@ npm test
 [![testling.png][9]][10]
 
 The server-side test suite is [serviced by Travis CI][11].
+
+[![travis.png][12]][11]
 
 # License
 
