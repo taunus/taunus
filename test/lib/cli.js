@@ -36,9 +36,13 @@ cases.forEach(function register (tc, i) {
   });
 });
 
+// apparently proxyquire cries in a corner if a module is required in many places
+// this fugly hack works around that limitation.
 function okay () {
   if (++caseCount === cases.length) {
-    rc = oldrc;
+    Object.keys(rc).forEach(function (key) {
+      rc[key] = oldrc[key];
+    });
   }
 }
 

@@ -3,7 +3,6 @@
 var test = require('tape');
 var sinon = require('sinon');
 var proxyquire = require('proxyquire');
-var rc = JSON.parse(JSON.stringify(require('../../lib/rc')));
 
 test('render without layout gets some html anyways', function (t) {
   var state = {
@@ -173,12 +172,9 @@ test('render JSON demanding controller gets bundled controller', function (t) {
     defaults: {}, // set at mountpoint
     version: '1' // set at mountpoint
   };
-  var defaults = require('../../lib/.taunusrc.defaults.json');
-  rc.server_controllers = defaults.server_controllers;
   var render = proxyquire('../../lib/render', {
     './state': state,
-    './bro': bro,
-    './rc': rc
+    './bro': bro
   });
   var vm = {};
   var req = {
@@ -202,6 +198,82 @@ test('render JSON demanding controller gets bundled controller', function (t) {
   render('foo/bar', vm, req, res, next);
   function json (data) {
     t.deepEqual(data, { controller: 'foo', model: {}, version: '1' });
+    t.end();
+  }
+});
+
+test('render JSON demanding template gets bundled template', function (t) {
+  var state = {
+    defaults: {}, // set at mountpoint
+    version: '1' // set at mountpoint
+  };
+  var render = proxyquire('../../lib/render', {
+    './state': state,
+    './bro': bro
+  });
+  var vm = {};
+  var req = {
+    headers: {
+      accept: 'application/json'
+    },
+    query: {
+      template: ''
+    }
+  };
+  var res = {
+    set: sinon.spy(),
+    json: json
+  };
+  function next () {}
+  function bro (file, compiled) {
+    t.equal(file, '.bin/views/foo/bar.js', 'asked for view template according to convention');
+    t.ok(typeof compiled === 'function', 'got done callback');
+    compiled(null, 'foo');
+  }
+  render('foo/bar', vm, req, res, next);
+  function json (data) {
+    t.deepEqual(data, { template: 'foo', model: {}, version: '1' });
+    t.end();
+  }
+});
+
+
+test('render JSON demanding things gets bundled components', function (t) {
+  var state = {
+    defaults: {}, // set at mountpoint
+    version: '1' // set at mountpoint
+  };
+  var render = proxyquire('../../lib/render', {
+    './state': state,
+    './bro': bro
+  });
+  var vm = {};
+  var req = {
+    headers: {
+      accept: 'application/json'
+    },
+    query: {
+      controller: '',
+      template: ''
+    }
+  };
+  var res = {
+    set: sinon.spy(),
+    json: json
+  };
+  function next () {}
+  function bro (file, compiled) {
+    var map = {
+      '.bin/views/foo/bar.js': 'foo',
+      'client/js/controllers/foo/bar.js': 'bar'
+    }
+    t.ok(map[file], 'asked for expected component according to convention');
+    t.ok(typeof compiled === 'function', 'got done callback');
+    compiled(null, map[file]);
+  }
+  render('foo/bar', vm, req, res, next);
+  function json (data) {
+    t.deepEqual(data, { controller: 'bar', template: 'foo', model: {}, version: '1' });
     t.end();
   }
 });
