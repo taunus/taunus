@@ -43,9 +43,9 @@ The server-side test suite is [serviced by Travis CI][11].
 
 [![travis.png][12]][11]
 
-[Testling][10] does CI for the client-side Taunus test suite.
+[Sauce Labs][10] provides CI for the client-side Taunus test suite.
 
-[![testling.png][9]][10]
+[![taunus.png][9]][10]
 
 
 # License
@@ -60,7 +60,7 @@ MIT
 [6]: https://github.com/taunus/getting-started
 [7]: https://github.com/taunus/generator-taunus
 [8]: http://ponyfoo.com
-[9]: https://ci.testling.com/taunus/taunus.png
-[10]: https://ci.testling.com/taunus/taunus
+[9]: https://saucelabs.com/browser-matrix/taunus.svg
+[10]: https://saucelabs.com/u/taunus
 [11]: https://travis-ci.org/taunus/taunus
 [12]: https://secure.travis-ci.org/taunus/taunus.png?branch=master

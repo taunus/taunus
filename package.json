@@ -23,59 +23,9 @@
     "lint": "jshint . --reporter node_modules/jshint-stylish/stylish.js",
     "test": "npm run test-server && npm run test-client",
     "test-server": "jshint . && tape test/lib/*.js",
-    "test-client": "browserify test/browser/*.js | testling",
+    "test-client": "zuul test/browser/*.js",
     "deploy": "npm version ${BUMP:-\"patch\"} --no-git-tag-version && cat package.json | jq .version > version.json && git add version.json package.json && git commit -m \"Taunus release v$(cat package.json | jq -r .version)\" && npm publish && git push",
     "diagnose": "browserify . --full-paths | uglifyjs -m -c | discify --open & browserify . --full-paths | uglifyjs -m -c | gzip-size | pretty-bytes"
-  },
-  "testling": {
-    "files": [
-      "test/browser/*.js"
-    ],
-    "browsers": {
-      "chrome": [
-        5,
-        15,
-        20,
-        25,
-        30,
-        "canary"
-      ],
-      "firefox": [
-        3.6,
-        10,
-        15,
-        20,
-        25,
-        "nightly"
-      ],
-      "opera": [
-        15,
-        16,
-        17,
-        "next"
-      ],
-      "safari": [
-        4,
-        5.1,
-        6
-      ],
-      "ie": [
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "iphone": [
-        6
-      ],
-      "ipad": [
-        6
-      ],
-      "android-browser": [
-        4.2
-      ]
-    }
   },
   "dependencies": {
     "accepts": "^1.1.1",
@@ -102,12 +52,11 @@
     "gzip-size": "^1.0.0",
     "jshint": "^2.5.0",
     "jshint-stylish": "^0.2.0",
-    "phantomjs": "^1.9.12",
     "pretty-bytes": "^1.0.1",
     "proxyquire": "^1.1.0",
     "sinon": "^1.12.1",
     "tape": "^3.0.3",
-    "testling": "^1.7.1",
-    "uglify-js": "^2.4.15"
+    "uglify-js": "^2.4.15",
+    "zuul": "^1.13.1"
   }
 }
