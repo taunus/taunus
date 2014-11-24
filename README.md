@@ -39,15 +39,14 @@ Taunus has unit tests. Run them with `npm`.
 npm test
 ```
 
-# Browser Support
+The server-side test suite is [serviced by Travis CI][11].
+
+[![travis.png][12]][11]
 
 [Testling][10] does CI for the client-side Taunus test suite.
 
 [![testling.png][9]][10]
 
-The server-side test suite is [serviced by Travis CI][11].
-
-[![travis.png][12]][11]
 
 # License
 
