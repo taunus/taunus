@@ -1,4 +1,4 @@
-[![taunus.png][3]][1] [![Build Status](https://secure.travis-ci.org/taunus/taunus.png?branch=master)](https://travis-ci.org/taunus/taunus)
+[![taunus.png][3]][1] [![travis.png][12]][11]
 
 > Micro Isomorphic MVC. Progressive Enhancement. Content-First. Single-Page Applications (that are also server-side rendered). Predictive Caching. Bring Your Own View Engine.
 
@@ -41,8 +41,11 @@ npm test
 
 # Browser Support
 
-![testling.png][9]
+[Testling][10] does CI for the client-side Taunus test suite.
 
+[![testling.png][9]][10]
+
+The server-side test suite is [serviced by Travis CI][11].
 
 # License
 
@@ -57,3 +60,6 @@ MIT
 [7]: https://github.com/taunus/generator-taunus
 [8]: http://ponyfoo.com
 [9]: https://ci.testling.com/taunus/taunus.png
+[10]: https://ci.testling.com/taunus/taunus
+[11]: https://travis-ci.org/taunus/taunus
+[12]: https://secure.travis-ci.org/taunus/taunus.png?branch=master
