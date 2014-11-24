@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - 0.1
 script:
-- npm run test-server
+- npm test
 env:
   global:
   - secure: bOy9yOUK1LJhJcNtrlvrJz4DL8prlGH2oixprSL5uQFreUe452RESP9uUQ+zWObuuqXN0zNI0CvbLslOmrCxbwOavY89oboP3S5R+hd80PjdlhVw454No6Jh3TBlbsaNxeqdckHTPde5UYA3q4tmgaSuOiv84J8Xms8kzU6pQX8=
