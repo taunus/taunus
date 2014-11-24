@@ -100,6 +100,7 @@
     "gzip-size": "^1.0.0",
     "jshint": "^2.5.0",
     "jshint-stylish": "^0.2.0",
+    "phantomjs": "^1.9.12",
     "pretty-bytes": "^1.0.1",
     "proxyquire": "^1.1.0",
     "sinon": "^1.12.1",
