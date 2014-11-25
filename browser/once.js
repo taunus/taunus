@@ -2,8 +2,9 @@
 
 module.exports = function disposable (fn) {
   var used;
+  var result;
   return function once () {
-    if (used) { return; } used = true;
-    return fn.apply(this, arguments);
+    if (used) { return result; } used = true;
+    return (result = fn.apply(this, arguments));
   };
 };

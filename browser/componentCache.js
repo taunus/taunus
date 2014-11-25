@@ -46,6 +46,7 @@ function push (type, action, value, version) {
   var singular = type.substr(0, type.length - 1);
   var is = deferred(action, state.deferrals);
   if (is === false) {
+    global.DEBUG && global.DEBUG('[componentCache] action "%s" is not deferred, not storing %s', action, singular);
     return;
   }
   if (version === state.version) {
