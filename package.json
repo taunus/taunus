@@ -21,10 +21,11 @@
   },
   "scripts": {
     "lint": "jshint . --reporter node_modules/jshint-stylish/stylish.js",
+    "ci": "npm run test-server && npm run test-client-ci",
     "test": "npm run test-server && npm run test-client",
     "test-server": "jshint . && tape test/lib/*.js",
-    "test-client": "zuul test/browser/*.js",
-    "test-client-local": "zuul test/browser/*.js --local 8000",
+    "test-client-ci": "zuul test/browser/*.js --local 8000",
+    "test-client": "browserify -p proxyquire-universal test/browser/*.js | testling",
     "deploy": "npm version ${BUMP:-\"patch\"} --no-git-tag-version && cat package.json | jq .version > version.json && git add version.json package.json && git commit -m \"Taunus release v$(cat package.json | jq -r .version)\" && npm publish && git push",
     "diagnose": "browserify . --full-paths | uglifyjs -m -c | discify --open & browserify . --full-paths | uglifyjs -m -c | gzip-size | pretty-bytes"
   },
@@ -55,9 +56,12 @@
     "jshint-stylish": "^0.2.0",
     "pretty-bytes": "^1.0.1",
     "proxyquire": "^1.1.0",
+    "proxyquire-universal": "^1.0.1",
     "sinon": "^1.12.1",
     "tape": "^3.0.3",
+    "testling": "^1.7.1",
     "uglify-js": "^2.4.15",
-    "zuul": "^1.13.1"
+    "zuul": "^1.13.1",
+    "zuulnice": "^1.0.0"
   }
 }

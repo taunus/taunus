@@ -33,11 +33,22 @@ npm run diagnose
 
 # Tests
 
-Taunus has unit tests. Run them with `npm`.
+Taunus has unit tests for both the client-side and the server-side. Run them both with `npm`.
 
 ```shell
 npm test
 ```
+
+You can also run them individually.
+
+```shell
+npm run test-server
+npm run test-client
+```
+
+<sub>Note that during CI a different test harness is used for the client-side _(the `test-client-ci` script)_, but the tests stay the same.</sub>
+
+# Continuous Integration
 
 The server-side test suite is [serviced by Travis CI][11].
 

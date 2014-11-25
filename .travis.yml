@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - 0.1
 script:
-- npm test
+- npm run ci
 env:
   global:
   - secure: U/3fMVCZfV4abh9Y6D3z2QxBZGWdDsCLIs6f8Wble6RV3ROMaW5DE4dhu6aUCBvtUTTRi5qeGDQF9Zu+uFjWqBxmvS6JYEMerZBy3lTwU5dMRcFDD+2hEITM/ERqqzIBQnGR6fQ60tlJCkSt0GU5atPetk8FyoOK97H64UEaBjs=

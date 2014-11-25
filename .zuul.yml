@@ -1,4 +1,7 @@
 ui: tape
+builder: zuulnice
+browserify:
+  - plugin: proxyquire-universal
 browsers:
   - name: ie
     version: 6..latest

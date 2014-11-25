@@ -1,8 +1,7 @@
 'use strict';
 
 var api = {};
-var g = global;
-var idb = g.indexedDB || g.mozIndexedDB || g.webkitIndexedDB || g.msIndexedDB;
+var idb = require('./underlying_idb');
 var supports;
 var db;
 var dbVersion = 3;
@@ -18,7 +17,7 @@ function test () {
   var req;
   var db;
 
-  if (!(idb && 'deleteDatabase' in idb)) {
+  if (!idb || !('deleteDatabase' in idb)) {
     support(false); return;
   }
 
@@ -84,7 +83,6 @@ function open () {
     api.get = get;
     api.set = set;
     api.clear = clear;
-    drainSet();
     support(true);
   }
 
@@ -105,15 +103,17 @@ function undefinedGet (store, key, done) {
 }
 
 function enqueueSet (store, key,  value, done) {
-  if (setQueue.length > 2) { // let's not waste any more memory
-    return;
+  if (supports === false) {
+    done(null); return;
   }
-  if (supports !== false) { // let's assume the capability is validated soon
-    setQueue.push({ store: store, key: key, value: value, done: done });
+  if (setQueue.length > 10) { // let's not waste any more memory
+    done(new Error('EFULLQUEUE')); return;
   }
+  setQueue.push({ store: store, key: key, value: value, done: done });
 }
 
 function drainSet () {
+  global.DEBUG && global.DEBUG('[idb] draining setQueue (%s items)', setQueue.length);
   while (setQueue.length) {
     var item = setQueue.shift();
     set(item.store, item.key, item.value, item.done);
@@ -216,6 +216,7 @@ function support (value) {
   global.DEBUG && global.DEBUG('[idb] test result %s, db %s', value, value ? 'ready' : 'unavailable');
   supports = value;
   drainTested();
+  drainSet();
 }
 
 function failed () {
