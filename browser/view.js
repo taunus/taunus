@@ -64,7 +64,7 @@ function getComponent (type, action) {
   var component = state[type][action];
   var transport = typeof component;
   if (transport === 'object' && component) {
-    return component.fn;
+    return component.fn; // deferreds are stored as {fn,version}
   }
   if (transport === 'function') {
     return component;
@@ -73,7 +73,7 @@ function getComponent (type, action) {
 
 function partial (container, action, model) {
   global.DEBUG && global.DEBUG('[view] rendering partial %s', action);
-  return view(container, action, model, null, { routed: false });
+  return view(container, action, model, null, { partial: true });
 }
 
 view.partial = partial;
