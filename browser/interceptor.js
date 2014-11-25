@@ -37,15 +37,6 @@ function add (action, fn) {
   interceptors.on(action, fn);
 }
 
-function executeSync (route) {
-  var e = getInterceptorEvent(route);
-
-  interceptors.emit('*', e);
-  interceptors.emit(route.action, e);
-
-  return e;
-}
-
 function execute (route, done) {
   var e = getInterceptorEvent(route);
   if (interceptors.count === 0) { // fail fast

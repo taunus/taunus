@@ -3,7 +3,6 @@
 var state = require('./state');
 var router = require('./router');
 var events = require('./events');
-var fetcher = require('./fetcher');
 var prefetcher = require('./prefetcher');
 var activator = require('./activator');
 var origin = document.location.origin;
