@@ -87,4 +87,4 @@ test('router(url) should return route when matched', function (t) {
   t.equal(p2.pathname, '/bar');
   t.deepEqual(router('/bar/do'), null);
   t.end();
-})
+});

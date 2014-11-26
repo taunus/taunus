@@ -8,12 +8,14 @@ var prefetcher = require('./prefetcher');
 var view = require('./view');
 var router = require('./router');
 var state = require('./state');
-var nativeFn = require('./nativeFn');
+var document = require('./global/document');
+var location = require('./global/location');
+var history = require('./global/history');
 var versioning = require('../versioning');
-var modern = 'history' in window && 'pushState' in history;
 
-// Google Chrome 38 on iOS makes weird changes to history.replaceState, breaking it
-var nativeReplace = modern && nativeFn(window.history.replaceState);
+function modern () { // `history.modern = false` used in tests
+  return history && history.modern !== false;
+}
 
 function go (url, options) {
   var o = options || {};
@@ -28,6 +30,8 @@ function go (url, options) {
     return;
   }
 
+  global.DEBUG && global.DEBUG('[activator] route matches %s', route.route);
+
   var same = router.equals(route, state.route);
   if (same && o.force !== true) {
     if (route.parts.hash) {
@@ -41,7 +45,9 @@ function go (url, options) {
     return;
   }
 
-  if (!modern) {
+  global.DEBUG && global.DEBUG('[activator] not same route as before');
+
+  if (!modern()) {
     global.DEBUG && global.DEBUG('[activator] not modern, redirecting to %s', url);
     location.href = url;
     return;
@@ -61,7 +67,6 @@ function go (url, options) {
       location.href = url; // version change demands fallback to strict navigation
       return;
     }
-    console.log(data.model);
     resolved(data.model);
   }
 
@@ -79,7 +84,7 @@ function start (data) {
     return;
   }
   var model = data.model;
-  var route = replaceWith(model);
+  var route = getRouteAndReplaceHistory(model);
   emitter.emit('start', state.container, model, route);
   global.DEBUG && global.DEBUG('[activator] started, executing client-side controller');
   view(state.container, null, model, route, { render: false });
@@ -93,16 +98,17 @@ function back (e) {
   }
   global.DEBUG && global.DEBUG('[activator] backwards history navigation with state', e.state);
   var model = e.state.model;
-  var route = replaceWith(model);
+  var route = getRouteAndReplaceHistory(model);
   view(state.container, null, model, route);
   scrollInto(id(route.parts.hash));
 }
 
 function scrollInto (id, enabled) {
-  if (enabled === false || !id) {
+  if (enabled === false) {
     return;
   }
-  global.DEBUG && global.DEBUG('[activator] scrolling into "%s"', id);
+  global.DEBUG && global.DEBUG('[activator] scrolling into "%s"', id || '#document');
+
   var elem = id && document.getElementById(id) || document.documentElement;
   if (elem && elem.scrollIntoView) {
     raf(scrollSoon);
@@ -117,7 +123,7 @@ function id (hash) {
   return orEmpty(hash).substr(1);
 }
 
-function replaceWith (model) {
+function getRouteAndReplaceHistory (model) {
   var url = location.pathname;
   var query = orEmpty(location.search) + orEmpty(location.hash);
   var route = router(url + query);
@@ -136,7 +142,7 @@ function navigation (route, model, direction) {
   if (model.title) {
     document.title = model.title;
   }
-  if (modern && direction !== 'replaceState' || nativeReplace) {
+  if (modern() && history[direction]) {
     history[direction]({ model: model }, model.title, route.url);
   }
 }

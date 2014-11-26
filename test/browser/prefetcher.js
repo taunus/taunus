@@ -61,8 +61,6 @@ test('prefetcher does not work when intent is set', function (t) {
   t.end();
 });
 
-;
-
 test('prefetcher uses fetcher to prefetch', function (t) {
   var element = {};
   var route = {};
