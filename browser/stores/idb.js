@@ -40,7 +40,7 @@ function test () {
     function success () {
       db = req.result;
       try {
-        db.transaction('store', 'readwrite').objectStore('store').add(new Blob(), 'key');
+        db.transaction('store', 'readwrite').objectStore('store').add(new global.Blob(), 'key');
       } catch (e) {
         support(false);
       } finally {

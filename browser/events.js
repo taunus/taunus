@@ -12,7 +12,7 @@ function add (element, type, fn) {
 
 function wrapperFactory (element, fn) {
   return function wrapper (originalEvent) {
-    var e = originalEvent || window.event;
+    var e = originalEvent || global.event;
     e.target = e.target || e.srcElement;
     e.preventDefault  = e.preventDefault  || function preventDefault () { e.returnValue = false; };
     e.stopPropagation = e.stopPropagation || function stopPropagation () { e.cancelBubble = true; };

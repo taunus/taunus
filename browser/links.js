@@ -5,6 +5,7 @@ var router = require('./router');
 var events = require('./events');
 var prefetcher = require('./prefetcher');
 var activator = require('./activator');
+var document = require('./global/document');
 var origin = document.location.origin;
 var leftClick = 1;
 var prefetching = [];

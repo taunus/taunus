@@ -88,7 +88,7 @@ function start (data) {
   emitter.emit('start', state.container, model, route);
   global.DEBUG && global.DEBUG('[activator] started, executing client-side controller');
   view(state.container, null, model, route, { render: false });
-  window.onpopstate = back;
+  global.onpopstate = back;
 }
 
 function back (e) {

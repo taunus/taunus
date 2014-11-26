@@ -64,8 +64,8 @@ test('activator.start emits start', function (t) {
   t.ok(history.replaceState.calledWith({ model: data.model }, data.model.title, route.url));
   t.equal(state.route, route);
   t.deepEqual(state.model, data.model);
-  t.equal(document.title, data.model.title);
-  t.equal(typeof window.onpopstate, 'function');
+  t.equal(global.document.title, data.model.title);
+  t.equal(typeof global.onpopstate, 'function');
   t.end();
 });
 
@@ -109,13 +109,13 @@ test('activator.start uses onpopstate successfully', function (t) {
   // reset spies expected to fire in .start
   view.reset();
   history.replaceState.reset();
-  window.onpopstate();
+  global.onpopstate();
   t.ok(view.notCalled);
-  window.onpopstate({});
+  global.onpopstate({});
   t.ok(view.notCalled);
-  window.onpopstate({state:{}});
+  global.onpopstate({state:{}});
   t.ok(view.notCalled);
-  window.onpopstate({state:{model:model}});
+  global.onpopstate({state:{model:model}});
   t.ok(history.replaceState.calledWith({model: model}, model.title, route.url));
   t.ok(view.calledWith(state.container, null, model, route));
   t.ok(document.getElementById.calledWith('far'));

@@ -3,6 +3,7 @@
 var test = require('tape');
 var sinon = require('sinon');
 var proxyquire = require('proxyquire');
+var document = global.document;
 
 test('links exposes an API', function (t) {
   var links = require('../../browser/links');

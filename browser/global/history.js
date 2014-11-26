@@ -1,14 +1,14 @@
 'use strict';
 
-var modern = 'history' in window && 'pushState' in history;
-var api = modern && history;
+var modern = 'history' in global && 'pushState' in global.history;
+var api = modern && global.history;
 
 // Google Chrome 38 on iOS makes weird changes to history.replaceState, breaking it
 var nativeFn = require('../nativeFn');
-var nativeReplaceBroken = !modern || !nativeFn(history.replaceState);
+var nativeReplaceBroken = modern && !nativeFn(api.replaceState);
 if (nativeReplaceBroken) {
   api = {
-    pushState: history.pushState.bind(history)
+    pushState: api.pushState.bind(api)
   };
 }
 

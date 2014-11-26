@@ -2,6 +2,7 @@
 
 var url = require('fast-url-parser');
 var routes = require('routes');
+var location = require('./global/location');
 var matcher = routes();
 var protocol = /^[a-z]+?:\/\//i;
 

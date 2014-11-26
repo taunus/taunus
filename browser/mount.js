@@ -8,6 +8,8 @@ var caching = require('./caching');
 var componentCache = require('./componentCache');
 var fetcher = require('./fetcher');
 var versioning = require('../versioning');
+var document = require('./global/document');
+var location = require('./global/location');
 var g = global;
 var mounted;
 var booted;
