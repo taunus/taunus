@@ -1,4 +1,4 @@
-# v3.1.1 Bumper Sticker
+# v3.1.2 Bumper Sticker
 
 - Bumped `hget` to `1.1.0`
 
