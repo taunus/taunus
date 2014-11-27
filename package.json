@@ -46,7 +46,6 @@
     "raf": "^2.0.3",
     "routes": "^1.2.0",
     "uglify-js": "^2.4.15",
-    "uglifyify": "^2.6.0",
     "xhr": "^1.14.1"
   },
   "devDependencies": {
@@ -62,7 +61,6 @@
     "sinon": "^1.12.1",
     "tape": "^3.0.3",
     "testling": "^1.7.1",
-    "uglify-js": "^2.4.15",
     "zuul": "^1.14.0",
     "zuulnice": "^1.0.0"
   }
