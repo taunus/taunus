@@ -1,3 +1,7 @@
+# v3.1.4 Action Figure
+
+- Layout gets access to rendered `action` _(partials can always use JavaScript!)_
+
 # v3.1.3 Spring Cleaning
 
 - Removed `uglifyify` dependency
