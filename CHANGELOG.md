@@ -1,3 +1,8 @@
+# v3.1.3 Spring Cleaning
+
+- Removed `uglifyify` dependency
+- Removed duplicate `uglify-js` dependency
+
 # v3.1.2 Bumper Sticker
 
 - Bumped `hget` to `1.1.0`
