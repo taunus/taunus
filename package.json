@@ -25,7 +25,7 @@
     "test": "npm run test-server && npm run test-client",
     "test-server": "jshint . && tape test/lib/*.js",
     "test-client-ci": "zuul test/browser/*.js",
-    "test-client-local": "zuul test/browser/*.js --local 8000",
+    "test-client-local": "zuul test/browser/*.js --local 8000 --open",
     "test-client": "browserify -e node_modules/es5-shim -p proxyquire-universal test/browser/*.js | testling",
     "deploy": "npm version ${BUMP:-\"patch\"} --no-git-tag-version && cat package.json | jq .version > version.json && git add version.json package.json && git commit -m \"Taunus release v$(cat package.json | jq -r .version)\" && npm publish && git push",
     "diagnose": "browserify . --full-paths | uglifyjs -m -c | discify --open & browserify . --full-paths | uglifyjs -m -c | gzip-size | pretty-bytes"
