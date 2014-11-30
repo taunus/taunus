@@ -1,3 +1,7 @@
+# v3.2.0 Routing Solution
+
+- Introduced `taunus.resolve(action, data)` method to resolve routes without manually constructing them
+
 # v3.1.4 Action Figure
 
 - Layout gets access to rendered `action` _(partials can always use JavaScript!)_
@@ -17,7 +21,7 @@
 
 # v3.0.2 Mirror Entity
 
-- ETag is now computed out of the HTML (or text) and not just the model in non-JSON responses.
+- ETag is now computed out of the HTML (or text) and not just the model in non-JSON responses
 
 # v3.0.1 Contractual Terms
 

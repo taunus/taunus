@@ -113,6 +113,10 @@ function enqueueSet (store, key,  value, done) {
 }
 
 function drainSet () {
+  if (supports === false) {
+    setQueue = [];
+    return;
+  }
   global.DEBUG && global.DEBUG('[idb] draining setQueue (%s items)', setQueue.length);
   while (setQueue.length) {
     var item = setQueue.shift();

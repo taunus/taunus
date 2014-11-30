@@ -2,4 +2,5 @@
 
 var g = global;
 
-module.exports = g.indexedDB || g.mozIndexedDB || g.webkitIndexedDB || g.msIndexedDB;
+// fallback to empty object because tests
+module.exports = g.indexedDB || g.mozIndexedDB || g.webkitIndexedDB || g.msIndexedDB || {};
