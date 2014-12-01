@@ -4,6 +4,7 @@ var state = require('./state');
 var emitter = require('./emitter');
 var fetcher = require('./fetcher');
 var deferral = require('./deferral');
+var templatingAPI = require('./templatingAPI');
 
 function view (container, enforcedAction, model, route, options) {
   var action = enforcedAction || model && model.action || route && route.action;
@@ -53,6 +54,7 @@ function render (action, model) {
   if (typeof template !== 'function') {
     throw new Error('Client-side "' + action + '" template not found');
   }
+  model.taunus = templatingAPI;
   try {
     return template(model);
   } catch (e) {

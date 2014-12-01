@@ -10,6 +10,7 @@ var fetcher = require('./fetcher');
 var versioning = require('../versioning');
 var document = require('./global/document');
 var location = require('./global/location');
+var resolve = require('../lib/resolve');
 var g = global;
 var mounted;
 var booted;
@@ -40,7 +41,8 @@ function mount (container, wiring, options) {
   state.prefetch = !!o.prefetch;
   state.version = versioning.get(o.version || '1');
 
-  router.setup(wiring.routes);
+  resolve.set(state.routes);
+  router.setup(state.routes);
 
   var url = location.pathname;
   var query = orEmpty(location.search) + orEmpty(location.hash);

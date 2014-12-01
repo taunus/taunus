@@ -17,20 +17,28 @@ var mount = require('./mount');
 var router = require('./router');
 var xhr = require('./xhr');
 var prefetcher = require('./prefetcher');
+var resolve = require('../lib/resolve');
 
 state.clear = stateClear;
 hooks.attach();
 
+function bind (method) {
+  return function () {
+    return emitter[method].apply(emitter, arguments);
+  };
+}
+
 module.exports = global.taunus = {
   mount: mount,
   partial: view.partial,
-  on: emitter.on.bind(emitter),
-  once: emitter.once.bind(emitter),
-  off: emitter.off.bind(emitter),
+  on: bind('on'),
+  once: bind('once'),
+  off: bind('off'),
   intercept: interceptor.add,
   navigate: activator.go,
   prefetch: prefetcher.start,
   state: state,
   route: router,
+  resolve: resolve,
   xhr: xhr
 };

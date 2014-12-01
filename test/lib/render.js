@@ -26,7 +26,7 @@ test('render without layout gets some html anyways', function (t) {
   function next () {}
   render('foo/bar', vm, req, res, next);
   t.ok(res.send.calledOnce, 'called res.send');
-  t.deepEqual(res.send.firstCall.args, ['<pre><code>{\n  "model": {},\n  "action": "foo/bar",\n  "partial": "action:foo/bar,vm:{}"\n}</code></pre>'], 'got html response anyways');
+  t.deepEqual(res.send.firstCall.args, ['<pre><code>{\n  "model": {\n    "taunus": {}\n  },\n  "action": "foo/bar",\n  "taunus": {},\n  "partial": "action:foo/bar,vm:{\\"taunus\\":{}}"\n}</code></pre>'], 'got html response anyways');
   t.end();
 });
 
@@ -53,7 +53,7 @@ test('render with layout gets some plain text', function (t) {
   function next () {}
   render('foo/bar', vm, req, res, next);
   t.ok(res.send.calledOnce, 'called res.send');
-  t.deepEqual(res.send.firstCall.args, ['action:foo/bar, vm:{}'], 'got plaintext response');
+  t.deepEqual(res.send.firstCall.args, ['action:foo/bar, vm:{"taunus":{}}'], 'got plaintext response');
   t.end();
 });
 
@@ -79,7 +79,7 @@ test('setting model.action uses different action', function (t) {
   function next () {}
   render('foo/bar', vm, req, res, next);
   t.ok(res.send.calledOnce, 'called res.send');
-  t.deepEqual(res.send.firstCall.args, ['<pre><code>{\n  "model": {\n    "action": "bar/baz"\n  },\n  "action": "bar/baz",\n  "partial": "action:bar/baz,vm:{\\"action\\":\\"bar/baz\\"}"\n}</code></pre>'], 'got model\'s action');
+  t.deepEqual(res.send.firstCall.args, ['<pre><code>{\n  "model": {\n    "action": "bar/baz",\n    "taunus": {}\n  },\n  "action": "bar/baz",\n  "taunus": {},\n  "partial": "action:bar/baz,vm:{\\"action\\":\\"bar/baz\\",\\"taunus\\":{}}"\n}</code></pre>'], 'got model\'s action');
   t.end();
 });
 

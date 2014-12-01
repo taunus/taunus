@@ -1,6 +1,6 @@
 # v3.2.0 Routing Solution
 
-- Introduced `taunus.resolve(action, data)` method to resolve routes without manually constructing them
+- Introduced `taunus.resolve(action, data)` method to resolve routes without manually constructing them, on both client-side and server-side
 
 # v3.1.4 Action Figure
 
