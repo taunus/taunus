@@ -26,7 +26,7 @@ test('render without layout gets some html anyways', function (t) {
   function next () {}
   render('foo/bar', vm, req, res, next);
   t.ok(res.send.calledOnce, 'called res.send');
-  t.deepEqual(res.send.firstCall.args, ['<pre><code>{\n  "model": {},\n  "partial": "action:foo/bar,vm:{}"\n}</code></pre>'], 'got html response anyways');
+  t.deepEqual(res.send.firstCall.args, ['<pre><code>{\n  "model": {},\n  "action": "foo/bar",\n  "partial": "action:foo/bar,vm:{}"\n}</code></pre>'], 'got html response anyways');
   t.end();
 });
 
@@ -79,7 +79,7 @@ test('setting model.action uses different action', function (t) {
   function next () {}
   render('foo/bar', vm, req, res, next);
   t.ok(res.send.calledOnce, 'called res.send');
-  t.deepEqual(res.send.firstCall.args, ['<pre><code>{\n  "model": {\n    "action": "bar/baz"\n  },\n  "partial": "action:bar/baz,vm:{\\"action\\":\\"bar/baz\\"}"\n}</code></pre>'], 'got model\'s action');
+  t.deepEqual(res.send.firstCall.args, ['<pre><code>{\n  "model": {\n    "action": "bar/baz"\n  },\n  "action": "bar/baz",\n  "partial": "action:bar/baz,vm:{\\"action\\":\\"bar/baz\\"}"\n}</code></pre>'], 'got model\'s action');
   t.end();
 });
 
