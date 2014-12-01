@@ -111,11 +111,10 @@ function scrollInto (id, enabled) {
 
   var elem = id && document.getElementById(id) || document.documentElement;
   if (elem && elem.scrollIntoView) {
-    console.log('FOO');
     raf(scrollSoon);
-  }else{console.log('BAR');}
+  }
 
-  function scrollSoon () {console.log('SCROLLA SOONA')
+  function scrollSoon () {
     elem.scrollIntoView();
   }
 }

@@ -37,6 +37,14 @@ test('resolve resolves missing optional route actions', function (t) {
   t.end();
 });
 
+test('resolve throws for missing properties', function (t) {
+  var resolve = require('../../browser/resolve');
+  t.throws(function () {
+    resolve([{action:'foo',route:'/foo/:name'}],'foo');
+  });
+  t.end();
+});
+
 test('resolve with extra arguments appends those as query string', function (t) {
   var resolve = require('../../browser/resolve');
   var result = resolve([{action:'foo',route:'/foo'}],'foo',{args:{a:'',b:2,c:false,d:null}});
