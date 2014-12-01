@@ -3,7 +3,6 @@
 var test = require('tape');
 var sinon = require('sinon');
 var proxyquire = require('proxyquire');
-var raf = require('raf');
 
 test('activator exposes expected api', function (t) {
   var activator = proxyquire('../../browser/activator', {});
@@ -380,3 +379,7 @@ test('happy path goes ahead on version match', function (t) {
     t.end();
   });
 });
+
+function raf (fn) {
+  setTimeout(fn, 50); // for some reason the regular raf method fails miserably on phantomjs
+}
