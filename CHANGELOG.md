@@ -1,3 +1,7 @@
+# v3.2.1 Optional Options
+
+- Fixed an issue where `taunus.resolve` would replace falsy values with empty strings
+
 # v3.2.0 Routing Solution
 
 - Introduced `taunus.resolve(action, data)` method to resolve routes without manually constructing them, on both client-side and server-side

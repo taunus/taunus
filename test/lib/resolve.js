@@ -26,6 +26,22 @@ test('resolve resolves simple route actions', function (t) {
   t.end();
 });
 
+test('resolve resolves falsy route actions', function (t) {
+  var resolve = proxyquire('../../lib/resolve', {});
+  resolve.set([{action:'foo',route:'/food/:id'}]);
+  var result = resolve('foo', {id: 0});
+  t.equal(result, '/food/0');
+  t.end();
+});
+
+test('resolve resolves false route actions', function (t) {
+  var resolve = proxyquire('../../lib/resolve', {});
+  resolve.set([{action:'foo',route:'/food/:id'}]);
+  var result = resolve('foo', {id: false});
+  t.equal(result, '/food/false');
+  t.end();
+});
+
 test('resolve resolves optional route actions', function (t) {
   var resolve = proxyquire('../../lib/resolve', {});
   resolve.set([{action:'foo',route:'/foo/:name?'}]);
