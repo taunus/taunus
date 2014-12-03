@@ -2,17 +2,17 @@
   "name": "taunus",
   "description": "Micro Isomorphic MVC. Progressive Enhancement. Content-First. Single-Page Applications (that are also server-side rendered). Predictive Caching. Bring Your Own View Engine.",
   "version": "3.2.1",
-  "homepage": "https://github.com/bevacqua/taunus",
+  "homepage": "https://github.com/taunus/taunus",
   "authors": [
     "Nicolas Bevacqua <nicolasbevacqua@gmail.com>"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/bevacqua/taunus.git"
+    "url": "git://github.com/taunus/taunus.git"
   },
   "bugs": {
-    "url": "https://github.com/bevacqua/taunus/issues"
+    "url": "https://github.com/taunus/taunus/issues"
   },
   "main": "lib/index.js",
   "browser": "browser/index.js",
