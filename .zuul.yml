@@ -1,5 +1,4 @@
 ui: tape
-builder: zuulnice
 browserify:
   - plugin: proxyquire-universal
 browsers:
