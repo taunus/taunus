@@ -1,3 +1,7 @@
+# v3.2.2
+
+- Fixed an issue where `taunus.resolve` would replace named regular expression parameters such as `:hash(d+)` and keep the regular expression part, resulting in `/hashes/5499cf5f(d+)` instead of  `/hashes/5499cf5f`
+
 # v3.2.1 Optional Options
 
 - Fixed an issue where `taunus.resolve` would replace falsy values with empty strings
