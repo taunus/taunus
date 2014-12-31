@@ -1,3 +1,7 @@
+# v3.2.4 Test Run
+
+- Fix failing test in `taunus.resolve` where optional parameters would be enforced
+
 # v3.2.3 Major Resolve
 
 - Fixed an issue where `taunus.resolve` would replace named regular expression parameters such as `:hash(d+)` and keep the regular expression part, resulting in `/hashes/5499cf5f(d+)` instead of  `/hashes/5499cf5f`
