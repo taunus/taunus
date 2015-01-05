@@ -1,9 +1,9 @@
 'use strict';
 
 var url = require('fast-url-parser');
-var routes = require('routes');
+var ruta3 = require('ruta3');
 var location = require('./global/location');
-var matcher = routes();
+var matcher = ruta3();
 var protocol = /^[a-z]+?:\/\//i;
 
 function getFullUrl (raw) {
@@ -31,8 +31,11 @@ function router (raw) {
     return full;
   }
   var parts = url.parse(full, true);
-  var result = matcher.match(parts.pathname);
-  var route = result ? result.fn(result) : null;
+  var info = matcher.match(parts.pathname);
+
+  global.DEBUG && global.DEBUG('[router] %s produces %d', raw, info);
+
+  var route = info ? merge(info) : null;
   if (route === null || route.ignore) {
     return null;
   }
@@ -45,22 +48,29 @@ function router (raw) {
   return route;
 }
 
+function merge (info) {
+  var route = Object.keys(info.action).reduce(copyOver, {
+    params: info.params
+  });
+
+  info.params.args = info.splats;
+
+  return route;
+
+  function copyOver (route, key) {
+    route[key] = info.action[key]; return route;
+  }
+}
+
 function setup (definitions) {
   definitions.forEach(define);
 }
 
 function define (definition) {
-  matcher.addRoute(definition.route, function build (match) {
-    var params = match.params;
-    params.args = match.splats;
-    return {
-      route: definition.route,
-      params: params,
-      action: definition.action || null,
-      ignore: definition.ignore,
-      cache: definition.cache
-    };
-  });
+  if (typeof definition.action !== 'string') {
+    definition.action = null;
+  }
+  matcher.addRoute(definition.route, definition);
 }
 
 function equals (left, right) {
