@@ -1,3 +1,8 @@
+# v3.2.5 Ruta 3
+
+- Fix a bug on the client-side where you couldn't have multiple routes with the same route pattern
+- Internal: Replaced `routes` with `ruta3` for flexibility and convenience
+
 # v3.2.4 Test Run
 
 - Fix failing test in `taunus.resolve` where optional parameters would be enforced
