@@ -1,3 +1,7 @@
+# v3.3.0 Hack Journalism
+
+- Internal `taunus.render` method _(consumed by `taunus-express` and `taunus-hapi`)_ changed signature. Upgrade to `taunus-express@1.2.0` or `taunus-hapi@1.4.0`.
+
 # v3.2.5 Ruta 3
 
 - Fix a bug on the client-side where you couldn't have multiple routes with the same route pattern

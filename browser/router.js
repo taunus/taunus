@@ -33,7 +33,7 @@ function router (raw) {
   var parts = url.parse(full, true);
   var info = matcher.match(parts.pathname);
 
-  global.DEBUG && global.DEBUG('[router] %s produces %d', raw, info);
+  global.DEBUG && global.DEBUG('[router] %s produces %o', raw, info);
 
   var route = info ? merge(info) : null;
   if (route === null || route.ignore) {
