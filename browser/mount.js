@@ -15,10 +15,6 @@ var g = global;
 var mounted;
 var booted;
 
-function orEmpty (value) {
-  return value || '';
-}
-
 function mount (container, wiring, options) {
   var o = options || {};
   if (mounted) {
@@ -44,9 +40,7 @@ function mount (container, wiring, options) {
   resolve.set(state.routes);
   router.setup(state.routes);
 
-  var url = location.pathname;
-  var query = orEmpty(location.search) + orEmpty(location.hash);
-  var route = router(url + query);
+  var route = router(location.href);
 
   caching.setup(o.cache, route);
   caching.ready(kickstart);

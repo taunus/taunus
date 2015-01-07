@@ -25,13 +25,13 @@ function getFullUrl (raw) {
   return raw;
 }
 
-function router (raw, startIndex) {
+function router (raw) {
   var full = getFullUrl(raw);
   if (full === null) {
     return null;
   }
   var parts = url.parse(full, true);
-  var info = matcher.match(parts.pathname, startIndex);
+  var info = matcher.match(parts.pathname);
 
   global.DEBUG && global.DEBUG('[router] %s produces %o', raw, info);
 

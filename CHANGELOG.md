@@ -1,3 +1,7 @@
+# v4.1.0 Transaction Reversal
+
+- Removed `startIndex` parameter to Router API introduced in `4.0.0`
+
 # v4.0.0 Roomba Loompa
 
 - Navigating to the same route over and over no longer pushes new history states, uses `replaceState` instead
