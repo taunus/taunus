@@ -13,7 +13,7 @@ var location = require('./global/location');
 var history = require('./global/history');
 var versioning = require('../versioning');
 
-function modern () { // `history.modern = false` used in tests
+function modern () { // needs to be a function because testing
   return history && history.modern !== false;
 }
 
@@ -32,8 +32,9 @@ function go (url, options) {
 
   global.DEBUG && global.DEBUG('[activator] route matches %s', route.route);
 
+  var notForced = o.force !== true;
   var same = router.equals(route, state.route);
-  if (same && o.force !== true) {
+  if (same && notForced) {
     if (route.parts.hash) {
       global.DEBUG && global.DEBUG('[activator] same route and hash, updating scroll position');
       scrollInto(id(route.parts.hash), o.scroll);
@@ -45,7 +46,7 @@ function go (url, options) {
     return;
   }
 
-  global.DEBUG && global.DEBUG('[activator] not same route as before');
+  global.DEBUG && global.DEBUG('[activator] %s', notForced ? 'not same route as before' : 'forced to fetch same route');
 
   if (!modern()) {
     global.DEBUG && global.DEBUG('[activator] not modern, redirecting to %s', url);
@@ -67,11 +68,17 @@ function go (url, options) {
       location.href = url; // version change demands fallback to strict navigation
       return;
     }
+    if ('redirectTo' in data) {
+      global.DEBUG && global.DEBUG('[activator] redirect detected in response, redirecting to %s', data.redirectTo);
+      location.href = data.redirectTo; // redirects typically represent layout changes, we should follow them
+      return;
+    }
     resolved(data.model);
   }
 
   function resolved (model) {
-    navigation(route, model, direction);
+    var same = router.equals(route, state.route);
+    navigation(route, model, same ? 'replaceState' : direction);
     view(state.container, null, model, route);
     scrollInto(id(route.parts.hash), o.scroll);
   }
@@ -84,7 +91,8 @@ function start (data) {
     return;
   }
   var model = data.model;
-  var route = getRouteAndReplaceHistory(model);
+  var route = router(location.href);
+  navigation(route, model, 'replaceState');
   emitter.emit('start', state.container, model, route);
   global.DEBUG && global.DEBUG('[activator] started, executing client-side controller');
   view(state.container, null, model, route, { render: false });
@@ -92,13 +100,15 @@ function start (data) {
 }
 
 function back (e) {
-  var empty = !(e && e.state && e.state.model);
+  var s = e.state;
+  var empty = !s || !s.__taunus;
   if (empty) {
     return;
   }
-  global.DEBUG && global.DEBUG('[activator] backwards history navigation with state', e.state);
-  var model = e.state.model;
-  var route = getRouteAndReplaceHistory(model);
+  global.DEBUG && global.DEBUG('[activator] backwards history navigation with state', s);
+  var model = s.model;
+  var route = router(location.href);
+  navigation(route, model, 'replaceState');
   view(state.container, null, model, route);
   scrollInto(id(route.parts.hash));
 }
@@ -123,27 +133,25 @@ function id (hash) {
   return orEmpty(hash).substr(1);
 }
 
-function getRouteAndReplaceHistory (model) {
-  var url = location.pathname;
-  var query = orEmpty(location.search) + orEmpty(location.hash);
-  var route = router(url + query);
-  navigation(route, model, 'replaceState');
-  return route;
-}
-
 function orEmpty (value) {
   return value || '';
 }
 
 function navigation (route, model, direction) {
-  global.DEBUG && global.DEBUG('[activator] pushing %s into history', route.url);
+  var data;
+
+  global.DEBUG && global.DEBUG('[activator] history :%s %s', direction.replace('State', ''), route.url);
   state.route = route;
   state.model = clone(model);
   if (model.title) {
     document.title = model.title;
   }
   if (modern() && history[direction]) {
-    history[direction]({ model: model }, model.title, route.url);
+    data = {
+      __taunus: true,
+      model: model
+    };
+    history[direction](data, model.title, route.url);
   }
 }
 

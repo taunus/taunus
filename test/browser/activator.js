@@ -60,7 +60,7 @@ test('activator.start emits start', function (t) {
   activator.start(data);
   t.ok(emitter.emit.calledWith('start', state.container, data.model, route));
   t.ok(view.calledWith(state.container, null, data.model, route, { render: false }));
-  t.ok(history.replaceState.calledWith({ model: data.model }, data.model.title, route.url));
+  t.ok(history.replaceState.calledWith({ __taunus: true, model: data.model }, data.model.title, route.url));
   t.equal(state.route, route);
   t.deepEqual(state.model, data.model);
   t.equal(global.document.title, data.model.title);
@@ -108,14 +108,12 @@ test('activator.start uses onpopstate successfully', function (t) {
   // reset spies expected to fire in .start
   view.reset();
   history.replaceState.reset();
-  global.onpopstate();
-  t.ok(view.notCalled);
   global.onpopstate({});
   t.ok(view.notCalled);
   global.onpopstate({state:{}});
   t.ok(view.notCalled);
-  global.onpopstate({state:{model:model}});
-  t.ok(history.replaceState.calledWith({model: model}, model.title, route.url));
+  global.onpopstate({state:{__taunus:true,model:model}});
+  t.ok(history.replaceState.calledWith({__taunus: true, model: model}, model.title, route.url));
   t.ok(view.calledWith(state.container, null, model, route));
   t.ok(document.getElementById.calledWith('far'));
   raf(function () {
@@ -183,7 +181,7 @@ test('activator.go bails if same route as before, after history push', function 
   });
   activator.go('/foo');
   t.ok(view.notCalled);
-  t.ok(history.pushState.calledWith({model:state.model},state.model.title,route.url));
+  t.ok(history.pushState.calledWith({__taunus: true, model:state.model},state.model.title,route.url));
   t.ok(document.getElementById.calledWith('far'));
   raf(function () {
     t.ok(el.scrollIntoView.calledOnce);
@@ -330,6 +328,42 @@ test('happy path bails on bad version', function (t) {
   t.end();
 });
 
+test('happy path bails on redirectTo directive', function (t) {
+  var history = {
+    pushState: sinon.spy()
+  };
+  var location = {
+    href: ''
+  };
+  var route = {url:'/foo',parts:{},route:'/foo'};
+  var router = sinon.stub().returns(route);
+  router.equals = sinon.stub().returns(false);
+  var state = {
+    version: '0',
+    container: {},
+    deferrals: [],
+    controllers: {},
+    templates: {},
+    model: {existing:true,title:'mart'}
+  };
+  var prefetcher = {abortIntent: sinon.spy()};
+  var fetcher = sinon.spy();
+  fetcher.abortPending = sinon.spy();
+  var activator = proxyquire('../../browser/activator', {
+    './state': state,
+    './router': router,
+    './global/location': location,
+    './global/history': history,
+    './prefetcher': prefetcher,
+    './fetcher': fetcher
+  });
+  var context = {};
+  activator.go('/foo', {context:context});
+  fetcher.firstCall.args[2](null, {version: '0', redirectTo: '/bar'});
+  t.equal(location.href, '/bar');
+  t.end();
+});
+
 test('happy path goes ahead on version match', function (t) {
   var history = {
     pushState: sinon.spy()
@@ -371,7 +405,7 @@ test('happy path goes ahead on version match', function (t) {
   var data = {version: '0',model:{title:'kwik-e-mart'}};
   activator.go('/foo');
   fetcher.firstCall.args[2](null, data);
-  t.ok(history.pushState.calledWith({model:data.model},data.model.title,route.url));
+  t.ok(history.pushState.calledWith({__taunus: true, model:data.model},data.model.title,route.url));
   t.ok(view.calledWith(state.container,null,data.model,route));
   t.ok(document.getElementById.notCalled);
   raf(function () {

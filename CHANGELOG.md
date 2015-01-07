@@ -1,3 +1,14 @@
+# v4.0.0 Roomba Loompa
+
+- Navigating to the same route over and over no longer pushes new history states, uses `replaceState` instead
+- Added `startIndex` parameter to Router API
+- Taunus notices redirects and renders the appropriate view
+- Introduced `taunus.redirect` API on the server-side
+
+# v3.3.1 ER
+
+- Fixes a bug caused by `v3.3.0`
+
 # v3.3.0 Hack Journalism
 
 - Internal `taunus.render` method _(consumed by `taunus-express` and `taunus-hapi`)_ changed signature. Upgrade to `taunus-express@1.2.0` or `taunus-hapi@1.4.0`.

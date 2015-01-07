@@ -25,13 +25,13 @@ function getFullUrl (raw) {
   return raw;
 }
 
-function router (raw) {
+function router (raw, startIndex) {
   var full = getFullUrl(raw);
   if (full === null) {
-    return full;
+    return null;
   }
   var parts = url.parse(full, true);
-  var info = matcher.match(parts.pathname);
+  var info = matcher.match(parts.pathname, startIndex);
 
   global.DEBUG && global.DEBUG('[router] %s produces %o', raw, info);
 
@@ -52,7 +52,6 @@ function merge (info) {
   var route = Object.keys(info.action).reduce(copyOver, {
     params: info.params
   });
-
   info.params.args = info.splats;
 
   return route;
@@ -74,7 +73,11 @@ function define (definition) {
 }
 
 function equals (left, right) {
-  return left && right && left.route === right.route && JSON.stringify(left.params) === JSON.stringify(right.params);
+  return (
+    left && right &&
+    left.route === right.route &&
+    JSON.stringify(left.params) === JSON.stringify(right.params)
+  );
 }
 
 router.setup = setup;

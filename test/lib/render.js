@@ -24,7 +24,7 @@ test('render without layout gets some html anyways', function (t) {
     send: sinon.spy()
   };
   function next () {}
-  render('foo/bar', vm, req, res, next);
+  render({ action: 'foo/bar' }, vm, req, res, next);
   t.ok(res.send.calledOnce, 'called res.send');
   t.deepEqual(res.send.firstCall.args, ['<pre><code>{\n  "model": {\n    "taunus": {}\n  },\n  "action": "foo/bar",\n  "taunus": {},\n  "partial": "action:foo/bar,vm:{\\"taunus\\":{}}"\n}</code></pre>'], 'got html response anyways');
   t.end();
@@ -51,7 +51,7 @@ test('render with layout gets some plain text', function (t) {
     send: sinon.spy()
   };
   function next () {}
-  render('foo/bar', vm, req, res, next);
+  render({ action: 'foo/bar' }, vm, req, res, next);
   t.ok(res.send.calledOnce, 'called res.send');
   t.deepEqual(res.send.firstCall.args, ['action:foo/bar, vm:{"taunus":{}}'], 'got plaintext response');
   t.end();
@@ -77,7 +77,7 @@ test('setting model.action uses different action', function (t) {
     send: sinon.spy()
   };
   function next () {}
-  render('foo/bar', vm, req, res, next);
+  render({ action: 'foo/bar' }, vm, req, res, next);
   t.ok(res.send.calledOnce, 'called res.send');
   t.deepEqual(res.send.firstCall.args, ['<pre><code>{\n  "model": {\n    "action": "bar/baz",\n    "taunus": {}\n  },\n  "action": "bar/baz",\n  "taunus": {},\n  "partial": "action:bar/baz,vm:{\\"action\\":\\"bar/baz\\",\\"taunus\\":{}}"\n}</code></pre>'], 'got model\'s action');
   t.end();
@@ -104,7 +104,7 @@ test('render sets cache headers', function (t) {
     send: sinon.spy()
   };
   function next () {}
-  render('foo/bar', vm, req, res, next);
+  render({ action: 'foo/bar' }, vm, req, res, next);
   t.ok(res.set.calledWith('Vary', 'Accept'), 'vary accept header');
   t.ok(res.set.calledWith('ETag'), 'etag header');
   t.ok(res.set.calledWith('cache-control', 'private, must-revalidate, max-age=0'), 'cache control header');
@@ -131,7 +131,7 @@ test('render JSON just gets json', function (t) {
     json: json
   };
   function next () {}
-  render('foo/bar', vm, req, res, next);
+  render({ action: 'foo/bar' }, vm, req, res, next);
   function json (data) {
     t.deepEqual(data, { model: {}, version: '1' });
     t.end();
@@ -160,7 +160,7 @@ test('flash and user are forwarded from model', function (t) {
     json: json
   };
   function next () {}
-  render('foo/bar', vm, req, res, next);
+  render({ action: 'foo/bar' }, vm, req, res, next);
   function json (data) {
     t.deepEqual(data, { model: { flash: { candy: 'cane' }, user: { corsair: 'interstellar' } }, version: '1' });
     t.end();
@@ -195,7 +195,7 @@ test('render JSON demanding controller gets bundled controller', function (t) {
     t.ok(typeof compiled === 'function', 'got done callback');
     compiled(null, 'foo');
   }
-  render('foo/bar', vm, req, res, next);
+  render({ action: 'foo/bar' }, vm, req, res, next);
   function json (data) {
     t.deepEqual(data, { controller: 'foo', model: {}, version: '1' });
     t.end();
@@ -230,7 +230,7 @@ test('render JSON demanding template gets bundled template', function (t) {
     t.ok(typeof compiled === 'function', 'got done callback');
     compiled(null, 'foo');
   }
-  render('foo/bar', vm, req, res, next);
+  render({ action: 'foo/bar' }, vm, req, res, next);
   function json (data) {
     t.deepEqual(data, { template: 'foo', model: {}, version: '1' });
     t.end();
@@ -270,7 +270,7 @@ test('render JSON demanding things gets bundled components', function (t) {
     t.ok(typeof compiled === 'function', 'got done callback');
     compiled(null, map[file]);
   }
-  render('foo/bar', vm, req, res, next);
+  render({ action: 'foo/bar' }, vm, req, res, next);
   function json (data) {
     t.deepEqual(data, { controller: 'bar', template: 'foo', model: {}, version: '1' });
     t.end();
@@ -313,7 +313,7 @@ test('render JSON demanding things gets bundled components for different action 
     t.ok(typeof compiled === 'function', 'got done callback');
     compiled(null, map[file]);
   }
-  render('foo/bar', vm, req, res, next);
+  render({ action: 'foo/bar' }, vm, req, res, next);
   function json (data) {
     t.deepEqual(data, { controller: 'bar', template: 'foo', version: '1' });
     t.end();
