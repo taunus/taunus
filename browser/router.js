@@ -76,7 +76,8 @@ function equals (left, right) {
   return (
     left && right &&
     left.route === right.route &&
-    JSON.stringify(left.params) === JSON.stringify(right.params)
+    JSON.stringify(left.params) === JSON.stringify(right.params) &&
+    left.parts.search === right.parts.search
   );
 }
 

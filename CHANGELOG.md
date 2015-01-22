@@ -1,3 +1,8 @@
+# v4.1.1 Imperverance
+
+- Exposed `version` property on client-side API
+- Fixed an issue where routes with the same path but different query part would be considered identical
+
 # v4.1.0 Transaction Reversal
 
 - Removed `startIndex` parameter to Router API introduced in `4.0.0`

@@ -18,6 +18,7 @@ var router = require('./router');
 var xhr = require('./xhr');
 var prefetcher = require('./prefetcher');
 var resolve = require('../lib/resolve');
+var version = require('../version.json');
 
 state.clear = stateClear;
 hooks.attach();
@@ -40,5 +41,6 @@ module.exports = global.taunus = {
   state: state,
   route: router,
   resolve: resolve,
-  xhr: xhr
+  xhr: xhr,
+  version: version
 };

@@ -39,10 +39,10 @@ function go (url, options) {
       global.DEBUG && global.DEBUG('[activator] same route and hash, updating scroll position');
       scrollInto(id(route.parts.hash), o.scroll);
       navigation(route, state.model, direction);
-      return; // anchor hash-navigation on same page ignores router
+    } else {
+      global.DEBUG && global.DEBUG('[activator] same route, resolving');
+      resolved(state.model);
     }
-    global.DEBUG && global.DEBUG('[activator] same route, resolving');
-    resolved(state.model);
     return;
   }
 
