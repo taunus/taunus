@@ -1,3 +1,7 @@
+# v4.1.2 Set Sail
+
+- If loading a server-side controller results in an error other than `'MODULE_NOT_FOUND'`, the error is now thrown
+
 # v4.1.1 Imperverance
 
 - Exposed `version` property on client-side API
