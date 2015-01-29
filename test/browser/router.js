@@ -49,10 +49,11 @@ test('router.equals returns accurate information about route matching', function
   var router = proxyquire('../../browser/router', {});
   t.notOk(router.equals(false,false));
   t.notOk(router.equals({route:'/foo'},{route:'/bar'}));
+  t.notOk(router.equals({route:'/foo',parts:{search:'a'}},{route:'/foo',parts:{}}));
   t.notOk(router.equals({route:'/foo',params: {p:1}},{route:'/foo'}));
   t.notOk(router.equals({route:'/foo',params: {p:1}},{route:'/bar',params: {p:1}}));
-  t.ok(router.equals({route:'/foo',params: {p:1}},{route:'/foo',params: {p:1}}));
-  t.ok(router.equals({route:'/foo',params: {args:['foo']}},{route:'/foo',params: {args:['foo']}}));
+  t.ok(router.equals({route:'/foo',params: {p:1},parts:{search:'a'}},{route:'/foo',params: {p:1},parts:{search:'a'}}));
+  t.ok(router.equals({route:'/foo',params: {args:['foo']}, parts:{search:''}},{route:'/foo',params: {args:['foo']}, parts:{search:''}}));
   t.end();
 });
 
