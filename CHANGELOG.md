@@ -1,4 +1,4 @@
-# v4.1.2 Set Sail
+# v4.1.3 Set Sail
 
 - If loading a server-side controller results in an error other than `'MODULE_NOT_FOUND'`, the error is now thrown
 
