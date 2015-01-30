@@ -3,5 +3,6 @@
 var resolve = require('../lib/resolve');
 
 module.exports = {
-  resolve: resolve
+  resolve: resolve,
+  toJSON: function () {}
 };

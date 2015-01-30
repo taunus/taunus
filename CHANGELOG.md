@@ -1,3 +1,8 @@
+# v4.1.4 Clown Clone
+
+- The `taunus` API that's available in view templates will no longer leave a trace in the view model
+- Partial templates can no longer modify the view model, and they have access to a cloned copy instead
+
 # v4.1.3 Set Sail
 
 - If loading a server-side controller results in an error other than `'MODULE_NOT_FOUND'`, the error is now thrown
