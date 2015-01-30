@@ -1,5 +1,6 @@
 'use strict';
 
+var clone = require('./clone');
 var state = require('./state');
 var emitter = require('./emitter');
 var fetcher = require('./fetcher');
@@ -54,9 +55,10 @@ function render (action, model) {
   if (typeof template !== 'function') {
     throw new Error('Client-side "' + action + '" template not found');
   }
-  model.taunus = templatingAPI;
+  var cloned = clone(model);
+  cloned.taunus = templatingAPI;
   try {
-    return template(model);
+    return template(cloned);
   } catch (e) {
     throw new Error('Error rendering "' + action + '" view template\n' + e.stack);
   }

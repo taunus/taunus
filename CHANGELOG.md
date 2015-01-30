@@ -1,4 +1,4 @@
-# v4.1.4 Clown Clone
+# v4.1.5 Clown Clone
 
 - The `taunus` API that's available in view templates will no longer leave a trace in the view model
 - Partial templates can no longer modify the view model, and they have access to a cloned copy instead
