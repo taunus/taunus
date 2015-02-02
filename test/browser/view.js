@@ -25,7 +25,7 @@ test('view renders a view', function (t) {
   var container = {};
   var model = {};
   view(container, 'foo', model);
-  t.ok(state.templates.foo.calledWith(model));
+  t.ok(state.templates.foo.calledWithMatch(model));
   t.ok(state.controllers.foo.calledWith(model,container,null));
   t.equal(container.innerHTML, templ);
   t.end();
@@ -43,7 +43,7 @@ test('view renders a view ignoring missing controller', function (t) {
   var container = {};
   var model = {};
   view(container, 'foo', model);
-  t.ok(state.templates.foo.calledWith(model));
+  t.ok(state.templates.foo.calledWithMatch(model));
   t.end();
 });
 

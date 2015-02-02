@@ -6,7 +6,9 @@ var events = require('./events');
 var prefetcher = require('./prefetcher');
 var activator = require('./activator');
 var document = require('./global/document');
-var origin = document.location.origin;
+var location = require('./global/location');
+var origin = location.origin;
+var body = document.body;
 var leftClick = 1;
 var prefetching = [];
 var clicksOnHold = [];
@@ -14,11 +16,11 @@ var clicksOnHold = [];
 function links () {
   if (state.prefetch && state.cache) { // prefetch without cache makes no sense
     global.DEBUG && global.DEBUG('[links] listening for prefetching opportunities');
-    events.add(document.body, 'mouseover', maybePrefetch);
-    events.add(document.body, 'touchstart', maybePrefetch);
+    events.add(body, 'mouseover', maybePrefetch);
+    events.add(body, 'touchstart', maybePrefetch);
   }
   global.DEBUG && global.DEBUG('[links] listening for rerouting opportunities');
-  events.add(document.body, 'click', maybeReroute);
+  events.add(body, 'click', maybeReroute);
 }
 
 function so (anchor) {
@@ -41,9 +43,17 @@ function targetOrAnchor (e) {
 
 function maybeReroute (e) {
   var anchor = targetOrAnchor(e);
-  if (anchor && so(anchor) && leftClickOnAnchor(e, anchor)) {
+  if (anchor && so(anchor) && notjusthashchange(anchor) && leftClickOnAnchor(e, anchor)) {
     reroute(e, anchor);
   }
+}
+
+function notjusthashchange (anchor) {
+  return (
+    anchor.pathname !== location.pathname ||
+    anchor.search !== location.search ||
+    anchor.hash === location.hash
+  );
 }
 
 function maybePrefetch (e) {

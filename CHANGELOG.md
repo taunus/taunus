@@ -1,3 +1,7 @@
+# v4.1.6 Hashcow
+
+- Hash navigation no longer triggers a Taunus activation. Navigating from `/foo` to `/foo#bar` has no effect, while navigating from /foo#bar to `/baz#bar` still triggers an activation
+
 # v4.1.5 Clown Clone
 
 - The `taunus` API that's available in view templates will no longer leave a trace in the view model
