@@ -1,3 +1,7 @@
+# v4.1.7 Intense Database Bickering
+
+- Fixed an issue in the underlying IndexedDB caching layer where it would throw on WebKit-based devices _(Safari, Chrome for iOS, etc)_
+
 # v4.1.6 Hashcow
 
 - Hash navigation no longer triggers a Taunus activation. Navigating from `/foo` to `/foo#bar` has no effect, while navigating from /foo#bar to `/baz#bar` still triggers an activation

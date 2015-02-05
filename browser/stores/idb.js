@@ -1,6 +1,7 @@
 'use strict';
 
 var api = {};
+var once = require('../once');
 var idb = require('./underlying_idb');
 var supports;
 var db;
@@ -103,13 +104,14 @@ function undefinedGet (store, key, done) {
 }
 
 function enqueueSet (store, key,  value, done) {
+  var next = done || noop;
   if (supports === false) {
-    done(null); return;
+    next(null); return;
   }
   if (setQueue.length > 10) { // let's not waste any more memory
-    done(new Error('EFULLQUEUE')); return;
+    next(new Error('EFULLQUEUE')); return;
   }
-  setQueue.push({ store: store, key: key, value: value, done: done });
+  setQueue.push({ store: store, key: key, value: value, done: next });
 }
 
 function drainSet () {
@@ -125,21 +127,23 @@ function drainSet () {
 }
 
 function query (op, store, value, done) {
+  var next = done || noop;
   var req = db.transaction(store, 'readwrite').objectStore(store)[op](value);
 
   req.onsuccess = success;
   req.onerror = error;
 
   function success () {
-    (done || noop)(null, req.result);
+    next(null, req.result);
   }
 
   function error () {
-    (done || noop)(new Error('Taunus cache query failed at IndexedDB!'));
+    next(new Error('Taunus cache query failed at IndexedDB!'));
   }
 }
 
-function all (store, done) {
+function queryCollection (store, done) {
+  var next = done || noop;
   var tx = db.transaction(store, 'readonly');
   var s = tx.objectStore(store);
   var req = s.openCursor();
@@ -150,7 +154,7 @@ function all (store, done) {
   tx.oncomplete = complete;
 
   function complete () {
-    (done || noop)(null, items);
+    next(null, items);
   }
 
   function success (e) {
@@ -162,11 +166,12 @@ function all (store, done) {
   }
 
   function error () {
-    (done || noop)(new Error('Taunus cache query-all failed at IndexedDB!'));
+    next(new Error('Taunus cache queryCollection failed at IndexedDB!'));
   }
 }
 
 function clear (store, done) {
+  var next = done || noop;
   var tx = db.transaction(store, 'readwrite');
   var s = tx.objectStore(store);
   var req = s.clear();
@@ -176,27 +181,28 @@ function clear (store, done) {
   tx.oncomplete = complete;
 
   function complete () {
-    (done || noop)(null, items);
+    next(null, items);
   }
 
   function error () {
-    (done || noop)(new Error('Taunus cache clear failed at IndexedDB!'));
+    next(new Error('Taunus cache clear failed at IndexedDB!'));
   }
 }
 
 function get (store, key, done) {
   if (done === void 0) {
-    all(store, key);
+    queryCollection(store, key);
   } else {
     query('get', store, key, done);
   }
 }
 
 function set (store, key, value, done) {
+  var next = once(done || noop);
   global.DEBUG && global.DEBUG('[idb] storing %s, in %s db', key, store, value);
   value[keyPath] = key;
-  query('add', store, value, done); // attempt to insert
-  query('put', store, value, done); // attempt to update
+  query('add', store, value, next); // attempt to insert
+  query('put', store, value, next); // attempt to update
 }
 
 function drainTested () {
