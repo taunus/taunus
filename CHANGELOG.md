@@ -1,3 +1,7 @@
+# v4.1.8 Deferred Globalization
+
+- `require('taunus')` is automatically transformed into `require('taunus/global')` in deferred modules
+
 # v4.1.7 Intense Database Bickering
 
 - Fixed an issue in the underlying IndexedDB caching layer where it would throw on WebKit-based devices _(Safari, Chrome for iOS, etc)_
