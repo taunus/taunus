@@ -95,9 +95,7 @@ function define (definition) {
 }
 
 function equals (left, right) {
-  return (
-    left && right && left.path === right.path
-  );
+  return left && right && left.path === right.path;
 }
 
 router.setup = setup;
