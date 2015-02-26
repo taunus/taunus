@@ -19,7 +19,8 @@ test('redirect works normally', function (t) {
     headers: {
       accept: 'text/html'
     },
-    query: {}
+    query: {},
+    params: {}
   };
   var res = {
     redirect: sinon.spy()
@@ -46,7 +47,9 @@ test('redirect works for json responses', function (t) {
     headers: {
       accept: 'application/json'
     },
-    query: {}
+    query: {},
+    params: {},
+    url: '/bar'
   };
   var res = {
     set: sinon.spy(),

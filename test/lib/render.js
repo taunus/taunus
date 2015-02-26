@@ -17,7 +17,9 @@ test('render without layout gets some html anyways', function (t) {
     headers: {
       accept: 'text/html'
     },
-    query: {}
+    query: {},
+    params: {},
+    url: '/bar'
   };
   var res = {
     set: sinon.spy(),
@@ -44,7 +46,9 @@ test('render with layout gets some plain text', function (t) {
     headers: {
       accept: 'text/plain'
     },
-    query: {}
+    query: {},
+    params: {},
+    url: '/bar'
   };
   var res = {
     set: sinon.spy(),
@@ -70,7 +74,9 @@ test('setting model.action uses different action', function (t) {
     headers: {
       accept: 'text/html'
     },
-    query: {}
+    query: {},
+    params: {},
+    url: '/bar'
   };
   var res = {
     set: sinon.spy(),
@@ -97,7 +103,8 @@ test('render sets cache headers', function (t) {
     headers: {
       accept: 'text/html'
     },
-    query: {}
+    query: {},
+    params: {}
   };
   var res = {
     set: sinon.spy(),
@@ -124,7 +131,9 @@ test('render JSON just gets json', function (t) {
     headers: {
       accept: 'application/json'
     },
-    query: {}
+    query: {},
+    params: {},
+    url: '/bar'
   };
   var res = {
     set: sinon.spy(),
@@ -152,6 +161,8 @@ test('flash and user are forwarded from model', function (t) {
       accept: 'application/json'
     },
     query: {},
+    params: {},
+    url: '/bar',
     flash: function () { return { candy: 'cane' }; },
     user: { corsair: 'interstellar' }
   };
@@ -183,7 +194,9 @@ test('render JSON demanding controller gets bundled controller', function (t) {
     },
     query: {
       controller: ''
-    }
+    },
+    params: {},
+    url: '/bar'
   };
   var res = {
     set: sinon.spy(),
@@ -218,7 +231,9 @@ test('render JSON demanding template gets bundled template', function (t) {
     },
     query: {
       template: ''
-    }
+    },
+    params: {},
+    url: '/bar'
   };
   var res = {
     set: sinon.spy(),
@@ -254,7 +269,9 @@ test('render JSON demanding things gets bundled components', function (t) {
     query: {
       controller: '',
       template: ''
-    }
+    },
+    params: {},
+    url: '/bar'
   };
   var res = {
     set: sinon.spy(),
@@ -295,7 +312,9 @@ test('render JSON demanding things gets bundled components for different action 
       hijacker: 'foo/mar',
       controller: '',
       template: ''
-    }
+    },
+    params: {},
+    url: '/bar'
   };
   var res = {
     set: sinon.spy(),

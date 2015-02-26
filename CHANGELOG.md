@@ -2,7 +2,9 @@
 
 ##### Views
 
-- Exposed `route` information directly on the model for convenience. Most useful for accessing `route.query` parameters
+- Exposed `route` information directly on view models, for convenience.
+  - Most useful for accessing `route.query` parameters
+  - Has `toJSON` no-op so that it doesn't bloat the model itself after use on templates
 
 ##### `.route(url?)`
 
