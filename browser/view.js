@@ -7,6 +7,8 @@ var fetcher = require('./fetcher');
 var deferral = require('./deferral');
 var templatingAPI = require('./templatingAPI');
 
+function noop () {}
+
 function view (container, enforcedAction, model, route, options) {
   var action = enforcedAction || model && model.action || route && route.action;
   var demands = deferral.needs(action);
@@ -34,7 +36,7 @@ function view (container, enforcedAction, model, route, options) {
     var controller = getComponent('controllers', action);
     var internals = options || {};
     if (internals.render !== false) {
-      container.innerHTML = render(action, model);
+      container.innerHTML = render(action, model, route);
     } else {
       global.DEBUG && global.DEBUG('[view] not rendering %s', action);
     }
@@ -49,7 +51,7 @@ function view (container, enforcedAction, model, route, options) {
   }
 }
 
-function render (action, model) {
+function render (action, model, route) {
   global.DEBUG && global.DEBUG('[view] rendering %s with model', action, model);
   var template = getComponent('templates', action);
   if (typeof template !== 'function') {
@@ -57,6 +59,12 @@ function render (action, model) {
   }
   var cloned = clone(model);
   cloned.taunus = templatingAPI;
+  if (route) {
+    cloned.route = route;
+    cloned.route.toJSON = noop;
+  } else {
+    cloned.route = null;
+  }
   try {
     return template(cloned);
   } catch (e) {

@@ -1,5 +1,9 @@
 # v5.0.0 Package Router
 
+##### Views
+
+- Exposed `route` information directly on the model for convenience. Most useful for accessing `route.query` parameters
+
 ##### `.route(url?)`
 
 - Removed `parts` from the result
