@@ -3,9 +3,9 @@
 var url = require('fast-url-parser');
 var ruta3 = require('ruta3');
 var location = require('./global/location');
+var queryparser = require('../lib/queryparser');
 var matcher = ruta3();
 var protocol = /^[a-z]+?:\/\//i;
-var rdigits = /^[+-]?\d+$/;
 
 function getFullUrl (raw) {
   var base = location.href.substr(location.origin.length);
@@ -43,7 +43,7 @@ function router (raw) {
 
   route.url = full;
   route.hash = parts.hash || '';
-  route.query = Object.keys(parts.query).reduce(parsed, {});
+  route.query = queryparser(parts.query);
   route.path = parts.path;
   route.pathname = parts.pathname;
   route.search = parts.search;
@@ -51,23 +51,6 @@ function router (raw) {
   global.DEBUG && global.DEBUG('[router] %s yields %s', raw, route.route);
 
   return route;
-
-  function parsed (query, key) {
-    query[key] = parse(parts.query[key]);
-    return query;
-  }
-  function parse (value) {
-    if (rdigits.test(value)) {
-      return parseInt(value, 10);
-    }
-    if (value === '' || value === 'true') {
-      return true;
-    }
-    if (value === 'false') {
-      return false;
-    }
-    return value;
-  }
 }
 
 function merge (info) {
