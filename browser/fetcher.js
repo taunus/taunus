@@ -14,15 +14,14 @@ function e (value) {
 }
 
 function negotiate (route, context) {
-  var parts = route.parts;
-  var qs = e(parts.search);
+  var qs = e(route.search);
   var p = qs ? '&' : '?';
   var target = context.hijacker || route.action;
   var demands = ['json'].concat(deferral.needs(target));
   if (context.hijacker && context.hijacker !== route.action) {
     demands.push('hijacker=' + context.hijacker);
   }
-  return parts.pathname + qs + p + demands.join('&');
+  return route.pathname + qs + p + demands.join('&');
 }
 
 function abort (source) {
@@ -69,7 +68,7 @@ function fetcher (route, context, done) {
       global.DEBUG && global.DEBUG('[fetcher] succeeded for %s', route.url);
       if (data && data.version) {
         state.version = data.version; // sync version expectation with server-side
-        componentCache.set(router(res.url).parts.query.hijacker || route.action, data);
+        componentCache.set(router(res.url).query.hijacker || route.action, data);
       }
       emitter.emit('fetch.done', route, context, data);
     }

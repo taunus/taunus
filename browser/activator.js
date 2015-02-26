@@ -35,9 +35,9 @@ function go (url, options) {
   var notForced = o.force !== true;
   var same = router.equals(route, state.route);
   if (same && notForced) {
-    if (route.parts.hash) {
+    if (route.hash) {
       global.DEBUG && global.DEBUG('[activator] same route and hash, updating scroll position');
-      scrollInto(id(route.parts.hash), o.scroll);
+      scrollInto(id(route.hash), o.scroll);
       navigation(route, state.model, direction);
     } else {
       global.DEBUG && global.DEBUG('[activator] same route, resolving');
@@ -80,7 +80,7 @@ function go (url, options) {
     var same = router.equals(route, state.route);
     navigation(route, model, same ? 'replaceState' : direction);
     view(state.container, null, model, route);
-    scrollInto(id(route.parts.hash), o.scroll);
+    scrollInto(id(route.hash), o.scroll);
   }
 }
 
@@ -110,7 +110,7 @@ function back (e) {
   var route = router(location.href);
   navigation(route, model, 'replaceState');
   view(state.container, null, model, route);
-  scrollInto(id(route.parts.hash));
+  scrollInto(id(route.hash));
 }
 
 function scrollInto (id, enabled) {

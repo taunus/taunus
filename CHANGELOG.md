@@ -1,3 +1,22 @@
+# v5.0.0 Package Router
+
+##### `.route(url?)`
+
+- Removed `parts` from the result
+- Introduced `hash` as a string containing the `#hash` part of a URL (equivalent of `parts.hash`, except it's `''` if empty)
+- Introduced `path` (equivalent of `parts.path`)
+- Introduced `pathname` (equivalent of `parts.pathname`)
+- Introduced `search` (equivalent of `parts.search`)
+- Introduced `query` as an equivalent of `parts.query`. Parsed according to input values:
+  - `''` and `'true'` are converted to `true`
+  - `'false'` is converted to `false`
+  - `'123'`, `'-123'`, and `'+123'` are all converted to base-10 integers
+  - Anything else stays a string
+
+##### `.route.equals(a?, b?)`
+
+- Faster and simpler, now compares on `route.path` _(ignoring hashes as usual)_
+
 # v4.1.8 Deferred Globalization
 
 - `require('taunus')` is automatically transformed into `require('taunus/global')` in deferred modules

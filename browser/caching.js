@@ -25,7 +25,7 @@ function setup (duration, route) {
 
 function intercept (e) {
   global.DEBUG && global.DEBUG('[cache] attempting to intercept %s', e.route.url);
-  cache.get('models', e.route.parts.path, result);
+  cache.get('models', e.route.path, result);
 
   function result (err, data) {
     global.DEBUG && global.DEBUG('[cache] interception for %s %s', e.route.url, err || !data ? 'failed' : 'succeeded');
@@ -59,8 +59,8 @@ function persist (route, context, data) {
   var target = context.hijacker || route.action;
   var freshness = parseDuration(d) * 1000;
   if ('model' in data) {
-    global.DEBUG && global.DEBUG('[cache] saving model for %s', route.parts.path);
-    cache.set('models', route.parts.path, data.model, freshness);
+    global.DEBUG && global.DEBUG('[cache] saving model for %s', route.path);
+    cache.set('models', route.path, data.model, freshness);
   }
   if ('template' in data) {
     global.DEBUG && global.DEBUG('[cache] saving template for %s', target);

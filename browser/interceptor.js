@@ -9,7 +9,6 @@ function getInterceptorEvent (route) {
   var e = {
     url: route.url,
     route: route,
-    parts: route.parts,
     data: null,
     canPreventDefault: true,
     defaultPrevented: false,

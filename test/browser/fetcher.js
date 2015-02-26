@@ -9,7 +9,7 @@ test('fetcher makes ajax call when not intercepted, and error emits event', func
     execute: sinon.spy()
   };
   var done = sinon.spy();
-  var route = {action:'foo',parts:{pathname:'/foo'}};
+  var route = {action:'foo',pathname:'/foo'};
   var context = {source:'mock'};
   var ajax = {abort:sinon.spy()};
   var xhr = sinon.stub().returns(ajax);
@@ -43,7 +43,7 @@ test('fetcher makes ajax call when not intercepted, and abortion emits event', f
     execute: sinon.spy()
   };
   var done = sinon.spy();
-  var route = {action:'foo',parts:{pathname:'/foo'}};
+  var route = {action:'foo',pathname:'/foo'};
   var context = {source:'mock'};
   var ajax = {abort:sinon.spy()};
   var xhr = sinon.stub().returns(ajax);
@@ -77,7 +77,7 @@ test('fetcher makes ajax call when not intercepted, and success emits event', fu
     execute: sinon.spy()
   };
   var done = sinon.spy();
-  var route = {action:'foo',parts:{pathname:'/foo'}};
+  var route = {action:'foo',pathname:'/foo'};
   var context = {source:'mock'};
   var ajax = {abort:sinon.spy()};
   var xhr = sinon.stub().returns(ajax);
@@ -114,7 +114,7 @@ test('fetcher makes ajax call when not intercepted, and success with versioned d
     execute: sinon.spy()
   };
   var done = sinon.spy();
-  var route = {action:'foo',parts:{pathname:'/foo'}};
+  var route = {action:'foo',pathname:'/foo'};
   var context = {source:'mock'};
   var ajax = {abort:sinon.spy()};
   var xhr = sinon.stub().returns(ajax);
@@ -128,7 +128,7 @@ test('fetcher makes ajax call when not intercepted, and success with versioned d
   var componentCache = {
     set: sinon.spy()
   };
-  var resRoute = {parts: {query: {}}};
+  var resRoute = {query:{}};
   var router = sinon.stub().returns(resRoute);
   var fetcher = proxyquire('../../browser/fetcher', {
     './interceptor': interceptor,
@@ -159,7 +159,7 @@ test('fetcher gets intercepted', function (t) {
     execute: sinon.spy()
   };
   var done = sinon.spy();
-  var route = {action:'foo',parts:{pathname:'/foo'}};
+  var route = {action:'foo',pathname:'/foo'};
   var context = {source:'mock'};
   var ajax = {abort:sinon.spy()};
   var xhr = sinon.stub().returns(ajax);
@@ -191,7 +191,7 @@ test('fetcher can be aborted', function (t) {
     execute: sinon.spy()
   };
   var done = sinon.spy();
-  var route = {action:'foo',parts:{pathname:'/foo'}};
+  var route = {action:'foo',pathname:'/foo'};
   var context = {source:'mock'};
   var ajax = {abort:sinon.spy()};
   var xhr = sinon.stub().returns(ajax);
@@ -220,8 +220,8 @@ test('fetcher makes ajax call, and subsequent fetch aborts first one', function 
     execute: sinon.spy()
   };
   var done = sinon.spy();
-  var route = {action:'foo',parts:{pathname:'/foo'}};
-  var routeB = {action:'bar',parts:{pathname:'/bar'}};
+  var route = {action:'foo',pathname:'/foo'};
+  var routeB = {action:'bar',pathname:'/bar'};
   var context = {source:'mock'};
   var ajax = {abort:sinon.spy()};
   var xhr = sinon.stub().returns(ajax);
@@ -252,7 +252,7 @@ test('hijacker builds ajax query string for components', function (t) {
     execute: sinon.spy()
   };
   var done = sinon.spy();
-  var route = {action:'foo',parts:{pathname:'/foo'}};
+  var route = {action:'foo',pathname:'/foo'};
   var context = {source:'mock',hijacker:'paul'};
   var ajax = {abort:sinon.spy()};
   var xhr = sinon.stub().returns(ajax);
@@ -281,7 +281,7 @@ test('hijacker builds ajax query string for missing controller only', function (
     execute: sinon.spy()
   };
   var done = sinon.spy();
-  var route = {action:'foo',parts:{pathname:'/foo'}};
+  var route = {action:'foo',pathname:'/foo'};
   var context = {source:'mock',hijacker:'paul'};
   var ajax = {abort:sinon.spy()};
   var xhr = sinon.stub().returns(ajax);
@@ -311,7 +311,7 @@ test('hijacker builds ajax query string for missing template only', function (t)
     execute: sinon.spy()
   };
   var done = sinon.spy();
-  var route = {action:'foo',parts:{pathname:'/foo'}};
+  var route = {action:'foo',pathname:'/foo'};
   var context = {source:'mock',hijacker:'paul'};
   var ajax = {abort:sinon.spy()};
   var xhr = sinon.stub().returns(ajax);

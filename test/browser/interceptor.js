@@ -44,13 +44,12 @@ test('interceptor can execute without mediators', function (t) {
   var interceptor = proxyquire('../../browser/interceptor', {
     'contra.emitter': emit
   });
-  var route = {parts:{},url:'/foo'};
+  var route = {url:'/foo'};
   var done = sinon.spy();
   interceptor.execute(route, done);
   t.ok(done.calledWith(null, {
     url: '/foo',
     route: route,
-    parts: route.parts,
     data: null,
     canPreventDefault: false,
     defaultPrevented: false,
@@ -65,7 +64,7 @@ test('interceptor.execute notifies listeners', function (t) {
   var interceptor = proxyquire('../../browser/interceptor', {
     'contra.emitter': emit
   });
-  var route = {action: 'foo',parts:{},url:'/foo'};
+  var route = {action: 'foo',url:'/foo'};
   var done = sinon.spy();
   var fn = sinon.spy();
   interceptor.add(fn);
@@ -77,7 +76,7 @@ test('interceptor.execute notifies listeners', function (t) {
 
 test('interceptor.execute returns prevented result', function (t) {
   var interceptor = proxyquire('../../browser/interceptor', {});
-  var route = {action: 'foo',parts:{},url:'/foo'};
+  var route = {action: 'foo',url:'/foo'};
   var data = {foo:'bar'};
   interceptor.add(fn);
   interceptor.execute(route, done);
@@ -94,7 +93,7 @@ test('interceptor.execute returns prevented result', function (t) {
 
 test('interceptor.execute returns even when never prevented', function (t) {
   var interceptor = proxyquire('../../browser/interceptor', {});
-  var route = {action: 'foo',parts:{},url:'/foo'};
+  var route = {action: 'foo',url:'/foo'};
   interceptor.add(fn);
   interceptor.execute(route, done);
   function fn (e) {

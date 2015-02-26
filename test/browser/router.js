@@ -47,38 +47,55 @@ test('router setup exposes routes', function (t) {
 
 test('router.equals returns accurate information about route matching', function (t) {
   var router = proxyquire('../../browser/router', {});
+  router.setup(defs);
   t.notOk(router.equals(false,false));
-  t.notOk(router.equals({route:'/foo'},{route:'/bar'}));
-  t.notOk(router.equals({route:'/foo',parts:{search:'a'}},{route:'/foo',parts:{}}));
-  t.notOk(router.equals({route:'/foo',params: {p:1}},{route:'/foo'}));
-  t.notOk(router.equals({route:'/foo',params: {p:1}},{route:'/bar',params: {p:1}}));
-  t.ok(router.equals({route:'/foo',params: {p:1},parts:{search:'a'}},{route:'/foo',params: {p:1},parts:{search:'a'}}));
-  t.ok(router.equals({route:'/foo',params: {args:['foo']}, parts:{search:''}},{route:'/foo',params: {args:['foo']}, parts:{search:''}}));
+  t.notOk(router.equals(router('/foo'),router('/bar')));
+  t.notOk(router.equals(router('/foo?q=a'),router('/foo')));
+  t.notOk(router.equals(router('/foo?p=1'),router('/foo')));
+  t.ok(router.equals(router('/foo'),router('/foo')));
+  t.ok(router.equals(router('/foo?q=a'),router('/foo?q=a')));
+  t.ok(router.equals(router('/foo?q=a&b'),router('/foo?q=a&b')));
+  t.ok(router.equals(router('/foo?q=a'),router('/foo?q=a#bc')));
   t.end();
 });
 
 test('router(url) should return route when matched', function (t) {
   var router = proxyquire('../../browser/router', {});
   router.setup(defs);
-  var r1 = router('/foo');
-  var p1 = r1.parts;
-  delete r1.parts;
-  t.deepEqual(r1, {
+  t.deepEqual(router('/foo'), {
     action: null,
     cache: 5,
+    hash: '',
     params: { args: [] },
+    path: '/foo',
+    pathname: '/foo',
+    query: {},
     route: '/foo',
+    search: '',
     url: '/foo'
   });
-  var r2 = router('/bar');
-  var p2 = r2.parts;
-  delete r2.parts;
-  t.deepEqual(r2, {
+  t.deepEqual(router('/bar'), {
     action: 'bar',
+    hash: '',
     params: { args: [] },
+    path: '/bar',
+    pathname: '/bar',
+    query: {},
     route: '/bar',
+    search: '',
     url: '/bar'
   });
-  t.deepEqual(router('/bar/do'), null);
+  t.equal(router('/bar/do'), null);
+  t.deepEqual(router('/bar?foo=1&bar&boo=false&bart=true&bort=bar&sort=-1#troz'), {
+    action: 'bar',
+    hash: '#troz',
+    params: { args: [] },
+    path: '/bar?foo=1&bar&boo=false&bart=true&bort=bar&sort=-1',
+    pathname: '/bar',
+    query: { bar: true, bart: true, boo: false, bort: 'bar', foo: 1, sort: -1 },
+    route: '/bar',
+    search: '?foo=1&bar&boo=false&bart=true&bort=bar&sort=-1',
+    url: '/bar?foo=1&bar&boo=false&bart=true&bort=bar&sort=-1#troz'
+  });
   t.end();
 });

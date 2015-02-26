@@ -83,7 +83,7 @@ test('activator.start uses onpopstate successfully', function (t) {
     replaceState: sinon.spy()
   };
   var view = sinon.spy();
-  var route = {url:'/foo',parts:{hash:'#far'}};
+  var route = {url:'/foo',hash:'#far'};
   var router = sinon.stub().returns(route);
   var el = {
     scrollIntoView: sinon.spy()
@@ -151,7 +151,7 @@ test('activator.go bails if no route but it does not change location', function 
 });
 
 test('activator.go bails if same route as before, after history push', function (t) {
-  var route = {url:'/foo',parts:{hash:'#far'}};
+  var route = {url:'/foo',hash:'#far'};
   var router = sinon.stub().returns(route);
   router.equals = sinon.stub().returns(true);
   var state = {
@@ -190,7 +190,7 @@ test('activator.go bails if same route as before, after history push', function 
 });
 
 test('activator.go bails if same route as before, after scroll nav', function (t) {
-  var route = {url:'/foo',parts:{hash:'#bart'}};
+  var route = {url:'/foo',hash:'#bart'};
   var router = sinon.stub().returns(route);
   router.equals = sinon.stub().returns(true);
   var state = {
@@ -227,7 +227,7 @@ test('activator.go bails if same route as before, after scroll nav', function (t
 });
 
 test('activator.go bails if same route as before, but re-renders if no hash', function (t) {
-  var route = {url:'/foo',parts:{}};
+  var route = {url:'/foo'};
   var router = sinon.stub().returns(route);
   router.equals = sinon.stub().returns(true);
   var state = {
@@ -267,7 +267,7 @@ test('even on diff route, activator.go bails if not modern browser', function (t
   var location = {
     href: ''
   };
-  var route = {url:'/foo',parts:{},route:'/foo'};
+  var route = {url:'/foo',route:'/foo'};
   var router = sinon.stub().returns(route);
   var state = {
     version: '0',
@@ -296,7 +296,7 @@ test('happy path bails on bad version', function (t) {
   var location = {
     href: ''
   };
-  var route = {url:'/foo',parts:{},route:'/foo'};
+  var route = {url:'/foo',route:'/foo'};
   var router = sinon.stub().returns(route);
   router.equals = sinon.stub().returns(false);
   var state = {
@@ -335,7 +335,7 @@ test('happy path bails on redirectTo directive', function (t) {
   var location = {
     href: ''
   };
-  var route = {url:'/foo',parts:{},route:'/foo'};
+  var route = {url:'/foo',route:'/foo'};
   var router = sinon.stub().returns(route);
   router.equals = sinon.stub().returns(false);
   var state = {
@@ -377,7 +377,7 @@ test('happy path goes ahead on version match', function (t) {
       scrollIntoView: sinon.spy()
     }
   };
-  var route = {url:'/foo',parts:{},route:'/foo'};
+  var route = {url:'/foo',route:'/foo'};
   var router = sinon.stub().returns(route);
   router.equals = sinon.stub().returns(false);
   var state = {
@@ -415,5 +415,5 @@ test('happy path goes ahead on version match', function (t) {
 });
 
 function raf (fn) {
-  setTimeout(fn, 50); // for some reason the regular raf method fails miserably on phantomjs
+  setTimeout(fn, 50); // requestAnimationFrame fails miserably on phantomjs
 }
