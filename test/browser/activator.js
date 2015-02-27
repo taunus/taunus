@@ -328,7 +328,48 @@ test('happy path bails on bad version', function (t) {
   t.end();
 });
 
-test('happy path bails on redirectTo directive', function (t) {
+test('happy path bails on redirect directive', function (t) {
+  var history = {
+    pushState: sinon.spy()
+  };
+  var location = {
+    href: ''
+  };
+  var routeA = {url:'/foo',route:'/foo'};
+  var routeB = {url:'/bar',route:'/bar'};
+  var router = sinon.stub();
+  router.onFirstCall().returns(routeA);
+  router.onSecondCall().returns(routeB);
+  router.equals = sinon.stub().returns(false);
+  var state = {
+    version: '0',
+    container: {},
+    deferrals: [],
+    controllers: {},
+    templates: {},
+    model: {existing:true,title:'mart'}
+  };
+  var prefetcher = {abortIntent: sinon.spy()};
+  var fetcher = sinon.spy();
+  fetcher.abortPending = sinon.spy();
+  var activator = proxyquire('../../browser/activator', {
+    './state': state,
+    './router': router,
+    './global/location': location,
+    './global/history': history,
+    './prefetcher': prefetcher,
+    './fetcher': fetcher
+  });
+  var context = {};
+  activator.go('/foo', {context:context});
+  t.equal(fetcher.callCount, 1);
+  fetcher.firstCall.args[2](null, {version: '0', redirect: { href: '/bar', hard: false } });
+  t.equal(fetcher.callCount, 2);
+  t.deepEqual(fetcher.secondCall.args[0], { route: '/bar', url: '/bar' });
+  t.end();
+});
+
+test('happy path bails on hard redirect directive', function (t) {
   var history = {
     pushState: sinon.spy()
   };
@@ -359,7 +400,9 @@ test('happy path bails on redirectTo directive', function (t) {
   });
   var context = {};
   activator.go('/foo', {context:context});
-  fetcher.firstCall.args[2](null, {version: '0', redirectTo: '/bar'});
+  t.equal(fetcher.callCount, 1);
+  fetcher.firstCall.args[2](null, {version: '0', redirect: { href: '/bar', hard: true } });
+  t.equal(fetcher.callCount, 1);
   t.equal(location.href, '/bar');
   t.end();
 });

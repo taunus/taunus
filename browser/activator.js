@@ -8,7 +8,7 @@ var prefetcher = require('./prefetcher');
 var view = require('./view');
 var router = require('./router');
 var state = require('./state');
-var document = require('./global/document');
+var doc = require('./global/document');
 var location = require('./global/location');
 var history = require('./global/history');
 var versioning = require('../versioning');
@@ -68,9 +68,15 @@ function go (url, options) {
       location.href = url; // version change demands fallback to strict navigation
       return;
     }
-    if ('redirectTo' in data) {
-      global.DEBUG && global.DEBUG('[activator] redirect detected in response, redirecting to %s', data.redirectTo);
-      location.href = data.redirectTo; // redirects typically represent layout changes, we should follow them
+    if ('redirect' in data) {
+      global.DEBUG && global.DEBUG('[activator] redirect detected in response');
+      if (data.redirect.hard === true) {
+        global.DEBUG && global.DEBUG('[activator] hard redirect to', data.redirect.href);
+        location.href = data.redirect.href; // hard redirects are safer but slower
+      } else {
+        global.DEBUG && global.DEBUG('[activator] soft redirect to', data.redirect.href);
+        go(data.redirect.href); // soft redirects are faster but may break expectations
+      }
       return;
     }
     resolved(data.model);
@@ -119,7 +125,7 @@ function scrollInto (id, enabled) {
   }
   global.DEBUG && global.DEBUG('[activator] scrolling into "%s"', id || '#document');
 
-  var elem = id && document.getElementById(id) || document.documentElement;
+  var elem = id && doc.getElementById(id) || doc.documentElement;
   if (elem && elem.scrollIntoView) {
     raf(scrollSoon);
   }
@@ -144,7 +150,7 @@ function navigation (route, model, direction) {
   state.route = route;
   state.model = clone(model);
   if (model.title) {
-    document.title = model.title;
+    doc.title = model.title;
   }
   if (modern() && history[direction]) {
     data = {

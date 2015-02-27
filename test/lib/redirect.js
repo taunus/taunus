@@ -59,6 +59,37 @@ test('redirect works for json responses', function (t) {
   var url = '/foo';
   redirect(req, res, '/foo');
   t.ok(res.json.calledOnce, 'called res.json');
-  t.deepEqual(res.json.firstCall.args[0], { version: '2a', redirectTo: url }, 'called res.json');
+  t.deepEqual(res.json.firstCall.args[0], { version: '2a', redirect: { href: url, hard: false } }, 'called res.json');
+  t.end();
+});
+
+test('redirect works for json responses and can be hard too', function (t) {
+  var state = {
+    defaults: {}, version: '2a'
+  };
+  var render = proxyquire('../../lib/render', {
+    './state': state
+  });
+  var redirect = proxyquire('../../lib/redirect', {
+    './render': render
+  });
+  var vm = {};
+  var req = {
+    headers: {
+      accept: 'application/json'
+    },
+    query: {},
+    params: {},
+    url: '/bar'
+  };
+  var res = {
+    set: sinon.spy(),
+    json: sinon.spy()
+  };
+  function next () {}
+  var url = '/foo';
+  redirect(req, res, '/foo', { hard: true });
+  t.ok(res.json.calledOnce, 'called res.json');
+  t.deepEqual(res.json.firstCall.args[0], { version: '2a', redirect: { href: url, hard: true } }, 'called res.json');
   t.end();
 });

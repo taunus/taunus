@@ -1,3 +1,7 @@
+# v5.1.0 Twisted Transistor
+
+- `taunus.redirect` now takes an `options` object, where you can set a `hard` option. If it's set to `true`, AJAX redirects will be followed using `location.href = url` rather than `taunus.navigate(url)`
+
 # v5.0.0 Package Router
 
 ##### Views
