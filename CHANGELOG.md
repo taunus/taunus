@@ -1,3 +1,7 @@
+# v5.3.1 Gas Leak
+
+- Fixed a bug where views wouldn't emit an event asynchronously if the view could be rendered immediately
+
 # v5.3.0 Shale Gas
 
 - Introduced a view-level event emitter. You can now do `taunus.partial(div, 'tags', ['a', 'b']).on('render', fn)` and `fn` will be eventually invoked when the partial is rendered. Useful for situations where a partial view may be rendered asynchronously because it was deferred.

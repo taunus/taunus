@@ -42,7 +42,7 @@ function view (container, enforcedAction, model, route, options) {
     var internals = options || {};
     if (internals.render !== false) {
       html = container.innerHTML = render(action, model, route);
-      api.emit('render', html);
+      setTimeout(done, 0);
     } else {
       global.DEBUG && global.DEBUG('[view] not rendering %s', action);
     }
@@ -53,6 +53,10 @@ function view (container, enforcedAction, model, route, options) {
     global.DEBUG && global.DEBUG('[view] %s client-side controller for %s', controller ? 'executing' : 'no', action);
     if (controller) {
       controller(model, container, route || null);
+    }
+
+    function done () {
+      api.emit('render', html);
     }
   }
 }
