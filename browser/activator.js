@@ -8,6 +8,7 @@ var prefetcher = require('./prefetcher');
 var view = require('./view');
 var router = require('./router');
 var state = require('./state');
+var redirector = require('./redirector');
 var doc = require('./global/document');
 var location = require('./global/location');
 var history = require('./global/history');
@@ -70,13 +71,7 @@ function go (url, options) {
     }
     if ('redirect' in data) {
       global.DEBUG && global.DEBUG('[activator] redirect detected in response');
-      if (data.redirect.hard === true) {
-        global.DEBUG && global.DEBUG('[activator] hard redirect to', data.redirect.href);
-        location.href = data.redirect.href; // hard redirects are safer but slower
-      } else {
-        global.DEBUG && global.DEBUG('[activator] soft redirect to', data.redirect.href);
-        go(data.redirect.href); // soft redirects are faster but may break expectations
-      }
+      redirector.redirect(data.redirect);
       return;
     }
     resolved(data.model);

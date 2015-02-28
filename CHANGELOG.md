@@ -1,3 +1,7 @@
+# v5.2.0 Medal of Honor
+
+- Exposed `taunus.redirect` method on the client-side
+
 # v5.1.1 Casual Tuesday
 
 - `taunus.xhr` now allows you to issue requests with content other than JSON _(e.g `multipart/form-data`)_ and still get a JSON response back

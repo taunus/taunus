@@ -17,6 +17,7 @@ var mount = require('./mount');
 var router = require('./router');
 var xhr = require('./xhr');
 var prefetcher = require('./prefetcher');
+var redirector = require('./redirector');
 var resolve = require('../lib/resolve');
 var version = require('../version.json');
 
@@ -41,6 +42,7 @@ module.exports = global.taunus = {
   state: state,
   route: router,
   resolve: resolve,
+  redirect: redirector.redirect,
   xhr: xhr,
   version: version
 };
