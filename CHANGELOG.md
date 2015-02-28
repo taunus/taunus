@@ -1,3 +1,7 @@
+# v5.1.1 Casual Tuesday
+
+- `taunus.xhr` now allows you to issue requests with content other than JSON _(e.g `multipart/form-data`)_ and still get a JSON response back
+
 # v5.1.0 Twisted Transistor
 
 - `taunus.redirect` now takes an `options` object, where you can set a `hard` option. If it's set to `true`, AJAX redirects will be followed using `location.href = url` rather than `taunus.navigate(url)`
