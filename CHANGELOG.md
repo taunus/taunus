@@ -1,3 +1,7 @@
+# v5.3.0 Shale Gas
+
+- Introduced a view-level event emitter. You can now do `taunus.partial(div, 'tags', ['a', 'b']).on('render', fn)` and `fn` will be eventually invoked when the partial is rendered. Useful for situations where a partial view may be rendered asynchronously because it was deferred.
+
 # v5.2.0 Medal of Honor
 
 - Exposed `taunus.redirect` method on the client-side

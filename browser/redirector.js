@@ -1,7 +1,9 @@
 'use strict';
 
+var location = require('./global/location');
+
 function redirect (options) {
-  var activator = require('./activator')
+  var activator = require('./activator');
   if (options.hard === true) {
     global.DEBUG && global.DEBUG('[redirector] hard, to', options.href);
     location.href = options.href; // hard redirects are safer but slower

@@ -2,6 +2,7 @@
 
 var clone = require('./clone');
 var state = require('./state');
+var ee = require('contra.emitter');
 var emitter = require('./emitter');
 var fetcher = require('./fetcher');
 var deferral = require('./deferral');
@@ -12,6 +13,7 @@ function noop () {}
 function view (container, enforcedAction, model, route, options) {
   var action = enforcedAction || model && model.action || route && route.action;
   var demands = deferral.needs(action);
+  var api = ee();
 
   global.DEBUG && global.DEBUG('[view] rendering view %s with [%s] demands', action, demands.join(','));
 
@@ -20,6 +22,8 @@ function view (container, enforcedAction, model, route, options) {
   } else {
     ready();
   }
+
+  return api;
 
   function pull () {
     var victim = route || state.route;
@@ -33,10 +37,12 @@ function view (container, enforcedAction, model, route, options) {
   }
 
   function ready () {
+    var html;
     var controller = getComponent('controllers', action);
     var internals = options || {};
     if (internals.render !== false) {
-      container.innerHTML = render(action, model, route);
+      html = container.innerHTML = render(action, model, route);
+      api.emit('render', html);
     } else {
       global.DEBUG && global.DEBUG('[view] not rendering %s', action);
     }
