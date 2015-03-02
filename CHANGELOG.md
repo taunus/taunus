@@ -1,3 +1,7 @@
+# v5.3.2 Gas Leak
+
+- Added ability for redirects to be forced even if redirecting to the same URL
+
 # v5.3.1 Gas Leak
 
 - Fixed a bug where views wouldn't emit an event asynchronously if the view could be rendered immediately
