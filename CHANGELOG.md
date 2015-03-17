@@ -1,3 +1,7 @@
+# v5.3.4 Sans Lyrics
+
+- Introduced ability to call `taunus.xhr` with `(options, done)` in addition to `(url, done)` and `(url, options, done)`
+
 # v5.3.2 Gas Leak
 
 - Added ability for redirects to be forced even if redirecting to the same URL

@@ -2,10 +2,11 @@
 
 var xhr = require('xhr');
 
-function request (url, options, done) {
+function request (url, options, end) {
   var displaced = typeof options === 'function';
   var hasUrl = typeof url === 'string';
   var user;
+  var done = displaced ? options : end;
 
   if (hasUrl) {
     if (displaced) {
@@ -15,17 +16,13 @@ function request (url, options, done) {
       user.url = url;
     }
   } else {
-    user = options;
+    user = url;
   }
 
   var o = {
     headers: { Accept: 'application/json' }
   };
   Object.keys(user).forEach(overwrite);
-
-  if (displaced) {
-    done = options;
-  }
 
   global.DEBUG && global.DEBUG('[xhr] %s %s', o.method || 'GET', o.url);
 
