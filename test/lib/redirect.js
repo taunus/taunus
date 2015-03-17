@@ -59,7 +59,7 @@ test('redirect works for json responses', function (t) {
   var url = '/foo';
   redirect(req, res, '/foo');
   t.ok(res.json.calledOnce, 'called res.json');
-  t.deepEqual(res.json.firstCall.args[0], { version: '2a', redirect: { href: url, hard: false } }, 'called res.json');
+  t.deepEqual(res.json.firstCall.args[0], { version: '2a', redirect: { href: url, hard: false, force: false } }, 'called res.json');
   t.end();
 });
 
@@ -90,6 +90,6 @@ test('redirect works for json responses and can be hard too', function (t) {
   var url = '/foo';
   redirect(req, res, '/foo', { hard: true });
   t.ok(res.json.calledOnce, 'called res.json');
-  t.deepEqual(res.json.firstCall.args[0], { version: '2a', redirect: { href: url, hard: true } }, 'called res.json');
+  t.deepEqual(res.json.firstCall.args[0], { version: '2a', redirect: { href: url, hard: true, force: false } }, 'called res.json');
   t.end();
 });

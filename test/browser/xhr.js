@@ -12,8 +12,7 @@ test('calls xhr module', function (t) {
   });
   xhr('/foo', done);
   t.ok(spy.calledWith({
-    url:'/foo',
-    json:true,
+    url: '/foo',
     headers: { Accept: 'application/json' }}));
   t.end();
 });
@@ -25,6 +24,18 @@ test('swaps arguments around', function (t) {
     'xhr': spy
   });
   xhr('/foo', done);
+  spy.firstCall.args[1](false, 'b', 'c');
+  t.ok(done.calledWith(false, 'c', 'b'));
+  t.end();
+});
+
+test('allows passing just options', function (t) {
+  var done = sinon.spy();
+  var spy = sinon.stub().returns({getAllResponseHeaders: sinon.stub().returns(false)});
+  var xhr = proxyquire('../../browser/xhr', {
+    'xhr': spy
+  });
+  xhr({ url: '/foo' }, done);
   spy.firstCall.args[1](false, 'b', 'c');
   t.ok(done.calledWith(false, 'c', 'b'));
   t.end();

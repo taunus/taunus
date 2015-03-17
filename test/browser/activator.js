@@ -226,7 +226,7 @@ test('activator.go bails if same route as before, after scroll nav', function (t
   });
 });
 
-test('activator.go bails if same route as before, but re-renders if no hash', function (t) {
+test.skip('activator.go bails if same route as before, but re-renders if no hash', function (t) {
   var route = {url:'/foo'};
   var router = sinon.stub().returns(route);
   router.equals = sinon.stub().returns(true);

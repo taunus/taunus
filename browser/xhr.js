@@ -3,13 +3,27 @@
 var xhr = require('xhr');
 
 function request (url, options, done) {
+  var displaced = typeof options === 'function';
+  var hasUrl = typeof url === 'string';
+  var user;
+
+  if (hasUrl) {
+    if (displaced) {
+      user = { url: url };
+    } else {
+      user = options;
+      user.url = url;
+    }
+  } else {
+    user = options;
+  }
+
   var o = {
-    url: url,
     headers: { Accept: 'application/json' }
   };
-  if (done) {
-    Object.keys(options).forEach(overwrite);
-  } else {
+  Object.keys(user).forEach(overwrite);
+
+  if (displaced) {
     done = options;
   }
 
@@ -20,7 +34,7 @@ function request (url, options, done) {
   return req;
 
   function overwrite (prop) {
-    o[prop] = options[prop];
+    o[prop] = user[prop];
   }
 
   function handle (err, res, body) {
