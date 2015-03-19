@@ -1,4 +1,4 @@
-# v5.4.1 Likable Links
+# v5.4.2 Likable Links
 
 - Taunus now ignores anchor tags with a `download` attribute
 - Taunus now ignores anchor tags with `target='_blank'`

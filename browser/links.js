@@ -54,7 +54,6 @@ function attr (el, name) {
 }
 
 function routable (anchor) {
-  console.log('a %s b %s c %s', attr(anchor, 'download'), attr(anchor, 'target') ,attr(anchor, 'data-taunus-ignore') );
   return attr(anchor, 'download') === null && attr(anchor, 'target') !== '_blank' && attr(anchor, 'data-taunus-ignore') === null;
 }
 
