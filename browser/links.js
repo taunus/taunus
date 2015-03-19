@@ -43,9 +43,21 @@ function targetOrAnchor (e) {
 
 function maybeReroute (e) {
   var anchor = targetOrAnchor(e);
-  if (anchor && so(anchor) && notjusthashchange(anchor) && leftClickOnAnchor(e, anchor)) {
+  if (anchor && so(anchor) && notjusthashchange(anchor) && leftClickOnAnchor(e, anchor) && routable(anchor)) {
     reroute(e, anchor);
   }
+}
+
+function attr (el, name) {
+  var value = name in el ? el[name] : el.getAttribute(name);
+  if (typeof value === 'string') {
+    return value;
+  }
+  return null;
+}
+
+function routable (anchor) {
+  return attr(anchor, 'download') === null && attr(anchor, 'target') !== '_blank' && attr(anchor, 'data-taunus-ignore') === null;
 }
 
 function notjusthashchange (anchor) {

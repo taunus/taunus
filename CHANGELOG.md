@@ -1,3 +1,9 @@
+# v5.4.0 Likable Links
+
+- Taunus now ignores anchor tags with a `download` attribute
+- Taunus now ignores anchor tags with `target='_blank'`
+- Taunus now ignores anchor tags with a `data-taunus-ignore` attribute
+
 # v5.3.4 Sans Lyrics
 
 - Introduced ability to call `taunus.xhr` with `(options, done)` in addition to `(url, done)` and `(url, options, done)`
