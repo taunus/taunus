@@ -49,14 +49,12 @@ function maybeReroute (e) {
 }
 
 function attr (el, name) {
-  var value = name in el ? el[name] : el.getAttribute(name);
-  if (typeof value === 'string') {
-    return value;
-  }
-  return null;
+  var value = el.getAttribute(name);
+  return typeof value === 'string' ? value : null;
 }
 
 function routable (anchor) {
+  console.log('a %s b %s c %s', attr(anchor, 'download'), attr(anchor, 'target') ,attr(anchor, 'data-taunus-ignore') );
   return attr(anchor, 'download') === null && attr(anchor, 'target') !== '_blank' && attr(anchor, 'data-taunus-ignore') === null;
 }
 
