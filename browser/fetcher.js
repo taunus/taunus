@@ -67,7 +67,6 @@ function fetcher (route, context, done) {
     } else {
       global.DEBUG && global.DEBUG('[fetcher] succeeded for %s', route.url);
       if (data && data.version) {
-        state.version = data.version; // sync version expectation with server-side
         componentCache.set(router(res.url).query.hijacker || route.action, data);
       }
       emitter.emit('fetch.done', route, context, data);

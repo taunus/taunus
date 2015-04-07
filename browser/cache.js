@@ -60,16 +60,17 @@ function get (type, key, done) {
   next();
 }
 
-function set (type, key, data, duration) {
+function set (type, key, data, duration, v) {
   if (duration < 1) { // sanity
     return;
   }
+  var version = arguments.length === 5 ? v : state.version;
   var cloned = clone(data); // freeze a copy for our records
   stores.forEach(store);
   function store (s) {
     s.set(type, key, {
       data: cloned,
-      version: state.version,
+      version: version,
       expires: Date.now() + duration
     });
   }

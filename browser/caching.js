@@ -60,7 +60,7 @@ function persist (route, context, data) {
   var freshness = parseDuration(d) * 1000;
   if ('model' in data) {
     global.DEBUG && global.DEBUG('[cache] saving model for %s', route.path);
-    cache.set('models', route.path, data.model, freshness);
+    cache.set('models', route.path, data.model, freshness, data.version);
   }
   if ('template' in data) {
     global.DEBUG && global.DEBUG('[cache] saving template for %s', target);

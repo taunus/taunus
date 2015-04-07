@@ -1,3 +1,7 @@
+# v5.4.3 Two Bedroom Apartment
+
+- Fixed an issue where versioning mismatches wouldn't refresh the page
+
 # v5.4.2 Likable Links
 
 - Taunus now ignores anchor tags with a `download` attribute
