@@ -51,7 +51,7 @@ function view (container, enforcedAction, model, route, options) {
     }
     emitter.emit('render', container, model, route || null);
     global.DEBUG && global.DEBUG('[view] %s client-side controller for %s', controller ? 'executing' : 'no', action);
-    if (controller) {
+    if (typeof controller === 'function') {
       controller(model, container, route || null);
     }
 
@@ -85,12 +85,13 @@ function render (action, model, route) {
 function getComponent (type, action) {
   var component = state[type][action];
   var transport = typeof component;
-  if (transport === 'object' && component) {
-    return component.fn; // deferreds are stored as {fn,version}
-  }
   if (transport === 'function') {
     return component;
   }
+  if (component && component[state.version]) {
+    return component[state.version].fn; // deferreds are stored as {v1:{fn},v2:{fn}}
+  }
+  return null;
 }
 
 function partial (container, action, model) {

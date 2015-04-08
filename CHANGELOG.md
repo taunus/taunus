@@ -1,3 +1,7 @@
+# v5.4.4 Lopsided Landslide
+
+- All deferred templates and controllers are stored in memory, sorted by version
+
 # v5.4.3 Two Bedroom Apartment
 
 - Fixed an issue where versioning mismatches wouldn't refresh the page

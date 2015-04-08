@@ -49,15 +49,11 @@ function push (type, action, value, version) {
     global.DEBUG && global.DEBUG('[componentCache] action "%s" is not deferred, not storing %s', action, singular);
     return;
   }
-  if (version === state.version) {
-    global.DEBUG && global.DEBUG('[componentCache] storing %s for %s in state', singular, action);
-    state[type][action] = {
-      fn: parse(singular, value),
-      version: version
-    };
-  } else {
-    global.DEBUG && global.DEBUG('[componentCache] bad version: %s !== %s', version, state.version);
-  }
+  global.DEBUG && global.DEBUG('[componentCache] storing %s for %s in state', singular, action);
+  state[type][action] = state[type][action] || {};
+  state[type][action][version] = {
+    fn: parse(singular, value)
+  };
 }
 
 function parse (type, value) {
