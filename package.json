@@ -35,7 +35,7 @@
     "aliasify": "^1.5.1",
     "browserify": "^6.3.2",
     "chalk": "^0.4.0",
-    "chokidar": "^0.8.2",
+    "chokidar": "^1.0.1",
     "contra": "^1.7.0",
     "contra.emitter": "^1.0.0",
     "fast-url-parser": "^1.0.6-0",
