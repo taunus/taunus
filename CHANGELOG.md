@@ -1,3 +1,7 @@
+# v5.4.7 Literally
+
+- Added an optional `as-text` query parameter for Taunus view responses to return JSON responses as plain-text HTML
+
 # v5.4.6 Trailer Park
 
 - `taunus.resolve` no longer returns routes with trailing slashes if they have a missing optional parameter
