@@ -1,3 +1,7 @@
+# v5.5.0 Trailer Park
+
+- `taunus.resolve` no longer returns routes with trailing slashes if they have a missing optional parameter
+
 # v5.4.4 Lopsided Landslide
 
 - All deferred templates and controllers are stored in memory, sorted by version
