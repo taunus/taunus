@@ -1,4 +1,4 @@
-# v5.5.0 Trailer Park
+# v5.4.5 Trailer Park
 
 - `taunus.resolve` no longer returns routes with trailing slashes if they have a missing optional parameter
 
