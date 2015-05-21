@@ -12,13 +12,19 @@ var redirector = require('./redirector');
 var doc = require('./global/document');
 var location = require('./global/location');
 var history = require('./global/history');
-var versioning = require('../versioning');
+var versionCheck = require('./versionCheck');
+var hardRedirect = require('./hardRedirect');
 
 function modern () { // needs to be a function because testing
   return history && history.modern !== false;
 }
 
 function go (url, options) {
+  if (state.hardRedirect) {
+    global.DEBUG && global.DEBUG('[activator] hard redirect in progress, aborting');
+    return;
+  }
+
   var o = options || {};
   var direction = o.replaceState ? 'replaceState' : 'pushState';
   var context = o.context || null;
@@ -26,7 +32,7 @@ function go (url, options) {
   if (!route) {
     if (o.strict !== true) {
       global.DEBUG && global.DEBUG('[activator] redirecting to %s', url);
-      location.href = url;
+      hardRedirect(url);
     }
     return;
   }
@@ -56,7 +62,7 @@ function go (url, options) {
 
   if (!modern()) {
     global.DEBUG && global.DEBUG('[activator] not modern, redirecting to %s', url);
-    location.href = url;
+    hardRedirect(url);
     return;
   }
 
@@ -69,9 +75,7 @@ function go (url, options) {
     if (err) {
       return;
     }
-    if (data.version !== state.version) {
-      global.DEBUG && global.DEBUG('[activator] version change (is "%s", was "%s"), redirecting to %s', data.version, state.version, url);
-      location.href = url; // version change demands fallback to strict navigation
+    if (versionCheck(data.version, url) === false) {
       return;
     }
     if ('redirect' in data) {

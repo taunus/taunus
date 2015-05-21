@@ -1,3 +1,8 @@
+# v6.1.0 Version Eagle
+
+- Exposed a `versionCheck(version, url?)` method on the client-side that will redirect to `url` (or refresh the page), if there's a version mismatch. Returns `true` if the check passes
+- Exposed a `state` object on the server-side containing the `version` that was used to mount Taunus
+
 # v6.0.1 Carbon Emissions
 
 - The `router` event is now properly emitted after a timeout

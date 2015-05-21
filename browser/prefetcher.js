@@ -20,6 +20,9 @@ function abortIntent (url) {
 }
 
 function start (url, element) {
+  if (state.hardRedirect) { // no point in prefetching if location.href has changed
+    return;
+  }
   if (state.cache !== true) { // can't prefetch if caching is disabled
     return;
   }

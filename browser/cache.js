@@ -5,7 +5,6 @@ var once = require('./once');
 var state = require('./state');
 var raw = require('./stores/raw');
 var idb = require('./stores/idb');
-var versioning = require('../versioning');
 var stores = [raw, idb];
 
 function get (type, key, done) {

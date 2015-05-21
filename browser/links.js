@@ -87,6 +87,11 @@ function reroute (e, anchor) {
 
   prevent();
 
+  if (state.hardRedirect) {
+    global.DEBUG && global.DEBUG('[links] hard redirect in progress, aborting');
+    return;
+  }
+
   if (prefetcher.busy(url)) {
     global.DEBUG && global.DEBUG('[links] navigation to %s blocked by prefetcher', route.url);
     prefetcher.registerIntent(url);
