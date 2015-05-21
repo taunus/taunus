@@ -158,6 +158,9 @@ function navigation (route, model, direction) {
       model: model
     };
     history[direction](data, model.title, route.url);
+    setTimeout(emit, 0);
+  }
+  function emit () {
     emitter.emit('router', route);
   }
 }
