@@ -33,6 +33,11 @@ function go (url, options) {
 
   global.DEBUG && global.DEBUG('[activator] route matches %s', route.route);
 
+  if (o.dry) {
+    global.DEBUG && global.DEBUG('[activator] history update only');
+    navigation(route, state.model, direction); return;
+  }
+
   var notForced = o.force !== true;
   var same = router.equals(route, state.route);
   if (same && notForced) {
@@ -153,6 +158,7 @@ function navigation (route, model, direction) {
       model: model
     };
     history[direction](data, model.title, route.url);
+    emitter.emit('router', route);
   }
 }
 

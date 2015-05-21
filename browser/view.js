@@ -41,7 +41,8 @@ function view (container, enforcedAction, model, route, options) {
     var controller = getComponent('controllers', action);
     var internals = options || {};
     if (internals.render !== false) {
-      html = container.innerHTML = render(action, model, route);
+      html = render(action, model, route);
+      (internals.draw || insert)(container, html);
       setTimeout(done, 0);
     } else {
       global.DEBUG && global.DEBUG('[view] not rendering %s', action);
@@ -49,10 +50,10 @@ function view (container, enforcedAction, model, route, options) {
     if (container === state.container) {
       emitter.emit('change', route, model);
     }
-    emitter.emit('render', container, model, route || null);
+    emitter.emit('render', container, model, route);
     global.DEBUG && global.DEBUG('[view] %s client-side controller for %s', controller ? 'executing' : 'no', action);
     if (typeof controller === 'function') {
-      controller(model, container, route || null);
+      controller(model, container, route);
     }
 
     function done () {
@@ -69,12 +70,8 @@ function render (action, model, route) {
   }
   var cloned = clone(model);
   cloned.taunus = templatingAPI;
-  if (route) {
-    cloned.route = route;
-    cloned.route.toJSON = noop;
-  } else {
-    cloned.route = null;
-  }
+  cloned.route = route || state.route;
+  cloned.route.toJSON = noop;
   try {
     return template(cloned);
   } catch (e) {
@@ -94,11 +91,43 @@ function getComponent (type, action) {
   return null;
 }
 
-function partial (container, action, model) {
-  global.DEBUG && global.DEBUG('[view] rendering partial %s', action);
-  return view(container, action, model, null, { partial: true });
+function mode (draw) {
+  return function partial (container, action, model) {
+    global.DEBUG && global.DEBUG('[view] rendering partial %s', action);
+    return view(container, action, model, null, { draw: draw });
+  };
 }
 
-view.partial = partial;
+function insert (container, html) {
+  container.innerHTML = html;
+}
+
+function replace (container, html) {
+  while (container.children.length) {
+    container.removeChild(container.firstChild);
+  }
+  appendTo(container, html);
+}
+
+function appendTo (container, html) {
+  var div = document.createElement('div');
+  div.innerHTML = html;
+  while (div.children.length) {
+    container.appendChild(div.children[0]);
+  }
+}
+
+function prependTo (container, html) {
+  var div = document.createElement('div');
+  div.innerHTML = html;
+  while (div.children.length) {
+    container.insertBefore(div.children[div.children.length - 1], container.firstChild);
+  }
+}
+
+view.partial = mode();
+view.partial.replace = mode(replace);
+view.partial.appendTo = mode(appendTo);
+view.partial.prependTo = mode(prependTo);
 
 module.exports = view;

@@ -1,3 +1,10 @@
+# v6.0.0 ViewState of the Art
+
+- Partial view templates can now interact with the `route` model property just like master views
+- Added `taunus.partial.appendTo`, `taunus.partial.beforeOf`, and `taunus.partial.replace` methods to complement `taunus.partial`
+- Added `dry` option to `taunus.go`, which only updates the URL and relevant state components
+- Added a `router(route)` event whenever the history route changes through Taunus
+
 # v5.4.7 Literally
 
 - Added an optional `as-text` query parameter for Taunus view responses to return JSON responses as plain-text HTML
