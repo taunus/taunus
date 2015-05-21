@@ -7,6 +7,7 @@ var emitter = require('./emitter');
 var fetcher = require('./fetcher');
 var deferral = require('./deferral');
 var templatingAPI = require('./templatingAPI');
+var doc = require('./global/document');
 
 function noop () {}
 
@@ -110,7 +111,7 @@ function replace (container, html) {
 }
 
 function appendTo (container, html) {
-  var div = document.createElement('div');
+  var div = doc.createElement('div');
   div.innerHTML = html;
   while (div.children.length) {
     container.appendChild(div.children[0]);
@@ -118,7 +119,7 @@ function appendTo (container, html) {
 }
 
 function prependTo (container, html) {
-  var div = document.createElement('div');
+  var div = doc.createElement('div');
   div.innerHTML = html;
   while (div.children.length) {
     container.insertBefore(div.children[div.children.length - 1], container.firstChild);

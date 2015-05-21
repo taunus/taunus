@@ -1,4 +1,4 @@
-# v6.1.0 Version Eagle
+# v6.1.1 Version Eagle
 
 - Exposed a `versionCheck(version, url?)` method on the client-side that will redirect to `url` (or refresh the page), if there's a version mismatch. Returns `true` if the check passes
 - Exposed a `state` object on the server-side containing the `version` that was used to mount Taunus
