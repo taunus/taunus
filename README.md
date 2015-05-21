@@ -4,7 +4,9 @@
 
 Taunus aims to simplify the state of MVC and shared rendering using [convention over configuration][2]. Taunus will handle routing,  allow you to lay out controllers and view templates independently for each view.
 
-Full documentation is available at [taunus.bevacqua.io][1].
+# Documentation
+
+The comprehensive documentation is available at [taunus.bevacqua.io][1].
 
 #### In The Wild
 
