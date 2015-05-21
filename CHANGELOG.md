@@ -1,3 +1,7 @@
+# v6.0.1 Carbon Emissions
+
+- The `router` event is now properly emitted after a timeout
+
 # v6.0.0 ViewState of the Art
 
 - Partial view templates can now interact with the `route` model property just like master views
