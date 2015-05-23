@@ -103,27 +103,32 @@ function insert (container, html) {
   container.innerHTML = html;
 }
 
-function replace (container, html) {
-  while (container.children.length) {
-    container.removeChild(container.firstChild);
+function replacer (html, next) {
+  var placeholder = doc.createElement('div');
+  placeholder.innerHTML = html;
+  while (placeholder.children.length) {
+    next(placeholder);
   }
-  appendTo(container, html);
+}
+
+function replace (container, html) {
+  replacer(html, before);
+  container.parentElement.removeChild(container);
+  function before (placeholder) {
+    container.parentElement.insertBefore(placeholder.children[0], container);
+  }
 }
 
 function appendTo (container, html) {
-  var div = doc.createElement('div');
-  div.innerHTML = html;
-  while (div.children.length) {
-    container.appendChild(div.children[0]);
-  }
+  replacer(html, function append (placeholder) {
+    container.appendChild(placeholder.children[0]);
+  });
 }
 
 function prependTo (container, html) {
-  var div = doc.createElement('div');
-  div.innerHTML = html;
-  while (div.children.length) {
-    container.insertBefore(div.children[div.children.length - 1], container.firstChild);
-  }
+  replacer(html, function append (p) {
+    container.insertBefore(p.children[p.children.length - 1], container.firstChild);
+  });
 }
 
 view.partial = mode();

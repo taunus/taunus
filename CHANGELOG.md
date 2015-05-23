@@ -1,3 +1,7 @@
+# v6.1.2 Pay Per View
+
+- `taunus.partial.replace` now gets rid of the target DOM element entirely, as originally intended
+
 # v6.1.1 Version Eagle
 
 - Exposed a `versionCheck(version, url?)` method on the client-side that will redirect to `url` (or refresh the page), if there's a version mismatch. Returns `true` if the check passes
