@@ -1,6 +1,7 @@
 # v6.1.3 Body Double
 
 - `taunus.partial.replace` changes the `container` to the first topmost element after replacement
+- `partial(...).on('render', fn)` changed so that `fn` now receives `container` in addition to `html`
 
 # v6.1.2 Pay Per View
 

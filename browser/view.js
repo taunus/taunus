@@ -58,7 +58,7 @@ function view (container, enforcedAction, model, route, options) {
     }
 
     function done () {
-      api.emit('render', html);
+      api.emit('render', html, container);
     }
   }
 }
