@@ -1,6 +1,6 @@
 'use strict';
 
-var unescape = require('./unescape');
+var safeson = require('safeson');
 var state = require('./state');
 var router = require('./router');
 var activator = require('./activator');
@@ -72,7 +72,7 @@ function mount (container, wiring, options) {
   function inlineboot () {
     var id = container.getAttribute('data-taunus');
     var script = document.getElementById(id);
-    var data = JSON.parse(unescape(script.innerText || script.textContent));
+    var data = safeson.decode(script.innerText || script.textContent);
     boot(data);
   }
 
