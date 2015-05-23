@@ -1,3 +1,7 @@
+# v6.1.3 Body Double
+
+- `taunus.partial.replace` changes the `container` to the first topmost element after replacement
+
 # v6.1.2 Pay Per View
 
 - `taunus.partial.replace` now gets rid of the target DOM element entirely, as originally intended

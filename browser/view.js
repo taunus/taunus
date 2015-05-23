@@ -43,7 +43,7 @@ function view (container, enforcedAction, model, route, options) {
     var internals = options || {};
     if (internals.render !== false) {
       html = render(action, model, route);
-      (internals.draw || insert)(container, html);
+      container = (internals.draw || insert)(container, html) || container;
       setTimeout(done, 0);
     } else {
       global.DEBUG && global.DEBUG('[view] not rendering %s', action);
@@ -112,10 +112,14 @@ function replacer (html, next) {
 }
 
 function replace (container, html) {
+  var first;
   replacer(html, before);
   container.parentElement.removeChild(container);
+  return first;
   function before (placeholder) {
-    container.parentElement.insertBefore(placeholder.children[0], container);
+    var el = placeholder.children[0];
+    if (!first) { first = el; }
+    container.parentElement.insertBefore(el, container);
   }
 }
 
