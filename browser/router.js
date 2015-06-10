@@ -4,11 +4,12 @@ var url = require('fast-url-parser');
 var ruta3 = require('ruta3');
 var location = require('./global/location');
 var queryparser = require('../lib/queryparser');
+var origin = require('./origin');
 var matcher = ruta3();
 var protocol = /^[a-z]+?:\/\//i;
 
 function getFullUrl (raw) {
-  var base = location.href.substr(location.origin.length);
+  var base = location.href.substr(origin.length);
   var hashless;
   if (!raw) {
     return base;
@@ -18,8 +19,8 @@ function getFullUrl (raw) {
     return hashless + raw;
   }
   if (protocol.test(raw)) {
-    if (raw.indexOf(location.origin) === 0) {
-      return raw.substr(location.origin.length);
+    if (raw.indexOf(origin) === 0) {
+      return raw.substr(origin.length);
     }
     return null;
   }
