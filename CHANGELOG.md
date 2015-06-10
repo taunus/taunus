@@ -1,3 +1,7 @@
+# v6.1.4 Omnibox
+
+- Replaced `fast-url-parser` with `omnibox` to broaden browser support
+
 # v6.1.3 Body Double
 
 - `taunus.partial.replace` changes the `container` to the first topmost element after replacement

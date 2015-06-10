@@ -1,6 +1,6 @@
 'use strict';
 
-var url = require('fast-url-parser');
+var omnibox = require('omnibox');
 var ruta3 = require('ruta3');
 var location = require('./global/location');
 var queryparser = require('../lib/queryparser');
@@ -32,7 +32,7 @@ function router (raw) {
   if (full === null) {
     return null;
   }
-  var parts = url.parse(full, true);
+  var parts = omnibox.parse(full);
   var info = matcher.match(parts.pathname);
 
   global.DEBUG && global.DEBUG('[router] %s produces %o', raw, info);
