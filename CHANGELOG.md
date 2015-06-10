@@ -1,4 +1,4 @@
-# v6.1.4 Omnibox
+# v6.1.5 Omnibox
 
 - Replaced `fast-url-parser` with `omnibox` to broaden browser support
 
