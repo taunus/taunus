@@ -1,3 +1,7 @@
+# v6.1.6 Ancients
+
+- Fixed `console.log` patch in `taunus/browser/debug` which would fail under IE9
+
 # v6.1.5 Omnibox
 
 - Replaced `fast-url-parser` with `omnibox` to broaden browser support
