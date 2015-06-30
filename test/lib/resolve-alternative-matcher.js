@@ -51,7 +51,7 @@ test('alternative matcher: resolve resolves missing optional route actions', fun
   resolve.use(hapimatcher);
   resolve.set([{action:'foo',route:'/foo/{name?}'}]);
   var result = resolve('foo');
-  t.equal(result, '/foo/');
+  t.equal(result, '/foo');
   t.end();
 });
 

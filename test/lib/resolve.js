@@ -54,7 +54,7 @@ test('resolve resolves missing optional route actions', function (t) {
   var resolve = proxyquire('../../lib/resolve', {});
   resolve.set([{action:'foo',route:'/foo/:name?'}]);
   var result = resolve('foo');
-  t.equal(result, '/foo/');
+  t.equal(result, '/foo');
   t.end();
 });
 
