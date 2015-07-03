@@ -1,6 +1,6 @@
-# v6.1.7 Aural Emission
+# v6.1.8 Aural Emission
 
-- Replaced `contra.emitter` with `contra@1.9.0/emitter`
+- Replaced `contra.emitter` with `contra@1.9.1/emitter`
 
 # v6.1.6 Ancients
 
