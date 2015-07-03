@@ -21,7 +21,7 @@
   },
   "scripts": {
     "ci": "npm run lint && npm run test-server && npm run test-client-ci",
-    "deploy": "npm version ${BUMP:-\"patch\"} --no-git-tag-version && cat package.json | jq .version > version.json && git add version.json package.json && git commit -m \"Taunus release v$(cat package.json | jq -r .version)\" && npm publish && git push",
+    "deploy": "npm version ${BUMP:-\"patch\"} && cat package.json | jq .version > version.json && git add version.json package.json && git commit -m \"Taunus release v$(cat package.json | jq -r .version)\" && npm publish && git push",
     "diagnose": "browserify . --full-paths | uglifyjs -m -c | discify --open & browserify . --full-paths | uglifyjs -m -c | gzip-size | pretty-bytes",
     "lint": "jshint . --reporter node_modules/jshint-stylish/stylish.js",
     "test": "npm run lint && npm run test-server && npm run test-client",
