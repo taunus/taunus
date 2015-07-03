@@ -1,3 +1,7 @@
+# v6.1.7 Aural Emission
+
+- Replaced `contra.emitter` with `contra@1.9.0/emitter`
+
 # v6.1.6 Ancients
 
 - Fixed `console.log` patch in `taunus/browser/debug` which would fail under IE9

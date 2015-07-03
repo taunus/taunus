@@ -3,7 +3,7 @@
 var test = require('tape');
 var sinon = require('sinon');
 var proxyquire = require('proxyquire');
-var emitter = require('contra.emitter');
+var emitter = require('contra/emitter');
 
 test('interceptor exposes API', function (t) {
   var interceptor = require('../../browser/interceptor');
@@ -16,7 +16,7 @@ test('interceptor adds action interceptors to emitter', function (t) {
   var emspy = { count: 0, on: sinon.spy() };
   var emit = sinon.stub().returns(emspy);
   var interceptor = proxyquire('../../browser/interceptor', {
-    'contra.emitter': emit
+    'contra/emitter': emit
   });
   var fn = sinon.spy();
   interceptor.add('foo', fn);
@@ -29,7 +29,7 @@ test('interceptor adds global interceptors to emitter', function (t) {
   var emspy = { count: 0, on: sinon.spy() };
   var emit = sinon.stub().returns(emspy);
   var interceptor = proxyquire('../../browser/interceptor', {
-    'contra.emitter': emit
+    'contra/emitter': emit
   });
   var fn = sinon.spy();
   interceptor.add(fn);
@@ -42,7 +42,7 @@ test('interceptor can execute without mediators', function (t) {
   var emspy = { count: 0, on: sinon.spy(), emit: sinon.spy() };
   var emit = sinon.stub().returns(emspy);
   var interceptor = proxyquire('../../browser/interceptor', {
-    'contra.emitter': emit
+    'contra/emitter': emit
   });
   var route = {url:'/foo'};
   var done = sinon.spy();
@@ -62,7 +62,7 @@ test('interceptor.execute notifies listeners', function (t) {
   var emspy = { count: 0, on: sinon.spy(), emit: sinon.spy() };
   var emit = sinon.stub().returns(emspy);
   var interceptor = proxyquire('../../browser/interceptor', {
-    'contra.emitter': emit
+    'contra/emitter': emit
   });
   var route = {action: 'foo',url:'/foo'};
   var done = sinon.spy();

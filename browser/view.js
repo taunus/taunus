@@ -2,7 +2,7 @@
 
 var clone = require('./clone');
 var state = require('./state');
-var ee = require('contra.emitter');
+var ee = require('contra/emitter');
 var emitter = require('./emitter');
 var fetcher = require('./fetcher');
 var deferral = require('./deferral');
