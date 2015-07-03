@@ -12,66 +12,66 @@ test('links exposes an API', function (t) {
 });
 
 test('links always adds clickjack', function (t) {
-  var events = {
+  var crossvent = {
     add: sinon.spy()
   };
   var links = proxyquire('../../browser/links', {
-    './events': events
+    'crossvent': crossvent
   });
   links();
-  t.ok(events.add.calledWith(document.body, 'click', sinon.match.typeOf('function')));
+  t.ok(crossvent.add.calledWith(document.body, 'click', sinon.match.typeOf('function')));
   t.end();
 });
 
 test('links does not add prefetch handlers by default', function (t) {
-  var events = {
+  var crossvent = {
     add: sinon.spy()
   };
   var links = proxyquire('../../browser/links', {
-    './events': events
+    'crossvent': crossvent
   });
   links();
-  t.notOk(events.add.calledWith(document.body, 'mouseover'));
-  t.notOk(events.add.calledWith(document.body, 'touchstart'));
+  t.notOk(crossvent.add.calledWith(document.body, 'mouseover'));
+  t.notOk(crossvent.add.calledWith(document.body, 'touchstart'));
   t.end();
 });
 
 test('links does not add prefetch handlers when cache is falsy', function (t) {
-  var events = {
+  var crossvent = {
     add: sinon.spy()
   };
   var state = {
     prefetch: true
   };
   var links = proxyquire('../../browser/links', {
-    './events': events,
+    'crossvent': crossvent,
     './state': state
   });
   links();
-  t.notOk(events.add.calledWith(document.body, 'mouseover'));
-  t.notOk(events.add.calledWith(document.body, 'touchstart'));
+  t.notOk(crossvent.add.calledWith(document.body, 'mouseover'));
+  t.notOk(crossvent.add.calledWith(document.body, 'touchstart'));
   t.end();
 });
 
 test('links does not add prefetch handlers when prefetch is falsy', function (t) {
-  var events = {
+  var crossvent = {
     add: sinon.spy()
   };
   var state = {
     cache: true
   };
   var links = proxyquire('../../browser/links', {
-    './events': events,
+    'crossvent': crossvent,
     './state': state
   });
   links();
-  t.notOk(events.add.calledWith(document.body, 'mouseover'));
-  t.notOk(events.add.calledWith(document.body, 'touchstart'));
+  t.notOk(crossvent.add.calledWith(document.body, 'mouseover'));
+  t.notOk(crossvent.add.calledWith(document.body, 'touchstart'));
   t.end();
 });
 
 test('links adds prefetch handlers only when cache and prefetch are truthy', function (t) {
-  var events = {
+  var crossvent = {
     add: sinon.spy()
   };
   var state = {
@@ -79,24 +79,24 @@ test('links adds prefetch handlers only when cache and prefetch are truthy', fun
     cache: true
   };
   var links = proxyquire('../../browser/links', {
-    './events': events,
+    'crossvent': crossvent,
     './state': state
   });
   links();
-  t.ok(events.add.calledWith(document.body, 'mouseover'));
-  t.ok(events.add.calledWith(document.body, 'touchstart'));
+  t.ok(crossvent.add.calledWith(document.body, 'mouseover'));
+  t.ok(crossvent.add.calledWith(document.body, 'touchstart'));
   t.end();
 });
 
 test('links clickjacker ignores non-anchor elements', function (t) {
-  var events = {
+  var crossvent = {
     add: sinon.spy()
   };
   var links = proxyquire('../../browser/links', {
-    './events': events
+    'crossvent': crossvent
   });
   links();
-  var handler = events.add.firstCall.args[2];
+  var handler = crossvent.add.firstCall.args[2];
   var e = {
     target: {tagName:'DIV'},
     preventDefault: sinon.spy()
@@ -107,14 +107,14 @@ test('links clickjacker ignores non-anchor elements', function (t) {
 });
 
 test('links clickjacker ignores CORS anchor elements', function (t) {
-  var events = {
+  var crossvent = {
     add: sinon.spy()
   };
   var links = proxyquire('../../browser/links', {
-    './events': events
+    'crossvent': crossvent
   });
   links();
-  var handler = events.add.firstCall.args[2];
+  var handler = crossvent.add.firstCall.args[2];
   var e = {
     target: {
       tagName:'A',
@@ -128,14 +128,14 @@ test('links clickjacker ignores CORS anchor elements', function (t) {
 });
 
 test('links clickjacker ignores non-left-clicks', function (t) {
-  var events = {
+  var crossvent = {
     add: sinon.spy()
   };
   var links = proxyquire('../../browser/links', {
-    './events': events
+    'crossvent': crossvent
   });
   links();
-  var handler = events.add.firstCall.args[2];
+  var handler = crossvent.add.firstCall.args[2];
   var e = {
     target: {
       tagName: 'A',
@@ -151,14 +151,14 @@ test('links clickjacker ignores non-left-clicks', function (t) {
 });
 
 test('links clickjacker ignores meta-clicks', function (t) {
-  var events = {
+  var crossvent = {
     add: sinon.spy()
   };
   var links = proxyquire('../../browser/links', {
-    './events': events
+    'crossvent': crossvent
   });
   links();
-  var handler = events.add.firstCall.args[2];
+  var handler = crossvent.add.firstCall.args[2];
   var e = {
     target: {
       tagName: 'A',
@@ -175,16 +175,16 @@ test('links clickjacker ignores meta-clicks', function (t) {
 });
 
 test('links clickjacker ignores routeless anchors', function (t) {
-  var events = {
+  var crossvent = {
     add: sinon.spy()
   };
   var router = sinon.stub().returns(null);
   var links = proxyquire('../../browser/links', {
-    './events': events,
+    'crossvent': crossvent,
     './router': router
   });
   links();
-  var handler = events.add.firstCall.args[2];
+  var handler = crossvent.add.firstCall.args[2];
   var e = {
     target: {
       tagName: 'A',
@@ -202,8 +202,8 @@ test('links clickjacker ignores routeless anchors', function (t) {
   t.end();
 });
 
-test('links clicjacker prevents default', function (t) {
-  var events = {
+test('links clicjacker prcrossvent default', function (t) {
+  var crossvent = {
     add: sinon.spy()
   };
   var route = {};
@@ -212,12 +212,12 @@ test('links clicjacker prevents default', function (t) {
     go: sinon.spy()
   };
   var links = proxyquire('../../browser/links', {
-    './events': events,
+    'crossvent': crossvent,
     './router': router,
     './activator': activator
   });
   links();
-  var handler = events.add.firstCall.args[2];
+  var handler = crossvent.add.firstCall.args[2];
   var e = {
     target: {
       tagName: 'A',
@@ -235,7 +235,7 @@ test('links clicjacker prevents default', function (t) {
 });
 
 test('links clickjacker yields to prefetcher first', function (t) {
-  var events = {
+  var crossvent = {
     add: sinon.spy()
   };
   var route = {url:'/foo'};
@@ -247,13 +247,13 @@ test('links clickjacker yields to prefetcher first', function (t) {
     go: sinon.spy()
   };
   var links = proxyquire('../../browser/links', {
-    './events': events,
+    'crossvent': crossvent,
     './router': router,
     './prefetcher': prefetcher,
     './activator': activator
   });
   links();
-  var handler = events.add.firstCall.args[2];
+  var handler = crossvent.add.firstCall.args[2];
   var e = {
     target: {
       tagName: 'A',
@@ -271,7 +271,7 @@ test('links clickjacker yields to prefetcher first', function (t) {
 });
 
 test('links clickjacker signals prefetcher if prefetching', function (t) {
-  var events = {
+  var crossvent = {
     add: sinon.spy()
   };
   var route = {url:'/foo'};
@@ -284,13 +284,13 @@ test('links clickjacker signals prefetcher if prefetching', function (t) {
     go: sinon.spy()
   };
   var links = proxyquire('../../browser/links', {
-    './events': events,
+    'crossvent': crossvent,
     './router': router,
     './prefetcher': prefetcher,
     './activator': activator
   });
   links();
-  var handler = events.add.firstCall.args[2];
+  var handler = crossvent.add.firstCall.args[2];
   var e = {
     target: {
       tagName: 'A',
@@ -309,7 +309,7 @@ test('links clickjacker signals prefetcher if prefetching', function (t) {
 });
 
 test('links clickjacker goes if not prefetching', function (t) {
-  var events = {
+  var crossvent = {
     add: sinon.spy()
   };
   var route = {url:'/foo'};
@@ -322,13 +322,13 @@ test('links clickjacker goes if not prefetching', function (t) {
     go: sinon.spy()
   };
   var links = proxyquire('../../browser/links', {
-    './events': events,
+    'crossvent': crossvent,
     './router': router,
     './prefetcher': prefetcher,
     './activator': activator
   });
   links();
-  var handler = events.add.firstCall.args[2];
+  var handler = crossvent.add.firstCall.args[2];
   var e = {
     target: {
       tagName: 'A',

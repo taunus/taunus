@@ -1,3 +1,13 @@
+# v7.0.0 Gradual
+
+- Now using `crossvent` for event handling
+- Incorporated `gradual` into Taunus core
+- It can be accessed as `taunus.gradual`
+- Option to disable `gradual` by setting `forms: false` in the options
+- Option to disable link hijacking by setting `links: false` in the options
+
+_<sub>For form submissions to be handled properly, make sure to honor the `as-text` query string, returning a plain text response even if the request asks for JSON</sub>_
+
 # v6.1.8 Aural Emission
 
 - Replaced `contra.emitter` with `contra@1.9.1/emitter`

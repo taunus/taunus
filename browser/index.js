@@ -6,6 +6,7 @@ if (global.taunus !== void 0) {
   throw new Error('Use require(\'taunus/global\') after the initial require(\'taunus\') statement!');
 }
 
+var gradual = require('gradual');
 var state = require('./state');
 var stateClear = require('./stateClear');
 var interceptor = require('./interceptor');
@@ -40,6 +41,7 @@ module.exports = global.taunus = {
   intercept: interceptor.add,
   navigate: activator.go,
   prefetch: prefetcher.start,
+  gradual: gradual,
   state: state,
   route: router,
   resolve: resolve,

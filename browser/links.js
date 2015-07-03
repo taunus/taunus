@@ -1,8 +1,8 @@
 'use strict';
 
+var crossvent = require('crossvent');
 var state = require('./state');
 var router = require('./router');
-var events = require('./events');
 var prefetcher = require('./prefetcher');
 var activator = require('./activator');
 var document = require('./global/document');
@@ -14,13 +14,16 @@ var prefetching = [];
 var clicksOnHold = [];
 
 function links () {
+  if (state.links === false) {
+    return;
+  }
   if (state.prefetch && state.cache) { // prefetch without cache makes no sense
     global.DEBUG && global.DEBUG('[links] listening for prefetching opportunities');
-    events.add(body, 'mouseover', maybePrefetch);
-    events.add(body, 'touchstart', maybePrefetch);
+    crossvent.add(body, 'mouseover', maybePrefetch);
+    crossvent.add(body, 'touchstart', maybePrefetch);
   }
   global.DEBUG && global.DEBUG('[links] listening for rerouting opportunities');
-  events.add(body, 'click', maybeReroute);
+  crossvent.add(body, 'click', maybeReroute);
 }
 
 function so (anchor) {

@@ -8,6 +8,7 @@ var activator = require('./activator');
 var caching = require('./caching');
 var componentCache = require('./componentCache');
 var fetcher = require('./fetcher');
+var forms = require('./forms');
 var versioning = require('../versioning');
 var document = require('./global/document');
 var location = require('./global/location');
@@ -37,9 +38,13 @@ function mount (container, wiring, options) {
   state.deferrals = wiring.deferrals || [];
   state.prefetch = !!o.prefetch;
   state.version = versioning.get(o.version || '1');
+  state.qs = o.qs || noop;
+  state.links = 'links' in o ? !!o.links : true;
+  state.forms = 'forms' in o ? !!o.forms : true;
 
   resolve.set(state.routes);
   router.setup(state.routes);
+  forms.setup();
 
   var route = router(location.href);
 
@@ -108,5 +113,7 @@ function mount (container, wiring, options) {
     activator.start(data);
   }
 }
+
+function noop () {}
 
 module.exports = mount;
