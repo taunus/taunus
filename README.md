@@ -12,6 +12,7 @@ The comprehensive documentation is available at [taunus.bevacqua.io][1].
 
 For usage examples, please check out these sites.
 
+- [giffy.club][13], open-sourced at [taunus/giffy.club][14]
 - [ponyfoo.com][8], open-sourced at: [ponyfoo/ponyfoo][4],
 - [taunus.bevacqua.io][1], open-sourced at: [taunus/taunus.bevacqua.io][5]
 
@@ -77,3 +78,5 @@ MIT
 [10]: https://saucelabs.com/u/taunus
 [11]: https://travis-ci.org/taunus/taunus
 [12]: https://secure.travis-ci.org/taunus/taunus.png?branch=master
+[13]: http://giffy.club
+[14]: https://github.com/taunus/giffy.club
