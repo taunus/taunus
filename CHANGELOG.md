@@ -1,3 +1,7 @@
+# v7.1.0 Garbage Truck
+
+- Added a `taunus.track` method that keeps track of things that should be destroyed when a view or partial view gets removed from the document
+
 # v7.0.0 Gradual
 
 - Now using `crossvent` for event handling

@@ -9,6 +9,7 @@ var caching = require('./caching');
 var componentCache = require('./componentCache');
 var fetcher = require('./fetcher');
 var forms = require('./forms');
+var gc = require('./gc');
 var versioning = require('../versioning');
 var document = require('./global/document');
 var location = require('./global/location');
@@ -45,6 +46,7 @@ function mount (container, wiring, options) {
   resolve.set(state.routes);
   router.setup(state.routes);
   forms.setup();
+  gc.enable();
 
   var route = router(location.href);
 

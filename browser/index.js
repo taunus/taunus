@@ -17,6 +17,7 @@ var view = require('./view');
 var mount = require('./mount');
 var router = require('./router');
 var xhr = require('./xhr');
+var gc = require('./gc');
 var prefetcher = require('./prefetcher');
 var redirector = require('./redirector');
 var resolve = require('../lib/resolve');
@@ -38,6 +39,7 @@ module.exports = global.taunus = {
   on: bind('on'),
   once: bind('once'),
   off: bind('off'),
+  track: gc.track,
   intercept: interceptor.add,
   navigate: activator.go,
   prefetch: prefetcher.start,
