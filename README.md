@@ -6,15 +6,16 @@ Taunus aims to simplify the state of MVC and shared rendering using [convention 
 
 # Documentation
 
-The comprehensive documentation is available at [taunus.bevacqua.io][1].
+The comprehensive documentation is available at [taunus.io][1].
 
 #### In The Wild
 
 For usage examples, please check out these sites.
 
-- [giffy.club][13], open-sourced at [taunus/giffy.club][14]
-- [ponyfoo.com][8], open-sourced at: [ponyfoo/ponyfoo][4],
-- [taunus.bevacqua.io][1], open-sourced at: [taunus/taunus.bevacqua.io][5]
+- [todomvc.taunus.io][15], open-sourced at: [taunus/todomvc][16]
+- [giffy.club][13], open-sourced at: [taunus/giffy.club][14]
+- [ponyfoo.com][8], open-sourced at: [ponyfoo/ponyfoo][4]
+- [taunus.io][1], open-sourced at: [taunus/taunus.io][5]
 
 Alternatively walk through [getting-started][6] or use the [Yeoman generator][7]!
 
@@ -80,3 +81,5 @@ MIT
 [12]: https://secure.travis-ci.org/taunus/taunus.png?branch=master
 [13]: http://giffy.club
 [14]: https://github.com/taunus/giffy.club
+[15]: http://todomvc.taunus.io
+[16]: https://github.com/taunus/todomvc
