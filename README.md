@@ -12,7 +12,7 @@ The comprehensive documentation is available at [taunus.io][1].
 
 For usage examples, please check out these sites.
 
-- [todomvc.taunus.io][15], open-sourced at: [taunus/todomvc][16]
+- [todomvc.taunus.io][15], open-sourced at: [taunus/taunus-todomvc][16]
 - [giffy.club][13], open-sourced at: [taunus/giffy.club][14]
 - [ponyfoo.com][8], open-sourced at: [ponyfoo/ponyfoo][4]
 - [taunus.io][1], open-sourced at: [taunus/taunus.io][5]
@@ -67,11 +67,11 @@ The server-side test suite is [serviced by Travis CI][11].
 
 MIT
 
-[1]: http://taunus.bevacqua.io "Taunus Documentation Mini-site"
+[1]: http://taunus.io "Taunus Documentation Mini-site"
 [2]: http://en.wikipedia.org/wiki/Convention_over_configuration "Convention over configuration"
-[3]: https://raw.github.com/bevacqua/taunus/master/resources/taunus.png
+[3]: https://raw.github.com/taunus/taunus/master/resources/taunus.png
 [4]: https://github.com/ponyfoo/ponyfoo
-[5]: https://github.com/taunus/taunus.bevacqua.io
+[5]: https://github.com/taunus/taunus.io
 [6]: https://github.com/taunus/getting-started
 [7]: https://github.com/taunus/generator-taunus
 [8]: http://ponyfoo.com
@@ -82,4 +82,4 @@ MIT
 [13]: http://giffy.club
 [14]: https://github.com/taunus/giffy.club
 [15]: http://todomvc.taunus.io
-[16]: https://github.com/taunus/todomvc
+[16]: https://github.com/taunus/taunus-todomvc
