@@ -4,6 +4,7 @@ var crossvent = require('crossvent');
 var state = require('./state');
 var router = require('./router');
 var prefetcher = require('./prefetcher');
+var prefetcherIntent = require('./prefetcherIntent');
 var activator = require('./activator');
 var document = require('./global/document');
 var location = require('./global/location');
@@ -97,7 +98,7 @@ function reroute (e, anchor) {
 
   if (prefetcher.busy(url)) {
     global.DEBUG && global.DEBUG('[links] navigation to %s blocked by prefetcher', route.url);
-    prefetcher.registerIntent(url);
+    prefetcherIntent.set(url);
     return;
   }
 

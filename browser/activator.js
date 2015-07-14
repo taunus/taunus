@@ -4,7 +4,7 @@ var raf = require('raf');
 var clone = require('./clone');
 var emitter = require('./emitter');
 var fetcher = require('./fetcher');
-var prefetcher = require('./prefetcher');
+var prefetcherIntent = require('./prefetcherIntent');
 var view = require('./view');
 var router = require('./router');
 var state = require('./state');
@@ -67,7 +67,7 @@ function go (url, options) {
   }
 
   global.DEBUG && global.DEBUG('[activator] fetching %s', route.url);
-  prefetcher.abortIntent();
+  prefetcherIntent.abort();
   fetcher.abortPending();
   fetcher(route, { element: context, source: 'intent' }, maybeResolved);
 
