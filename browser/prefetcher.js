@@ -4,6 +4,7 @@ var state = require('./state');
 var router = require('./router');
 var fetcher = require('./fetcher');
 var activator = require('./activator');
+var prefetcherIntent = require('./prefetcherIntent');
 var jobs = [];
 var intent;
 
@@ -11,30 +12,22 @@ function busy (url) {
   return jobs.indexOf(url) !== -1;
 }
 
-function registerIntent (url) {
-  intent = url;
-}
-
-function abortIntent (url) {
-  intent = null;
-}
-
 function start (url, element) {
-  if (state.hardRedirect) { // no point in prefetching if location.href has changed
-    return;
+  if (state.hardRedirect) {
+    return; // no point in prefetching if location.href has changed
   }
-  if (state.cache !== true) { // can't prefetch if caching is disabled
-    return;
+  if (state.cache !== true) {
+    return; // can't prefetch if caching is disabled
   }
-  if (intent) { // don't prefetch if the human wants to navigate: it'd abort the previous attempt
-    return;
+  if (prefetcherIntent.is(null)) {
+    return; // don't prefetch if the human wants to navigate: it'd abort the previous attempt
   }
   var route = router(url);
-  if (route === null) { // only prefetch taunus view routes
-    return;
+  if (route === null) {
+    return; // only prefetch taunus view routes
   }
-  if (busy(url)) { // already prefetching this url
-    return;
+  if (busy(url)) {
+    return; // already prefetching this url
   }
 
   global.DEBUG && global.DEBUG('[prefetcher] prefetching %s', route.url);
@@ -43,9 +36,8 @@ function start (url, element) {
 
   function fetched () {
     jobs.splice(jobs.indexOf(url), 1);
-    if (intent === url) {
-      intent = null;
-
+    if (prefetcherIntent.is(url)) {
+      prefetcherIntent.abort();
       global.DEBUG && global.DEBUG('[prefetcher] resumed navigation for %s', route.url);
       activator.go(route.url, { context: element });
     }
@@ -54,7 +46,5 @@ function start (url, element) {
 
 module.exports = {
   busy: busy,
-  start: start,
-  registerIntent: registerIntent,
-  abortIntent: abortIntent
+  start: start
 };

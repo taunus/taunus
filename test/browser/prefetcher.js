@@ -6,10 +6,11 @@ var proxyquire = require('proxyquire');
 
 test('prefetcher exposes API', function (t) {
   var prefetcher = require('../../browser/prefetcher');
-  t.ok(typeof prefetcher.busy === 'function');
+  var prefetcherIntent = require('../../browser/prefetcherIntent');
   t.ok(typeof prefetcher.start === 'function');
-  t.ok(typeof prefetcher.registerIntent === 'function');
-  t.ok(typeof prefetcher.abortIntent === 'function');
+  t.ok(typeof prefetcherIntent.is === 'function');
+  t.ok(typeof prefetcherIntent.set === 'function');
+  t.ok(typeof prefetcherIntent.abort === 'function');
   t.end();
 });
 
@@ -17,7 +18,9 @@ test('prefetcher does not work when cache is off', function (t) {
   var route = {};
   var router = sinon.stub().returns(route);
   var fetcher = sinon.spy();
+  var prefetcherIntent = proxyquire('../../browser/prefetcherIntent', {});
   var prefetcher = proxyquire('../../browser/prefetcher', {
+    './prefetcherIntent': prefetcherIntent,
     './router': router,
     './fetcher': fetcher
   });
@@ -33,7 +36,9 @@ test('prefetcher ignores non-routed URLs', function (t) {
   var state = {
     cache: true
   };
+  var prefetcherIntent = proxyquire('../../browser/prefetcherIntent', {});
   var prefetcher = proxyquire('../../browser/prefetcher', {
+    './prefetcherIntent': prefetcherIntent,
     './router': router,
     './fetcher': fetcher,
     './state': state
@@ -50,12 +55,14 @@ test('prefetcher does not work when intent is set', function (t) {
   var state = {
     cache: true
   };
+  var prefetcherIntent = proxyquire('../../browser/prefetcherIntent', {});
   var prefetcher = proxyquire('../../browser/prefetcher', {
+    './prefetcherIntent': prefetcherIntent,
     './router': router,
     './fetcher': fetcher,
     './state': state
   });
-  prefetcher.registerIntent('/foo');
+  prefetcherIntent.set('/foo');
   prefetcher.start('/foo', {});
   t.ok(fetcher.notCalled);
   t.end();
@@ -69,7 +76,9 @@ test('prefetcher uses fetcher to prefetch', function (t) {
   var state = {
     cache: true
   };
+  var prefetcherIntent = proxyquire('../../browser/prefetcherIntent', {});
   var prefetcher = proxyquire('../../browser/prefetcher', {
+    './prefetcherIntent': prefetcherIntent,
     './router': router,
     './fetcher': fetcher,
     './state': state
@@ -87,7 +96,9 @@ test('second prefetch is ignored when busy', function (t) {
   var state = {
     cache: true
   };
+  var prefetcherIntent = proxyquire('../../browser/prefetcherIntent', {});
   var prefetcher = proxyquire('../../browser/prefetcher', {
+    './prefetcherIntent': prefetcherIntent,
     './router': router,
     './fetcher': fetcher,
     './state': state
@@ -106,15 +117,17 @@ test('prefetcher releases busyness after fetching', function (t) {
   var state = {
     cache: true
   };
+  var prefetcherIntent = proxyquire('../../browser/prefetcherIntent', {});
   var prefetcher = proxyquire('../../browser/prefetcher', {
+    './prefetcherIntent': prefetcherIntent,
     './router': router,
     './fetcher': fetcher,
     './state': state
   });
   prefetcher.start('/foo', element);
-  t.ok(prefetcher.busy('/foo'));
+  t.ok(prefetcherIntent.is('/foo'));
   fetcher.firstCall.args[2]();
-  t.notOk(prefetcher.busy('/foo'));
+  t.notOk(prefetcherIntent.is('/foo'));
   t.end();
 });
 
@@ -129,7 +142,9 @@ test('prefetcher only navigates if asked to', function (t) {
   var activator = {
     go: sinon.spy()
   };
+  var prefetcherIntent = proxyquire('../../browser/prefetcherIntent', {});
   var prefetcher = proxyquire('../../browser/prefetcher', {
+    './prefetcherIntent': prefetcherIntent,
     './router': router,
     './fetcher': fetcher,
     './state': state,
@@ -152,14 +167,16 @@ test('prefetcher navigates if asked to', function (t) {
   var activator = {
     go: sinon.spy()
   };
+  var prefetcherIntent = proxyquire('../../browser/prefetcherIntent', {});
   var prefetcher = proxyquire('../../browser/prefetcher', {
+    './prefetcherIntent': prefetcherIntent,
     './router': router,
     './fetcher': fetcher,
     './state': state,
     './activator': activator
   });
   prefetcher.start('/foo', element);
-  prefetcher.registerIntent('/foo');
+  prefetcherIntent.set('/foo');
   fetcher.firstCall.args[2]();
   t.ok(activator.go.calledWith(route.url, { context: element }));
   t.end();
