@@ -1,3 +1,8 @@
+# v7.1.3 Idempotency
+
+- Fixed a bug where the prefetched wouldn't work
+- Changed `taunus.xhr` so that it can only make identical requests once every second
+
 # v7.1.2 Lipstick
 
 - Fixed a bug where deferral wouldn't work because the global alias was miscalculated

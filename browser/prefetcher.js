@@ -19,7 +19,7 @@ function start (url, element) {
   if (state.cache !== true) {
     return; // can't prefetch if caching is disabled
   }
-  if (prefetcherIntent.is(null)) {
+  if (prefetcherIntent.is(null) === false) {
     return; // don't prefetch if the human wants to navigate: it'd abort the previous attempt
   }
   var route = router(url);

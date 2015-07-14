@@ -40,6 +40,7 @@
     "crossvent": "1.4.0",
     "glob": "4.0.6",
     "gradual": "1.0.5",
+    "hash-sum": "1.0.1",
     "hget": "1.1.0",
     "lodash": "2.4.1",
     "minimist": "0.1.0",
@@ -48,6 +49,7 @@
     "raf": "2.0.3",
     "ruta3": "1.1.0",
     "safeson": "1.0.0",
+    "temporize": "1.0.0",
     "uglify-js": "2.4.15",
     "xhr": "2.0.1"
   },
