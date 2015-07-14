@@ -1,4 +1,4 @@
-# v7.1.3 Idempotency
+# v7.1.4 Idempotency
 
 - Fixed a bug where the prefetched wouldn't work
 - Changed `taunus.xhr` so that it can only make identical requests once every second
