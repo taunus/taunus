@@ -40,7 +40,7 @@
     "crossvent": "1.4.0",
     "glob": "4.0.6",
     "gradual": "1.0.5",
-    "hash-sum": "1.0.1",
+    "hash-sum": "1.0.2",
     "hget": "1.1.0",
     "lodash": "2.4.1",
     "minimist": "0.1.0",
