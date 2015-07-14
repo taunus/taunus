@@ -1,3 +1,7 @@
+# v7.1.2 Lipstick
+
+- Fixed a bug where deferral wouldn't work because the global alias was miscalculated
+
 # v7.1.1 Makeup
 
 - Fixed a bug in the prefetcher logic
