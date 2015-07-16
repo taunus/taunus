@@ -1,3 +1,7 @@
+# v7.1.5 Toothpick
+
+- Upgraded `gradual` to `1.0.7`
+
 # v7.1.4 Idempotency
 
 - Fixed a bug where the prefetched wouldn't work
