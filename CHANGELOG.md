@@ -1,3 +1,7 @@
+# v7.1.6 Render Carnage
+
+- The client-side implementation now emits a `render.error` event whenever a view fails to render. It includes the following arguments: `err, container, model, route`
+
 # v7.1.5 Toothpick
 
 - Upgraded `gradual` to `1.0.7`

@@ -42,7 +42,7 @@ function view (container, enforcedAction, model, route, options) {
     var controller = getComponent('controllers', action);
     var internals = options || {};
     if (internals.render !== false) {
-      html = render(action, model, route);
+      html = render(action, model, route, container);
       container = (internals.draw || insert)(container, html) || container;
       setTimeout(done, 0);
     } else {
@@ -63,11 +63,11 @@ function view (container, enforcedAction, model, route, options) {
   }
 }
 
-function render (action, model, route) {
+function render (action, model, route, container) {
   global.DEBUG && global.DEBUG('[view] rendering %s with model', action, model);
   var template = getComponent('templates', action);
   if (typeof template !== 'function') {
-    throw new Error('Client-side "' + action + '" template not found');
+    throw new Error('Client-side "' + action + '" view template not found');
   }
   var cloned = clone(model);
   cloned.taunus = templatingAPI;
@@ -76,7 +76,9 @@ function render (action, model, route) {
   try {
     return template(cloned);
   } catch (e) {
-    throw new Error('Error rendering "' + action + '" view template\n' + e.stack);
+    var message = 'Error rendering "' + action + '" view template';
+    emitter.emit('render.error', e, container, model, route);
+    throw new Error(message + '\n' + e.stack);
   }
 }
 
