@@ -1,3 +1,7 @@
+# v7.1.7 Acceptance
+
+- Upgraded `accepts` to `1.3.0`
+
 # v7.1.6 Render Carnage
 
 - The client-side implementation now emits a `render.error` event whenever a view fails to render. It includes the following arguments: `err, container, model, route`
