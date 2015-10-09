@@ -1,4 +1,4 @@
-# v7.1.7 Acceptance
+# v7.1.8 Acceptance
 
 - Upgraded `accepts` to `1.3.0`
 
