@@ -50,7 +50,11 @@ function go (url, options) {
     if (route.hash) {
       global.DEBUG && global.DEBUG('[activator] same route and hash, updating scroll position');
       scrollInto(id(route.hash), o.scroll);
-      navigation(route, state.model, direction);
+      if (o.wet === true) {
+        global.DEBUG && global.DEBUG('[activator] no history update');
+      } else {
+        navigation(route, state.model, direction);
+      }
     } else {
       global.DEBUG && global.DEBUG('[activator] same route, resolving');
       resolved(state.model);

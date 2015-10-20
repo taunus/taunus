@@ -1,3 +1,7 @@
+# v7.1.9 Wet and Dry
+
+- Added `wet` option that avoids history updates on redirects
+
 # v7.1.8 Acceptance
 
 - Upgraded `accepts` to `1.3.0`
