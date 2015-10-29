@@ -1,3 +1,7 @@
+# v8.0.0 Hot and Heavy
+
+- Upgraded `hget` to `2.0.0`
+
 # v7.1.9 Wet and Dry
 
 - Added `wet` option that avoids history updates on redirects
