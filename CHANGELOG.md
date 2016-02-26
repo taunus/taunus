@@ -1,4 +1,4 @@
-# v8.0.1 Flex
+# v8.0.3 Flex
 
 - Introduced `taunus.partial.beforeOf` method
 
