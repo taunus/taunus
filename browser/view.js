@@ -119,26 +119,33 @@ function replace (container, html) {
   container.parentElement.removeChild(container);
   return first;
   function before (placeholder) {
-    var el = placeholder.children[0];
+    var el = lastChild(p);
     if (!first) { first = el; }
     container.parentElement.insertBefore(el, container);
   }
 }
 
+function beforeOf (el, html) {
+  replacer(html, function append (p) {
+    el.parentElement.insertBefore(lastChild(p), el);
+  });
+}
+
 function appendTo (container, html) {
-  replacer(html, function append (placeholder) {
-    container.appendChild(placeholder.children[0]);
+  replacer(html, function append (p) {
+    container.appendChild(lastChild(p));
   });
 }
 
 function prependTo (container, html) {
-  replacer(html, function append (p) {
-    container.insertBefore(p.children[p.children.length - 1], container.firstChild);
-  });
+  beforeOf(container.firstChild, html);
 }
+
+function lastChild (p) { return p.children[p.children.length - 1]; }
 
 view.partial = mode();
 view.partial.replace = mode(replace);
+view.partial.beforeOf = mode(beforeOf);
 view.partial.appendTo = mode(appendTo);
 view.partial.prependTo = mode(prependTo);
 

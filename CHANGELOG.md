@@ -1,3 +1,7 @@
+# v8.0.1 Flex
+
+- Introduced `taunus.partial.beforeOf` method
+
 # v8.0.0 Hot and Heavy
 
 - Upgraded `hget` to `2.0.0`
