@@ -125,6 +125,14 @@ function replace (container, html) {
   }
 }
 
+function afterOf (el, html) {
+  if (el.nextSibling) {
+    beforeOf(el.nextSibling, html);
+  } else {
+    appendTo(el.parentElement, html);
+  }
+}
+
 function beforeOf (el, html) {
   replacer(html, function append (p) {
     el.parentElement.insertBefore(lastChild(p), el);
@@ -146,6 +154,7 @@ function lastChild (p) { return p.children[p.children.length - 1]; }
 view.partial = mode();
 view.partial.replace = mode(replace);
 view.partial.beforeOf = mode(beforeOf);
+view.partial.afterOf = mode(afterOf);
 view.partial.appendTo = mode(appendTo);
 view.partial.prependTo = mode(prependTo);
 

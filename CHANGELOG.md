@@ -1,3 +1,7 @@
+# v8.0.6 Box
+
+- Introduced `taunus.partial.afterOf` method
+
 # v8.0.5 Flex
 
 - Introduced `taunus.partial.beforeOf` method
