@@ -119,7 +119,7 @@ function replace (container, html) {
   container.parentElement.removeChild(container);
   return first;
   function before (placeholder) {
-    var el = lastChild(p);
+    var el = placeholder.children[0];
     if (!first) { first = el; }
     container.parentElement.insertBefore(el, container);
   }
