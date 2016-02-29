@@ -1,3 +1,7 @@
+# v8.0.6 Model
+
+- Fixed a long-standing bug where partials appended to other places would emit events using the wrong `container`
+
 # v8.0.6 Box
 
 - Introduced `taunus.partial.afterOf` method

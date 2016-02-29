@@ -106,11 +106,14 @@ function insert (container, html) {
 }
 
 function replacer (html, next) {
+  var first;
   var placeholder = doc.createElement('div');
   placeholder.innerHTML = html;
   while (placeholder.children.length) {
+    first = placeholder.children[0];
     next(placeholder);
   }
+  return first;
 }
 
 function replace (container, html) {
@@ -127,26 +130,25 @@ function replace (container, html) {
 
 function afterOf (el, html) {
   if (el.nextSibling) {
-    beforeOf(el.nextSibling, html);
-  } else {
-    appendTo(el.parentElement, html);
+    return beforeOf(el.nextSibling, html);
   }
+  return appendTo(el.parentElement, html);
 }
 
 function beforeOf (el, html) {
-  replacer(html, function append (p) {
+  return replacer(html, function append (p) {
     el.parentElement.insertBefore(lastChild(p), el);
   });
 }
 
 function appendTo (container, html) {
-  replacer(html, function append (p) {
+  return replacer(html, function append (p) {
     container.appendChild(lastChild(p));
   });
 }
 
 function prependTo (container, html) {
-  beforeOf(container.firstChild, html);
+  return beforeOf(container.firstChild, html);
 }
 
 function lastChild (p) { return p.children[p.children.length - 1]; }
