@@ -1,4 +1,4 @@
-# v8.1.1 Once Upon a Time
+# v8.1.2 Once Upon a Time
 
 - Introduced `beforeRender` option to mangle a view model before Taunus renders a server-side view
 
