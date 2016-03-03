@@ -1,3 +1,7 @@
+# v8.1.0 Once Upon a Time
+
+- Introduced `beforeRender` option to mangle a view model before Taunus renders a server-side view
+
 # v8.0.6 Model
 
 - Fixed a long-standing bug where partials appended to other places would emit events using the wrong `container`
