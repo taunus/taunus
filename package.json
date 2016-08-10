@@ -38,7 +38,7 @@
     "chokidar": "1.0.1",
     "contra": "1.9.1",
     "crossvent": "1.4.0",
-    "glob": "4.0.6",
+    "glob": "7.0.5",
     "gradual": "1.0.7",
     "hash-sum": "1.0.2",
     "hget": "3.0.0",
