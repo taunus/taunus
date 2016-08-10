@@ -35,7 +35,7 @@
     "aliasify": "1.7.2",
     "browserify": "10.2.4",
     "chalk": "0.4.0",
-    "chokidar": "1.0.1",
+    "chokidar": "1.6.0",
     "contra": "1.9.1",
     "crossvent": "1.4.0",
     "glob": "7.0.5",
