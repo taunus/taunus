@@ -13,7 +13,7 @@ The comprehensive documentation is available at [taunus.io][1].
 For usage examples, please check out these sites.
 
 - [todomvc.taunus.io][15], open-sourced at: [taunus/taunus-todomvc][16]
-- [giffy.club][13], open-sourced at: [taunus/giffy.club][14]
+- ~giffy club~, open-sourced at: [taunus/giffy.club][14] _now a porn site, apparently 😕_
 - [ponyfoo.com][8], open-sourced at: [ponyfoo/ponyfoo][4]
 - [taunus.io][1], open-sourced at: [taunus/taunus.io][5]
 
@@ -79,7 +79,6 @@ MIT
 [10]: https://saucelabs.com/u/taunus
 [11]: https://travis-ci.org/taunus/taunus
 [12]: https://secure.travis-ci.org/taunus/taunus.png?branch=master
-[13]: http://giffy.club
 [14]: https://github.com/taunus/giffy.club
 [15]: http://todomvc.taunus.io
 [16]: https://github.com/taunus/taunus-todomvc
